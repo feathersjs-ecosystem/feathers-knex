@@ -1,0 +1,60 @@
+{
+  "name": "feathers-knex",
+  "description": "A service plugin for KnexJS a query builder for PostgreSQL, MySQL and SQLite3",
+  "version": "0.0.0",
+  "homepage": "https://github.com/feathersjs/feathers-knex",
+  "keywords": [
+    "feathers",
+    "feathers-plugin"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/feathersjs/feathers-knex/blob/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feathersjs/feathers-knex.git"
+  },
+  "author": {
+    "name": "Feathers contributors",
+    "email": "hello@feathersjs.com",
+    "url": "https://feathersjs.com"
+  },
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/feathersjs/feathers-knex/issues"
+  },
+  "engines": {
+    "node": ">= 0.12.0"
+  },
+  "main": "lib/",
+  "scripts": {
+    "prepublish": "npm run compile",
+    "publish": "git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "compile": "rm -rf lib/ && babel -d lib/ src/",
+    "jshint": "jshint src/. test/. --config",
+    "mocha": "mocha test/ --compilers js:babel/register",
+    "test": "npm run jshint && npm run mocha"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "feathers-errors": "^0.2.5",
+    "feathers-query-filters": "^1.1.1",
+    "knex": "^0.8.6",
+    "uberproto": "^1.1.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "feathers": "^1.1.1",
+    "jshint": "^2.8.0",
+    "mocha": "^2.3.3",
+    "sqlite3": "^3.1.0"
+  }
+}
