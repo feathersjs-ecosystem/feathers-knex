@@ -7,7 +7,7 @@ import { types as errors } from 'feathers-errors';
 export const Service = Proto.extend({
 	init(name, options) {
     if(typeof name !== 'string') {
-      throw new Error('Database name must be provided');
+      throw new Error('No table name specified.');
     }
 
     if(!options) {
@@ -19,13 +19,15 @@ export const Service = Proto.extend({
     this.name = name;
 	},
 
+  // NOTE (EK): We need this method so that we return a new query
+  // instance each time, otherwise it will reuse the same query.
   db() {
     return this.knex(this.name);
   },
 
 	find(params, callback) {
     let fields = ['*'];
-    let query = this.db().select(... fields);
+    let query = this.db().select(fields);
 
 		// Prepare the special query params.
 		if (params.query) {
@@ -60,6 +62,7 @@ export const Service = Proto.extend({
 
 	get(id, params, callback) {
 		if (typeof id === 'function') {
+      callback = id;
 			return callback(new errors.BadRequest('An id is required for GET operations'));
 		}
 
@@ -72,7 +75,7 @@ export const Service = Proto.extend({
       }
 
       if(data && data.length !== 1) {
-        return callback(new errors.NotFound('No matching single record found'));
+        return callback(new errors.NotFound(`No record found for id '${id}'`));
       }
 
       callback(null, data[0]);
@@ -80,23 +83,96 @@ export const Service = Proto.extend({
 	},
 
 	create(data, params, callback) {
-    this.db().insert(data).then(rows => this.get(rows[0], params, callback), callback);
+    this.db().insert(data).then(rows => {
+      // if we inserted a single record call get otherwise call find
+      if (rows.length === 1) {
+        return this.get(rows[0], params, callback); 
+      }
+      
+      // TODO (EK): We'll need to use a .orWhere query for each id that we pass
+      // So we need to figure out what the syntax should be for find to handle
+      // OR queries. Possibly $or as a special param.
+      this.find(rows[0], params, callback);
+    }, callback);
 	},
 
 	patch(id, data, params, callback) {
-    // TODO
-		throw new Error('Not implemented', id, data, params, callback);
+    // NOTE (EK): First fetch the old record so that we
+    // can merge our new properties on top of it.
+    this.get(id, params, (error, oldData) => {
+      if (error) {
+        return callback(error);
+      }
+
+      let newObject = Object.assign(oldData, data);
+
+      // NOTE (EK): Delete id field so we don't update it
+      delete newObject[this.id];
+
+      this.db().where(this.id, id).update(newObject).asCallback((error) => {
+        if (error) {
+          return callback(error);
+        }
+
+        // NOTE (EK): Restore the id field so we can return it to the client
+        newObject[this.id] = id;
+
+        callback(null, newObject);
+      });
+    });
 	},
 
 	update(id, data, params, callback) {
-		delete data[this.id]; // Delete id field
-		// TODO
-		throw new Error('Not implemented', id, data, params, callback);
+    // NOTE (EK): First fetch the old record so
+    // that we can fill any existing keys that the
+    // client isn't updating with null;
+    this.get(id, params, (error, oldData) => {
+      if (error) {
+        return callback(error);
+      }
+
+      let newObject = {};
+
+      for (var key of Object.keys(oldData)) {
+        if (data[key] === undefined) {
+          newObject[key] = null;
+        }
+        else {
+          newObject[key] = data[key];
+        }
+      }
+
+      // NOTE (EK): Delete id field so we don't update it
+      delete newObject[this.id];
+
+      this.db().where(this.id, id).update(newObject).asCallback((error) => {
+        if (error) {
+          return callback(error);
+        }
+
+        // NOTE (EK): Restore the id field so we can return it to the client
+        newObject[this.id] = id;
+        callback(null, newObject);
+      });
+    });
 	},
 
 	remove(id, params, callback) {
-		// TODO
-		throw new Error('Not implemented', id, params, callback);
+    // NOTE (EK): First fetch the record so that we can return
+    // it when we delete it.
+    this.get(id, params, (error, data) => {
+      if (error) {
+        return callback(error);
+      }
+
+      this.db().where(this.id, id).del().asCallback((error) => {
+        if (error) {
+          return callback(error);
+        }
+
+        callback(null, data);
+      });
+    });
 	}
 });
 
