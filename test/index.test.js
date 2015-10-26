@@ -167,27 +167,7 @@ describe('Feathers Knex Service', () => {
         });
       });
 
-      it.skip('supports or queries', done => {
-        var params = {
-          query: {
-            $or: [
-              { name: 'Alice' },
-              { name: 'Bob' }
-            ]
-          }
-        };
-
-        people.find(params, (error, data) => {
-          expect(error).to.be.null;
-          expect(data).to.be.instanceof(Array);
-          expect(data.length).to.equal(2);
-          expect(data[0].name).to.equal('Alice');
-          expect(data[0].name).to.equal('Bob');
-          done();
-        });
-      });
-
-      it('supports and queries', done => {
+      it('filters results by multiple parameters', done => {
         var params = { query: { name: 'Alice', age: 19 } };
 
         people.find(params, (error, data) => {
@@ -199,75 +179,247 @@ describe('Feathers Knex Service', () => {
         });
       });
 
-      it('can $sort', done => {
-        var params = {
-          query: {
-            $sort: {name: 1}
-          }
-        };
+      describe('special filters', ()  => {
+        it('can $sort', done => {
+          var params = {
+            query: {
+              $sort: {name: 1}
+            }
+          };
 
-        people.find(params, (error, data) => {
-          expect(error).to.be.null;
-          expect(data.length).to.equal(3);
-          expect(data[0].name).to.equal('Alice');
-          expect(data[1].name).to.equal('Bob');
-          expect(data[2].name).to.equal('Doug');
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data.length).to.equal(3);
+            expect(data[0].name).to.equal('Alice');
+            expect(data[1].name).to.equal('Bob');
+            expect(data[2].name).to.equal('Doug');
+            done();
+          });
+        });
+
+        it('can $limit', done => {
+          var params = {
+            query: {
+              $limit: 2
+            }
+          };
+          
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data.length).to.equal(2);
+            done();
+          });
+        });
+
+        it('can $skip', done => {
+          var params = {
+            query: {
+              $sort: {name: 1},
+              $skip: 1
+            }
+          };
+          
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data.length).to.equal(2);
+            expect(data[0].name).to.equal('Bob');
+            expect(data[1].name).to.equal('Doug');
+            done();
+          });
+        });
+
+        it('can $select', done => {
+          var params = {
+            query: {
+              name: 'Alice',
+              $select: ['name']
+            }
+          };
+          
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data.length).to.equal(1);
+            expect(data[0].name).to.equal('Alice');
+            expect(data[0].age).to.be.undefined;
+            done();
+          });
+        });
+
+        it('can $or', done => {
+          var params = {
+            query: {
+              $or: [
+                { name: 'Alice' },
+                { name: 'Bob' }
+              ],
+              $sort: {name: 1}
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            expect(data[0].name).to.equal('Alice');
+            expect(data[1].name).to.equal('Bob');
+            done();
+          });
+        });
+
+        it('can $in', done => {
+          var params = {
+            query: {
+              name: {
+                $in: ['Alice', 'Bob']
+              },
+              $sort: {name: 1}
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            expect(data[0].name).to.equal('Alice');
+            expect(data[1].name).to.equal('Bob');
+            done();
+          });
+        });
+
+        it('can $nin', done => {
+          var params = {
+            query: {
+              name: {
+                $nin: ['Alice', 'Bob']
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(1);
+            expect(data[0].name).to.equal('Doug');
+            done();
+          });
+        });
+
+        it('can $lt', done => {
+          var params = {
+            query: {
+              age: {
+                $lt: 30
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            done();
+          });
+        });
+
+        it('can $lte', done => {
+          var params = {
+            query: {
+              age: {
+                $lte: 25
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            done();
+          });
+        });
+
+        it('can $gt', done => {
+          var params = {
+            query: {
+              age: {
+                $gt: 30
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(1);
+            done();
+          });
+        });
+
+        it('can $gte', done => {
+          var params = {
+            query: {
+              age: {
+                $gte: 25
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            done();
+          });
+        });
+
+        it('can $not', done => {
+          var params = {
+            query: {
+              age: {
+                $not: 25
+              }
+            }
+          };
+
+          people.find(params, (error, data) => {
+            expect(error).to.be.null;
+            expect(data).to.be.instanceof(Array);
+            expect(data.length).to.equal(2);
+            done();
+          });
+        });
+
+        it.skip('can $populate', done => {
+          // expect(service).to.throw('No table name specified.');
           done();
         });
       });
 
-      it('can $limit', done => {
+      it.skip('can handle complex nested special queries', done => {
         var params = {
           query: {
-            $limit: 2
+            $or: [
+              {
+                name: 'Doug'
+              },
+              {
+                age: {
+                  $gte: 18,
+                  $not: 25
+                }
+              }
+            ]
           }
         };
-        
+
         people.find(params, (error, data) => {
           expect(error).to.be.null;
+          expect(data).to.be.instanceof(Array);
           expect(data.length).to.equal(2);
           done();
         });
       });
 
-      it('can $skip', done => {
-        var params = {
-          query: {
-            $sort: {name: 1},
-            $skip: 1
-          }
-        };
-        
-        people.find(params, (error, data) => {
-          expect(error).to.be.null;
-          expect(data.length).to.equal(2);
-          expect(data[0].name).to.equal('Bob');
-          expect(data[1].name).to.equal('Doug');
-          done();
-        });
-      });
-
-      it('can $select', done => {
-        var params = {
-          query: {
-            name: 'Alice',
-            $select: ['name']
-          }
-        };
-        
-        people.find(params, (error, data) => {
-          expect(error).to.be.null;
-          expect(data.length).to.equal(1);
-          expect(data[0].name).to.equal('Alice');
-          expect(data[0].age).to.be.undefined;
-          done();
-        });
-      });
-
-      it.skip('can $populate', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
-      });
     });
 
     describe('update', () => {
@@ -328,7 +480,7 @@ describe('Feathers Knex Service', () => {
         });
       });
 
-      it.skip('creates multiple new instances', done => {
+      it('creates multiple new instances', done => {
         let items = [
           {
             name: 'Gerald',
@@ -342,10 +494,7 @@ describe('Feathers Knex Service', () => {
 
         people.create(items, {}, (error, data) => {
           expect(error).to.be.null;
-          expect(data).to.be.instanceof(Array);
           expect(data).to.not.be.empty;
-          expect(data[0].name).to.equal('Gerald');
-          expect(data[1].name).to.equal('Herald');
           done();
         });
       });

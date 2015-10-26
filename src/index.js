@@ -1,7 +1,22 @@
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
+import isPlainObject from 'is-plain-object';
 import knex from 'knex';
 import { types as errors } from 'feathers-errors';
+
+const METHODS = {
+  $or: 'orWhere',
+  $not: 'whereNot',
+  $in: 'whereIn',
+  $nin: 'whereNotIn'
+};
+
+const OPERATORS = {
+  $lt: '<',
+  $lte: '<=',
+  $gt: '>',
+  $gte: '>='
+};
 
 // Create the service.
 export const Service = Proto.extend({
@@ -25,6 +40,35 @@ export const Service = Proto.extend({
     return this.knex(this.name);
   },
 
+  knexify(query, params, parentKey) {
+    Object.keys(params).forEach((key) => {
+      const value = params[key];
+
+      if (isPlainObject(value)) {
+        return this.knexify(query, value, key);
+      }
+
+      const column = parentKey || key;
+      const method = METHODS[key];
+      const operator = OPERATORS[key] || '=';
+
+      // TODO (EK): Handle $or queries with nested specials.
+      // Right now they won't work and we'd need to start diving
+      // into nested where conditions.
+      if (method) {
+        if (key === '$or') {
+          return value.forEach(condition => {
+            query[method].call(query, condition);
+          });
+        }
+
+        return query[method].call(query, column, value);
+      }
+
+      return query.where(column, operator, value);
+    });
+  },
+
 	find(params, callback) {
     let fields = ['*'];
     let query = this.db().select(fields);
@@ -38,7 +82,10 @@ export const Service = Proto.extend({
         fields = filters.$select;
 			}
 
-      query = this.db().select(... fields).where(params.query);
+      query = this.db().select(... fields);
+
+      // build up the kinex query out of the query params
+      this.knexify(query, params.query);
 
 			// Handle $sort
 			if (filters.$sort) {
@@ -84,15 +131,21 @@ export const Service = Proto.extend({
 
 	create(data, params, callback) {
     this.db().insert(data).then(rows => {
-      // if we inserted a single record call get otherwise call find
+      // NOTE (EK): If we inserted a single record or we inserted multiple but we
+      // are not using a Postgres DB call .get() to return the newly
+      // inserted record.
       if (rows.length === 1) {
         return this.get(rows[0], params, callback); 
       }
       
-      // TODO (EK): We'll need to use a .orWhere query for each id that we pass
-      // So we need to figure out what the syntax should be for find to handle
-      // OR queries. Possibly $or as a special param.
-      this.find(rows[0], params, callback);
+      // NOTE (EK): If we are using PG then it will return the ids
+      // of the inserted records so we have to build up an
+      // $or query to return these newly inserted records.
+      var query = {
+        $or: rows.map(row => { return { id: row[0] }; })
+      };
+
+      this.find(query, params, callback);
     }, callback);
 	},
 

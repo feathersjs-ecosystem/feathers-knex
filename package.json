@@ -47,6 +47,7 @@
   "dependencies": {
     "feathers-errors": "^0.2.5",
     "feathers-query-filters": "^1.1.1",
+    "is-plain-object": "^2.0.1",
     "knex": "^0.8.6",
     "uberproto": "^1.1.2"
   },
