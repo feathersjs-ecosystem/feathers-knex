@@ -119,53 +119,152 @@ describe('Feathers Knex Service', () => {
       });
     });
 
-    describe.skip('find', () => {
+    describe('find', () => {
+      beforeEach(done => {
+        people.create({
+          name: 'Bob',
+          age: 25
+        }, {}, (err, bob) => {
+          _ids.Bob = bob.id;
+
+          people.create({
+            name: 'Alice',
+            age: 19
+          }, {}, (err, alice) => {
+            _ids.Alice = alice.id;
+
+            done();
+          });
+        });
+      });
+
+      afterEach(done => {
+        people.remove(_ids.Bob, {}, () => {
+          people.remove(_ids.Alice, {}, () => {
+            done();
+          });
+        });
+      });
+
       it('returns all items', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        people.find({}, (error, data) => {
+          expect(error).to.be.null;
+          expect(data).to.be.instanceof(Array);
+          expect(data.length).to.equal(3);
+          done();
+        });
       });
 
       it('filters results by a single parameter', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = { query: { name: 'Alice' } };
+
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data).to.be.instanceof(Array);
+          expect(data.length).to.equal(1);
+          expect(data[0].name).to.equal('Alice');
+          done();
+        });
       });
 
-      it('supports or queries', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+      it.skip('supports or queries', done => {
+        var params = {
+          query: {
+            $or: [
+              { name: 'Alice' },
+              { name: 'Bob' }
+            ]
+          }
+        };
+
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data).to.be.instanceof(Array);
+          expect(data.length).to.equal(2);
+          expect(data[0].name).to.equal('Alice');
+          expect(data[0].name).to.equal('Bob');
+          done();
+        });
       });
 
       it('supports and queries', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = { query: { name: 'Alice', age: 19 } };
+
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data).to.be.instanceof(Array);
+          expect(data.length).to.equal(1);
+          expect(data[0].name).to.equal('Alice');
+          done();
+        });
       });
 
       it('can $sort', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = {
+          query: {
+            $sort: {name: 1}
+          }
+        };
+
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data.length).to.equal(3);
+          expect(data[0].name).to.equal('Alice');
+          expect(data[1].name).to.equal('Bob');
+          expect(data[2].name).to.equal('Doug');
+          done();
+        });
       });
 
       it('can $limit', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
-      });
-
-      it('can $limit', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = {
+          query: {
+            $limit: 2
+          }
+        };
+        
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data.length).to.equal(2);
+          done();
+        });
       });
 
       it('can $skip', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = {
+          query: {
+            $sort: {name: 1},
+            $skip: 1
+          }
+        };
+        
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data.length).to.equal(2);
+          expect(data[0].name).to.equal('Bob');
+          expect(data[1].name).to.equal('Doug');
+          done();
+        });
       });
 
       it('can $select', done => {
-        // expect(service).to.throw('No table name specified.');
-        done();
+        var params = {
+          query: {
+            name: 'Alice',
+            $select: ['name']
+          }
+        };
+        
+        people.find(params, (error, data) => {
+          expect(error).to.be.null;
+          expect(data.length).to.equal(1);
+          expect(data[0].name).to.equal('Alice');
+          expect(data[0].age).to.be.undefined;
+          done();
+        });
       });
 
-      it('can $populate', done => {
+      it.skip('can $populate', done => {
         // expect(service).to.throw('No table name specified.');
         done();
       });
@@ -229,7 +328,7 @@ describe('Feathers Knex Service', () => {
         });
       });
 
-      it('creates multiple new instances', done => {
+      it.skip('creates multiple new instances', done => {
         let items = [
           {
             name: 'Gerald',

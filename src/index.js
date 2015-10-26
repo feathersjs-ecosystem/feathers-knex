@@ -35,7 +35,7 @@ export const Service = Proto.extend({
 
 			// $select uses a specific find syntax, so it has to come first.
 			if (filters.$select) {
-				fields = Object.keys(filters.$select).map(field => !!filters.$select[field]);
+        fields = filters.$select;
 			}
 
       query = this.db().select(... fields).where(params.query);
