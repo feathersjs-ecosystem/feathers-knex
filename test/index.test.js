@@ -1,8 +1,9 @@
 /*jshint expr: true*/
 
 import chai from 'chai';
-import service from '../src';
 import baseTests from 'feathers-service-tests';
+import { errors } from 'feathers';
+import service from '../src';
 
 const options = {
   dialect: 'sqlite3',
@@ -78,5 +79,5 @@ describe('Feathers Knex Service', () => {
     });
   });
 
-  baseTests(people, _ids);
+  baseTests(people, _ids, errors.types);
 });
