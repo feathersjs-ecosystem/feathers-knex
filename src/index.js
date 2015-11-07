@@ -41,7 +41,7 @@ export const Service = Proto.extend({
   },
 
   knexify(query, params, parentKey) {
-    Object.keys(params).forEach(key => {
+    Object.keys(params).forEach((key) => {
       const value = params[key];
 
       if (isPlainObject(value)) {
@@ -49,13 +49,8 @@ export const Service = Proto.extend({
       }
 
       const column = parentKey || key;
-      const parentMethod = METHODS[parentKey];
       const method = METHODS[key];
       const operator = OPERATORS[key] || '=';
-
-      if (parentMethod) {
-        return query[parentMethod]({ [key]: value });
-      }
 
       // TODO (EK): Handle $or queries with nested specials.
       // Right now they won't work and we'd need to start diving
@@ -63,7 +58,7 @@ export const Service = Proto.extend({
       if (method) {
         if (key === '$or') {
           return value.forEach(condition => {
-            query[method](condition);
+            query[method].call(query, condition);
           });
         }
 
@@ -140,9 +135,9 @@ export const Service = Proto.extend({
       // are not using a Postgres DB call .get() to return the newly
       // inserted record.
       if (rows.length === 1) {
-        return this.get(rows[0], params, callback);
+        return this.get(rows[0], params, callback); 
       }
-
+      
       // NOTE (EK): If we are using PG then it will return the ids
       // of the inserted records so we have to build up an
       // $or query to return these newly inserted records.
@@ -223,7 +218,7 @@ export const Service = Proto.extend({
         return callback(error);
       }
 
-      this.db().where(this.id, id).del().asCallback(error => {
+      this.db().where(this.id, id).del().asCallback((error) => {
         if (error) {
           return callback(error);
         }
