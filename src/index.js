@@ -6,7 +6,7 @@ import { types as errors } from 'feathers-errors';
 
 const METHODS = {
   $or: 'orWhere',
-  $not: 'whereNot',
+  $ne: 'whereNot',
   $in: 'whereIn',
   $nin: 'whereNotIn'
 };
@@ -135,9 +135,9 @@ export const Service = Proto.extend({
       // are not using a Postgres DB call .get() to return the newly
       // inserted record.
       if (rows.length === 1) {
-        return this.get(rows[0], params, callback); 
+        return this.get(rows[0], params, callback);
       }
-      
+
       // NOTE (EK): If we are using PG then it will return the ids
       // of the inserted records so we have to build up an
       // $or query to return these newly inserted records.
