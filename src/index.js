@@ -229,6 +229,6 @@ export const Service = Proto.extend({
 	}
 });
 
-export default function() {
+export default module.exports = function() {
   return Proto.create.apply(Service, arguments);
-}
+};
