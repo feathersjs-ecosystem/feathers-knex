@@ -157,7 +157,7 @@ var app = feathers()
     }
   }));
 
-app.lookup('users').before({
+app.service('users').before({
   create: function(hook, next) {
     hook.data.createdAt = new Date();
     next();
