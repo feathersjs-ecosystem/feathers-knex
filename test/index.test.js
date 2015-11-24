@@ -1,6 +1,6 @@
 /*jshint expr: true*/
 
-import chai from 'chai';
+import assert from 'assert';
 import baseTests from 'feathers-service-tests';
 import { errors } from 'feathers';
 import service from '../src';
@@ -12,7 +12,6 @@ const options = {
   }
 };
 
-let expect = chai.expect;
 let _ids = {};
 let people = service('people', options);
 
@@ -57,26 +56,8 @@ describe('Feathers Knex Service', () => {
     });
   });
 
-  describe('init', () => {
-    describe('without table', () => {
-      it('throws an error', () => {
-        expect(service).to.throw('No table name specified.');
-      });
-    });
-
-    describe.skip('with table', () => {
-      it('sets up a database connection via config', () => {
-        // expect(service).to.throw('No table name specified.');
-      });
-
-      it('sets up a database connection via connection string', () => {
-        // expect(service).to.throw('No table name specified.');
-      });
-
-      it('sets up a database connection via socket config', () => {
-        // expect(service).to.throw('No table name specified.');
-      });
-    });
+  it('is CommonJS compatible', () => {
+    assert.equal(typeof require('../lib'), 'function');
   });
 
   baseTests(people, _ids, errors.types);

@@ -19,7 +19,7 @@ const OPERATORS = {
 };
 
 // Create the service.
-export const Service = Proto.extend({
+const Service = Proto.extend({
 	init(name, options) {
     if(typeof name !== 'string') {
       throw new Error('No table name specified.');
@@ -229,6 +229,8 @@ export const Service = Proto.extend({
 	}
 });
 
-export default module.exports = function() {
+export default function create() {
   return Proto.create.apply(Service, arguments);
-};
+}
+
+create.Service = Service;
