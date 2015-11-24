@@ -323,6 +323,10 @@ query: {
 
 ## Changelog
 
+__1.2.x__
+
+- Babel 6 support, Object.assign polyfill and CommonJS module backwards compatibility
+
 __1.1.0__
 
 - Compatibility with latest service tests
