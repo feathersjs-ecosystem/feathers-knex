@@ -186,7 +186,7 @@ class Service {
 
       for (var key of Object.keys(oldData)) {
         if (data[key] === undefined) {
-          newObject[key] = null;
+          newObject[key] = oldData[key];
         } else {
           newObject[key] = data[key];
         }
