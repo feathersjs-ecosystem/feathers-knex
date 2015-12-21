@@ -354,6 +354,13 @@ query: {
 
 ## Changelog
 
+__1.3.0__
+
+- fixing docs
+- adding an example app
+- fixing queries so that they pass all tests
+- adding mappings to feathers-errors for SQLite
+
 __1.2.x__
 
 - Babel 6 support, Object.assign polyfill and CommonJS module backwards compatibility
