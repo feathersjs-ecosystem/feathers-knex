@@ -65,13 +65,5 @@
     "jshint": "^2.8.0",
     "mocha": "^2.3.3",
     "sqlite3": "^3.1.0"
-  },
-  "babel": {
-    "plugins": [
-      "add-module-exports"
-    ],
-    "presets": [
-      "es2015"
-    ]
   }
 }
