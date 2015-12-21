@@ -15,7 +15,7 @@ npm install feathers-knex --save
 
 ## Getting Started
 
-You can create a \*SQL Knex service like this:
+You can create a SQL Knex service like this:
 
 ```js
 var knex = require('feathers-knex');
@@ -42,16 +42,23 @@ var feathers = require('feathers');
 var bodyParser = require('body-parser');
 var knex = require('feathers-knex');
 
-var todos = knex('todos', {
+var options = {
+  name: 'todos',
   dialect: 'sqlite3',
   connection: {
     filename: './data.db'
+  },
+  paginate: {
+    default: 2,
+    max: 4
   }
-});
+};
+
+var todos = knex(options);
 
 // This drops and creates table every time
-todos.knex.schema.dropTableIfExists('todos').then(() => {
-  people.knex.schema.createTable('todos', function(table) {
+todos.knex.schema.dropTableIfExists('todos').then(function() {
+  return todos.knex.schema.createTable('todos', function(table) {
     table.increments('id');
     table.string('text');
     table.boolean('complete');
@@ -75,18 +82,42 @@ var app = feathers()
 app.use('/todos', todos);
 
 // Start the server.
-var port = 8080;
+var port = 3030;
 app.listen(port, function() {
     console.log('Feathers server listening on port ' + port);
 });
 ```
 
-You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
-
+You can run this example by using `node example/app` and going to [localhost:3030/todos](http://localhost:3030/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
 
 ## Options
 
-// Todo
+Creating a new Knex service currently offers the following options:
+
+- `name` (**required**) - this is the table name for your resource.
+- `id` (default: `id`) [optional] - The name of the id property
+- `paginate` [optional] - A pagination object containing a `default` and `max` page size (see below)
+
+_You will also need to pass additional Knex connection options. [See Knex docs](http://knexjs.org/#Installation-client)._
+
+## Pagination
+
+When initializing the service you can set the following pagination options in the `paginate` object:
+
+- `default` - Sets the default number of items
+- `max` - Sets the maximum allowed number of items per page (even if the `$limit` query parameter is set higher)
+
+When `paginate.default` is set, `find` will return an object (instead of the normal array) in the following form:
+
+```
+{
+  "total": "<total number of records>",
+  "limit": "<max number of items per page>",
+  "skip": "<number of skipped items (offset)>",
+  "data": [/* data */]
+}
+```
+
 
 ## Extending
 

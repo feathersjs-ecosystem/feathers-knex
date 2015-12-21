@@ -1,8 +1,11 @@
+if(!global._babelPolyfill) { require('babel-polyfill'); }
+
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import knex from 'knex';
-import { types as errors } from 'feathers-errors';
+import errorHandler from './error-handler';
+import { errors } from 'feathers-errors';
 
 const METHODS = {
   $or: 'orWhere',
@@ -19,26 +22,31 @@ const OPERATORS = {
 };
 
 // Create the service.
-const Service = Proto.extend({
-	init(name, options) {
-    if(typeof name !== 'string') {
-      throw new Error('No table name specified.');
-    }
-
+class Service {
+	constructor(options) {
     if(!options) {
       throw new Error('KnexJS options have to be provided');
     }
 
+    if(typeof options.name !== 'string') {
+      throw new Error('No table name specified.');
+    }
+
+    this.name = options.name;
     this.id = options.id || 'id';
+    this.paginate = options.paginate || {};
     this.knex = typeof options === 'function' ? options : knex(options);
-    this.name = name;
-	},
+	}
 
   // NOTE (EK): We need this method so that we return a new query
   // instance each time, otherwise it will reuse the same query.
   db() {
     return this.knex(this.name);
-  },
+  }
+
+  extend(obj) {
+		return Proto.extend(obj, this);
+	}
 
   knexify(query, params, parentKey) {
     Object.keys(params).forEach((key) => {
@@ -57,9 +65,7 @@ const Service = Proto.extend({
       // into nested where conditions.
       if (method) {
         if (key === '$or') {
-          return value.forEach(condition => {
-            query[method].call(query, condition);
-          });
+          return value.forEach(condition => query[method].call(query, condition));
         }
 
         return query[method].call(query, column, value);
@@ -67,130 +73,124 @@ const Service = Proto.extend({
 
       return query.where(column, operator, value);
     });
-  },
+  }
 
-	find(params, callback) {
-    let fields = ['*'];
-    let query = this.db().select(fields);
+	find(params) {
+    params.query = params.query || {};
 
-		// Prepare the special query params.
-		if (params.query) {
-			let filters = filter(params.query);
+    let query = this.db().select(['*']);
+    let filters = filter(params.query);
 
-			// $select uses a specific find syntax, so it has to come first.
-			if (filters.$select) {
-        fields = filters.$select;
-			}
+    if(this.paginate.default) {
+      filters.$limit = Math.min(filters.$limit || this.paginate.default,
+				this.paginate.max || Number.MAX_VALUE);
+    }
 
+		// $select uses a specific find syntax, so it has to come first.
+		if (filters.$select) {
+      let fields = filters.$select;
       query = this.db().select(... fields);
-
-      // build up the kinex query out of the query params
-      this.knexify(query, params.query);
-
-			// Handle $sort
-			if (filters.$sort) {
-        Object.keys(filters.$sort).forEach(key =>
-          query = query.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc'));
-			}
-
-			// Handle $limit
-			if (filters.$limit) {
-        query.limit(parseInt(filters.$limit, 10));
-			}
-
-			// Handle $skip
-			if (filters.$skip) {
-        query.offset(parseInt(filters.$skip, 10));
-			}
 		}
 
-    query.then(data => callback(null, data), callback);
-	},
+    // build up the knex query out of the query params
+    this.knexify(query, params.query);
 
-	get(id, params, callback) {
-		if (typeof id === 'function') {
-      callback = id;
-			return callback(new errors.BadRequest('An id is required for GET operations'));
+		// Handle $sort
+		if (filters.$sort) {
+      Object.keys(filters.$sort).forEach(key =>
+        query = query.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc'));
 		}
 
+		// Handle $limit
+		if (filters.$limit) {
+      query.limit(filters.$limit);
+		}
+
+		// Handle $skip
+		if (filters.$skip) {
+      query.offset(filters.$skip);
+		}
+
+    if (this.paginate.default && !params.query[this.id]) {
+      let countQuery = this.db().count('id as total');
+
+      this.knexify(countQuery, params.query);
+
+      return countQuery.then(function(count) {
+        return query.then(data => {
+          return {
+  					total: count[0].total,
+  					limit: filters.$limit,
+  					skip: filters.$skip || 0,
+  					data
+  				};
+        }).catch(errorHandler);
+      }).catch(errorHandler);
+		}
+
+    return query;
+	}
+
+	get(id, params) {
     params.query = params.query || {};
     params.query[this.id] = id;
 
-    this.find(params, (error, data) => {
-      if(error) {
-        return callback(error);
-      }
-
+    return this.find(params).then(data => {
       if(data && data.length !== 1) {
-        return callback(new errors.NotFound(`No record found for id '${id}'`));
+        throw new errors.NotFound(`No record found for id '${id}'`);
       }
 
-      callback(null, data[0]);
-    });
-	},
+      return data[0];
+    }).catch(errorHandler);
+	}
 
-	create(data, params, callback) {
-    this.db().insert(data).then(rows => {
-      // NOTE (EK): If we inserted a single record or we inserted multiple but we
-      // are not using a Postgres DB call .get() to return the newly
-      // inserted record.
-      if (rows.length === 1) {
-        return this.get(rows[0], params, callback);
-      }
+	create(data, params) {
+    if(Array.isArray(data)) {
+      return Promise.all(data.map(current => this.create(current, params)));
+    }
 
-      // NOTE (EK): If we are using PG then it will return the ids
-      // of the inserted records so we have to build up an
-      // $or query to return these newly inserted records.
-      var query = {
-        $or: rows.map(row => { return { id: row[0] }; })
-      };
+    return this.db().insert(data).then(rows => this.get(rows[0], params)).catch(errorHandler);
+	}
 
-      this.find(query, params, callback);
-    }, callback);
-	},
+	patch(id, data, params) {
+    params.query = params.query || {};
+    data = Object.assign({}, data);
 
-	patch(id, data, params, callback) {
-    // NOTE (EK): First fetch the old record so that we
-    // can merge our new properties on top of it.
-    this.get(id, params, (error, oldData) => {
-      if (error) {
-        return callback(error);
-      }
+    if(id !== null) {
+      params.query[this.id] = id;
+    }
 
-      let newObject = Object.assign(oldData, data);
+    let query = this.db();
+    this.knexify(query, params.query);
 
-      // NOTE (EK): Delete id field so we don't update it
-      delete newObject[this.id];
+    delete data[this.id];
 
-      this.db().where(this.id, id).update(newObject).asCallback((error) => {
-        if (error) {
-          return callback(error);
+    return query.update(data).then(() => {
+      return this.find(params).then(items => {
+        if(items.length ===  0) {
+          throw new errors.NotFound(`No record found for id '${id}'`);
         }
 
-        // NOTE (EK): Restore the id field so we can return it to the client
-        newObject[this.id] = id;
+        if(items.length === 1) {
+          return items[0];
+        }
 
-        callback(null, newObject);
-      });
-    });
-	},
+        return items;
+      }).catch(errorHandler);
+    }).catch(errorHandler);
+	}
 
-	update(id, data, params, callback) {
+	update(id, data, params) {
     // NOTE (EK): First fetch the old record so
     // that we can fill any existing keys that the
     // client isn't updating with null;
-    this.get(id, params, (error, oldData) => {
-      if (error) {
-        return callback(error);
-      }
-
+    return this.get(id, params).then(oldData => {
       let newObject = {};
 
       for (var key of Object.keys(oldData)) {
         if (data[key] === undefined) {
           newObject[key] = null;
-        }
-        else {
+        } else {
           newObject[key] = data[key];
         }
       }
@@ -198,39 +198,40 @@ const Service = Proto.extend({
       // NOTE (EK): Delete id field so we don't update it
       delete newObject[this.id];
 
-      this.db().where(this.id, id).update(newObject).asCallback((error) => {
-        if (error) {
-          return callback(error);
-        }
-
+      return this.db().where(this.id, id).update(newObject).then(() => {
         // NOTE (EK): Restore the id field so we can return it to the client
         newObject[this.id] = id;
-        callback(null, newObject);
-      });
-    });
-	},
+        return newObject;
+      }).catch(errorHandler);
+    }).catch(errorHandler);
+	}
 
-	remove(id, params, callback) {
+	remove(id, params) {
+    params.query = params.query || {};
+
     // NOTE (EK): First fetch the record so that we can return
     // it when we delete it.
-    this.get(id, params, (error, data) => {
-      if (error) {
-        return callback(error);
-      }
+    if(id !== null) {
+      params.query[this.id] = id;
+    }
 
-      this.db().where(this.id, id).del().asCallback((error) => {
-        if (error) {
-          return callback(error);
+    return this.find(params).then(items => {
+      let query = this.db();
+      this.knexify(query, params.query);
+
+      return query.del().then(() => {
+        if(items.length === 1) {
+          return items[0];
         }
 
-        callback(null, data);
-      });
-    });
+        return items;
+      }).catch(errorHandler);
+    }).catch(errorHandler);
 	}
-});
-
-export default function create() {
-  return Proto.create.apply(Service, arguments);
 }
 
-create.Service = Service;
+export default function init(options) {
+  return new Service(options);
+}
+
+init.Service = Service;

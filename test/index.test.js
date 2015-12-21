@@ -1,19 +1,23 @@
 /*jshint expr: true*/
 
 import assert from 'assert';
-import baseTests from 'feathers-service-tests';
-import { errors } from 'feathers';
+import feathers from 'feathers';
+import { base, orm, example } from 'feathers-service-tests';
+import { errors } from 'feathers-errors';
 import service from '../src';
+import server from '../example/app';
 
 const options = {
+  name: 'people',
   dialect: 'sqlite3',
   connection: {
     filename: './data.db'
   }
 };
+const app = feathers().use('/people', service(options));
 
 let _ids = {};
-let people = service('people', options);
+let people = app.service('people');
 
 function clean(done) {
   people.knex.schema.dropTableIfExists('people').then(() => {
@@ -21,6 +25,8 @@ function clean(done) {
       table.increments('id');
       table.string('name');
       table.integer('age');
+      table.integer('time');
+      table.boolean('created');
     })
     .then(() => {
       done();
@@ -36,29 +42,28 @@ describe('Feathers Knex Service', () => {
     people.create({
       name: 'Doug',
       age: 32
-    }, {}, (error, data) => {
-      if (error) {
-        console.error(error);
-      }
-
+    }).then(data => {
       _ids.Doug = data.id;
       done();
-    });
+    }, done);
   });
 
-  afterEach(done => {
-    people.remove(_ids.Doug, {}, (error) => {
-      if (error) {
-        console.error(error);
-      }
-
-      done();
-    });
-  });
+  afterEach(done => people.remove(_ids.Doug, {})
+    .then(() => done(), () => done()));
 
   it('is CommonJS compatible', () => {
     assert.equal(typeof require('../lib'), 'function');
   });
 
-  baseTests(people, _ids, errors.types);
+  base(people, _ids, errors);
+});
+
+describe.skip('Sequelize service ORM errors', () => {
+  orm(people, _ids, errors);
+});
+
+describe('Knex service example test', () => {
+  after(done => server.close(() => done()));
+
+  example();
 });
