@@ -2,9 +2,10 @@
 
 import assert from 'assert';
 import feathers from 'feathers';
-import { base } from 'feathers-service-tests';
-import { types as errors } from 'feathers-errors';
+import { base, example } from 'feathers-service-tests';
+import { errors } from 'feathers-errors';
 import service from '../src';
+import server from '../example/app';
 
 const options = {
   name: 'people',
@@ -55,4 +56,10 @@ describe('Feathers Knex Service', () => {
   });
 
   base(people, _ids, errors);
+});
+
+describe('Knex service example test', () => {
+  after(done => server.close(() => done()));
+
+  example();
 });

@@ -1,10 +1,10 @@
-require('babel-polyfill');
+if(!global._babelPolyfill) { require('babel-polyfill'); }
 
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import knex from 'knex';
-import { types as errors } from 'feathers-errors';
+import { errors } from 'feathers-errors';
 
 const METHODS = {
   $or: 'orWhere',
@@ -110,10 +110,12 @@ class Service {
       query.offset(filters.$skip);
 		}
 
-    if(this.paginate.default && !params.query[this.id]) {
+    if (this.paginate.default && !params.query[this.id]) {
       let countQuery = this.db().count('id as total');
 
-      return countQuery.count('id as total').then(function(count) {
+      this.knexify(countQuery, params.query);
+
+      return countQuery.then(function(count) {
         return query.then(data => {
           return {
   					total: count[0].total,
