@@ -4,6 +4,7 @@ import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import knex from 'knex';
+import errorHandler from './error-handler';
 import { errors } from 'feathers-errors';
 
 const METHODS = {
@@ -123,8 +124,8 @@ class Service {
   					skip: filters.$skip || 0,
   					data
   				};
-        });
-      });
+        }).catch(errorHandler);
+      }).catch(errorHandler);
 		}
 
     return query;
@@ -140,7 +141,7 @@ class Service {
       }
 
       return data[0];
-    });
+    }).catch(errorHandler);
 	}
 
 	create(data, params) {
@@ -148,7 +149,7 @@ class Service {
       return Promise.all(data.map(current => this.create(current, params)));
     }
 
-    return this.db().insert(data).then(rows => this.get(rows[0], params));
+    return this.db().insert(data).then(rows => this.get(rows[0], params)).catch(errorHandler);
 	}
 
 	patch(id, data, params) {
@@ -175,8 +176,8 @@ class Service {
         }
 
         return items;
-      });
-    });
+      }).catch(errorHandler);
+    }).catch(errorHandler);
 	}
 
 	update(id, data, params) {
@@ -201,8 +202,8 @@ class Service {
         // NOTE (EK): Restore the id field so we can return it to the client
         newObject[this.id] = id;
         return newObject;
-      });
-    });
+      }).catch(errorHandler);
+    }).catch(errorHandler);
 	}
 
 	remove(id, params) {
@@ -224,8 +225,8 @@ class Service {
         }
 
         return items;
-      });
-    });
+      }).catch(errorHandler);
+    }).catch(errorHandler);
 	}
 }
 

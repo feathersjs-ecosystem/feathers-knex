@@ -2,7 +2,7 @@
 
 import assert from 'assert';
 import feathers from 'feathers';
-import { base, example } from 'feathers-service-tests';
+import { base, orm, example } from 'feathers-service-tests';
 import { errors } from 'feathers-errors';
 import service from '../src';
 import server from '../example/app';
@@ -56,6 +56,10 @@ describe('Feathers Knex Service', () => {
   });
 
   base(people, _ids, errors);
+});
+
+describe.skip('Sequelize service ORM errors', () => {
+  orm(people, _ids, errors);
 });
 
 describe('Knex service example test', () => {
