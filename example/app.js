@@ -33,7 +33,7 @@ var app = feathers()
   // Turn on URL-encoded parser for REST services
   .use(bodyParser.urlencoded({ extended: true }));
 
-// Create an in-memory Feathers service with a default page size of 2 items
+// Create Knex Feathers service with a default page size of 2 items
 // and a maximum size of 4
 app.use('/todos', knexService({
   Model: knex,
