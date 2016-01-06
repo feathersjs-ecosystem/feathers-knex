@@ -3,7 +3,6 @@ if(!global._babelPolyfill) { require('babel-polyfill'); }
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
-import knex from 'knex';
 import errorHandler from './error-handler';
 import { errors } from 'feathers-errors';
 
@@ -24,24 +23,28 @@ const OPERATORS = {
 // Create the service.
 class Service {
 	constructor(options) {
-    if(!options) {
-      throw new Error('KnexJS options have to be provided');
+    if (!options) {
+      throw new Error('Knex options have to be provided');
     }
 
-    if(typeof options.name !== 'string') {
+    if (!options.Model) {
+      throw new Error('You must provide a Model (the initialized knex object)');
+    }
+
+    if (typeof options.name !== 'string') {
       throw new Error('No table name specified.');
     }
 
-    this.name = options.name;
+    this.knex = options.Model;
     this.id = options.id || 'id';
     this.paginate = options.paginate || {};
-    this.knex = typeof options === 'function' ? options : knex(options);
+    this.table = options.name;
 	}
 
   // NOTE (EK): We need this method so that we return a new query
   // instance each time, otherwise it will reuse the same query.
   db() {
-    return this.knex(this.name);
+    return this.knex(this.table);
   }
 
   extend(obj) {

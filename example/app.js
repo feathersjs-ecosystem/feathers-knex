@@ -1,26 +1,20 @@
 var feathers = require('feathers');
 var bodyParser = require('body-parser');
-var knex = require('../lib');
-var path = require('path');
-
-var options = {
-  name: 'todos',
+var knexService = require('../lib');
+var knex = require('knex')({
   client: 'sqlite3',
   connection: {
     filename: './db.sqlite'
-  },
-  paginate: {
-    default: 2,
-    max: 4
   }
-};
+});
 
-var todos = knex(options);
-
-todos.knex.schema.dropTableIfExists('todos').then(function() {
+// Clean up our data. This is optional and is here
+// because of our integration tests
+knex.schema.dropTableIfExists('todos').then(function() {
   console.log('Dropped todos table');
 
-  return todos.knex.schema.createTable('todos', function(table) {
+  // Initialize your table
+  return knex.schema.createTable('todos', function(table) {
     console.log('Creating todos table');
     table.increments('id');
     table.string('text');
@@ -41,7 +35,14 @@ var app = feathers()
 
 // Create an in-memory Feathers service with a default page size of 2 items
 // and a maximum size of 4
-app.use('/todos', todos);
+app.use('/todos', knexService({
+  Model: knex,
+  name: 'todos',
+  paginate: {
+    default: 2,
+    max: 4
+  }
+}));
 
 app.use(function(error, req, res, next){
   res.json(error);
