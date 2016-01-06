@@ -18,15 +18,18 @@ npm install feathers-knex --save
 You can create a SQL Knex service like this:
 
 ```js
-var knex = require('feathers-knex');
-var todos = knex('todos', {
-  dialect: 'sqlite3',
+var knex = require('knex')({
+  client: 'sqlite3',
   connection: {
-    filename: './data.db'
+    filename: './db.sqlite'
   }
 });
+var knexService = require('feathers-knex');
 
-app.use('/todos', todos);
+app.use('/todos', knexService('todos', {
+  Model: knex,
+  name: 'todos'
+}));
 ```
 
 This will create a `todos` endpoint and connect to a local `todos` table on an SQLite database in `data.db`.
@@ -40,29 +43,19 @@ Here's a complete example of a Feathers server with a `todos` SQLite service. We
 // server.js
 var feathers = require('feathers');
 var bodyParser = require('body-parser');
-var knex = require('feathers-knex');
-
-var options = {
-  name: 'todos',
-  dialect: 'sqlite3',
+var knexService = require('../lib');
+var knex = require('knex')({
+  client: 'sqlite3',
   connection: {
-    filename: './data.db'
-  },
-  paginate: {
-    default: 2,
-    max: 4
+    filename: './db.sqlite'
   }
-};
+});
 
-var todos = knex(options);
-
-// This drops and creates table every time
-todos.knex.schema.dropTableIfExists('todos').then(function() {
-  return todos.knex.schema.createTable('todos', function(table) {
-    table.increments('id');
-    table.string('text');
-    table.boolean('complete');
-  });
+// This create your database table
+knex.schema.createTableIfNotExists('todos', function(table) {
+  table.increments('id');
+  table.string('text');
+  table.boolean('complete');
 });
 
 // Create a feathers instance.
@@ -78,8 +71,16 @@ var app = feathers()
   // Turn on URL-encoded parser for REST services
   .use(bodyParser.urlencoded({extended: true}))
 
-// Connect to the db, create and register a Feathers service.
-app.use('/todos', todos);
+// Create Knex Feathers service with a default page size of 2 items
+// and a maximum size of 4
+app.use('/todos', knexService({
+  Model: knex,
+  name: 'todos',
+  paginate: {
+    default: 2,
+    max: 4
+  }
+}));
 
 // Start the server.
 var port = 3030;
@@ -176,16 +177,20 @@ Another option is to weave functionality into your existing services using [feat
 ```js
 var feathers = require('feathers');
 var hooks = require('feathers-hooks');
-var knex = require('feathers-knex');
+var knexService = require('../lib');
+var knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+    filename: './db.sqlite'
+  }
+});
 
-// Initialize a MongoDB service with the users collection on a local MongoDB instance
+// Initialize a Knex service with the users table in an SQLite
 var app = feathers()
   .configure(hooks())
-  .use('/users', knex('users', {
-    dialect: 'sqlite3',
-    connection: {
-      filename: './data.db'
-    }
+  .use('/users', knexService('users', {
+    Model: knex,
+    name: 'todos'
   }));
 
 app.service('users').before({
@@ -353,6 +358,12 @@ query: {
 
 
 ## Changelog
+
+__2.0.0__
+
+- Making compatible with Feathers 2.0 and consistent with other adapters [#24](https://github.com/feathersjs/feathers-knex/issues/24)
+- Updating example
+- Adding s'more tests
 
 __1.3.0__
 
