@@ -177,7 +177,7 @@ Another option is to weave functionality into your existing services using [feat
 ```js
 var feathers = require('feathers');
 var hooks = require('feathers-hooks');
-var knexService = require('../lib');
+var knexService = require('feathers-knex');
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
