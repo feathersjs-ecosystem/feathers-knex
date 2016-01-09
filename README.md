@@ -26,7 +26,7 @@ var knex = require('knex')({
 });
 var knexService = require('feathers-knex');
 
-app.use('/todos', knexService('todos', {
+app.use('/todos', knexService({
   Model: knex,
   name: 'todos'
 }));
