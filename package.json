@@ -40,7 +40,7 @@
     "watch": "babel --watch -d lib/ src/",
     "jshint": "jshint src/. test/. --config",
     "mocha": "mocha test/ --compilers js:babel-core/register",
-    "test": "npm run compile && npm run jshint && npm run mocha"
+    "test": "npm run compile && npm run jshint && npm run mocha && nsp check"
   },
   "directories": {
     "lib": "lib"
@@ -65,6 +65,7 @@
     "jshint": "^2.8.0",
     "knex": "^0.8.6",
     "mocha": "^2.3.3",
+    "nsp": "^2.2.0",
     "sqlite3": "^3.1.0"
   }
 }
