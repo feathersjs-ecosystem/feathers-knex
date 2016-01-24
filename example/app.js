@@ -1,7 +1,9 @@
-var feathers = require('feathers');
-var bodyParser = require('body-parser');
-var knexService = require('../lib');
-var knex = require('knex')({
+import feathers from 'feathers';
+import rest from 'feathers-rest';
+import bodyParser from 'body-parser';
+import knexService from '../lib';
+
+const knex = require('knex')({
   client: 'sqlite3',
   connection: {
     filename: './db.sqlite'
@@ -23,11 +25,9 @@ knex.schema.dropTableIfExists('todos').then(function() {
 });
 
 // Create a feathers instance.
-var app = feathers()
-  // Enable Socket.io
-  .configure(feathers.socketio())
+const app = feathers()
   // Enable REST services
-  .configure(feathers.rest())
+  .configure(rest())
   // Turn on JSON parser for REST services
   .use(bodyParser.json())
   // Turn on URL-encoded parser for REST services

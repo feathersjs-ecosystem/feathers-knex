@@ -28,4 +28,5 @@ node_modules
 .lock-wscript
 
 lib/
+db.sqlite
 data.db
