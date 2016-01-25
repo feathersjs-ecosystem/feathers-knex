@@ -152,7 +152,7 @@ class Service {
       return Promise.all(data.map(current => this.create(current, params)));
     }
 
-    return this.db().insert(data).then(rows => this.get(rows[0], params)).catch(errorHandler);
+    return this.db().insert(data, this.id).then(rows => this.get(rows[0], params)).catch(errorHandler);
 	}
 
 	patch(id, data, params) {
