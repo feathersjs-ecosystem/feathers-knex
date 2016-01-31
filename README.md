@@ -82,6 +82,10 @@ You can run this example by using `node server` and going to [localhost:8080/tod
 
 ## Changelog
 
+__2.1.0__
+
+- Use internal methods instead of service methods directly
+
 __2.0.0__
 
 - Refactoring to be independent from Knex module
