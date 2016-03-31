@@ -119,7 +119,7 @@ class Service {
     };
     
     if(count) {
-      let countQuery = this.db().count('id as total');
+      let countQuery = this.db().count(this.id + ' as total');
 
       this.knexify(countQuery, params.query);
 
