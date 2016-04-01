@@ -106,7 +106,7 @@ class Service {
 		if (filters.$skip) {
       query.offset(filters.$skip);
 		}
-    
+
     const executeQuery = total => {
       return query.then(data => {
         return {
@@ -117,9 +117,9 @@ class Service {
         };
       });
     };
-    
+
     if(count) {
-      let countQuery = this.db().count(this.id + ' as total');
+      let countQuery = this.db().count(`{this.id} as total`);
 
       this.knexify(countQuery, params.query);
 
@@ -128,7 +128,7 @@ class Service {
 
     return executeQuery();
 	}
-  
+
   find(params) {
     const paginate = !!this.paginate.default;
     const result = this._find(params, paginate, query => filter(query, this.paginate));
@@ -153,11 +153,11 @@ class Service {
         return page.data[0];
       }).catch(errorHandler);
 	}
-  
+
   get(...args) {
     return this._get(...args);
   }
-  
+
   _create(data, params) {
     return this.db().insert(data, this.id).then(rows => this.get(rows[0], params))
       .catch(errorHandler);
@@ -187,7 +187,7 @@ class Service {
     return query.update(data).then(() => {
       return this._find(params).then(page => {
         const items = page.data;
-        
+
         if(id !== null) {
           if(items.length === 1) {
             return items[0];
@@ -243,7 +243,7 @@ class Service {
     return this._find(params).then(page => {
       const items = page.data;
       const query = this.db();
-      
+
       this.knexify(query, params.query);
 
       return query.del().then(() => {
