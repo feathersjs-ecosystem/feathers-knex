@@ -66,7 +66,7 @@
     "feathers-service-tests": "^0.5.2",
     "jshint": "^2.8.0",
     "knex": "^0.11.1",
-    "mocha": "^2.3.3",
+    "mocha": "^2.5.0",
     "sqlite3": "^3.1.0"
   }
 }
