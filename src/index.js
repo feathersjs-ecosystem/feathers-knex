@@ -159,7 +159,7 @@ class Service {
   }
 
   _create(data, params) {
-    return this.db().insert(data, this.id).then(rows => this.get(rows[0], params))
+    return this.db().insert(data, this.id).then(rows => this._get(rows[0], params))
       .catch(errorHandler);
   }
 
