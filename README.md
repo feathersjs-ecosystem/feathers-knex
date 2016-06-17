@@ -80,31 +80,8 @@ console.log('Feathers Todo Knex service running on 127.0.0.1:3030');
 
 You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
 
-## Changelog
-
-__2.1.0__
-
-- Use internal methods instead of service methods directly
-
-__2.0.0__
-
-- Refactoring to be independent from Knex module
-- Compatibility with latest common Feathers service specification
-
-__1.2.0__
-
-- Babel 6 support, Object.assign polyfill and CommonJS module backwards compatibility
-
-__1.1.0__
-
-- Compatibility with latest service tests
-
-__1.0.0__
-
-- Initial release
-
 ## License
 
-Copyright (c) 2015
+Copyright (c) 2016
 
 Licensed under the [MIT license](LICENSE).
