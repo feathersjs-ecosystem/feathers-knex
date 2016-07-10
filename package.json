@@ -47,7 +47,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "feathers-errors": "^2.0.1",
+    "feathers-errors": "^2.3.0",
     "feathers-query-filters": "^2.0.0",
     "is-plain-object": "^2.0.1",
     "uberproto": "^1.2.0"
