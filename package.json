@@ -47,9 +47,8 @@
     "lib": "lib"
   },
   "dependencies": {
-    "babel-polyfill": "^6.3.14",
     "feathers-errors": "^2.0.1",
-    "feathers-query-filters": "^1.5.1",
+    "feathers-query-filters": "^2.0.0",
     "is-plain-object": "^2.0.1",
     "uberproto": "^1.2.0"
   },

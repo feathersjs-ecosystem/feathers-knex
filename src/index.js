@@ -1,5 +1,3 @@
-if(!global._babelPolyfill) { require('babel-polyfill'); }
-
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
@@ -79,36 +77,36 @@ class Service {
   }
 
 	_find(params, count, getFilter = filter) {
-    let query = this.db().select(['*']);
-    let filters = getFilter(params.query || {});
+    let q = this.db().select(['*']);
+    let { filters, query } = getFilter(params.query || {});
 
 		// $select uses a specific find syntax, so it has to come first.
 		if (filters.$select) {
       let fields = filters.$select;
-      query = this.db().select(... fields);
+      q = this.db().select(... fields);
 		}
 
     // build up the knex query out of the query params
-    this.knexify(query, params.query);
+    this.knexify(q, query);
 
 		// Handle $sort
 		if (filters.$sort) {
       Object.keys(filters.$sort).forEach(key =>
-        query = query.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc'));
+        q = q.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc'));
 		}
 
 		// Handle $limit
 		if (filters.$limit) {
-      query.limit(filters.$limit);
+      q.limit(filters.$limit);
 		}
 
 		// Handle $skip
 		if (filters.$skip) {
-      query.offset(filters.$skip);
+      q.offset(filters.$skip);
 		}
 
     const executeQuery = total => {
-      return query.then(data => {
+      return q.then(data => {
         return {
           total,
           limit: filters.$limit,
@@ -121,7 +119,7 @@ class Service {
     if(count) {
       let countQuery = this.db().count(`${this.id} as total`);
 
-      this.knexify(countQuery, params.query);
+      this.knexify(countQuery, query);
 
       return countQuery.then(count => count[0].total).then(executeQuery);
     }
