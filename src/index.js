@@ -37,6 +37,7 @@ class Service {
     this.id = options.id || 'id';
     this.paginate = options.paginate || {};
     this.table = options.name;
+    this.idFromData = options.idFromData;
 	}
 
   // NOTE (EK): We need this method so that we return a new query
@@ -160,8 +161,10 @@ class Service {
   }
 
   _create(data, params) {
-    return this.db().insert(data, this.id).then(rows => this._get(rows[0], params))
-      .catch(errorHandler);
+    return this.db().insert(data, this.id).then(rows => {
+      const id = this.idFromData ? data[this.id] : rows[0];
+      return this._get(id, params);
+    }).catch(errorHandler);
   }
 
 	create(data, params) {
