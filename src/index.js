@@ -37,6 +37,7 @@ class Service {
     this.id = options.id || 'id';
     this.paginate = options.paginate || {};
     this.table = options.name;
+    this.fieldsExcludedFromUpdate = options.fieldsExcludedFromUpdate || [];
 	}
 
   // NOTE (EK): We need this method so that we return a new query
@@ -215,7 +216,7 @@ class Service {
 
       for (var key of Object.keys(oldData)) {
         if (data[key] === undefined) {
-          newObject[key] = null;
+          newObject[key] = this.fieldsExcludedFromUpdate.indexOf(key) === -1 ? null : oldData[key];
         } else {
           newObject[key] = data[key];
         }
