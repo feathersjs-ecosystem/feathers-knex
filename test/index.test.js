@@ -86,8 +86,9 @@ describe('Feathers Knex Service', () => {
       }, done);
     });
 
-    afterEach(done => people.remove(_ids.Doug, {})
-      .then(() => done(), () => done()));
+    afterEach(done => {
+      people.remove(_ids.Doug, {}).then(() => done(), () => done());
+    });
 
     it('is CommonJS compatible', () => {
       assert.equal(typeof require('../lib'), 'function');
