@@ -66,7 +66,7 @@ class Service {
       // into nested where conditions.
       if (method) {
         if (key === '$or') {
-          return query.where(() => {
+          return query.where(function() {
             value.forEach(condition => this[method].call(this, condition));
           });  
         }
