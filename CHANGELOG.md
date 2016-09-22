@@ -1,5 +1,27 @@
 # Change Log
 
+## [v2.3.0](https://github.com/feathersjs/feathers-knex/tree/v2.3.0) (2016-09-22)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.2.0...v2.3.0)
+
+**Fixed bugs:**
+
+- We shouldn't remove properties from original objects [\#55](https://github.com/feathersjs/feathers-knex/issues/55)
+
+**Closed issues:**
+
+- Need a way to exclude automatically generated columns from the update method.  [\#61](https://github.com/feathersjs/feathers-knex/issues/61)
+- How to setup relations between tables ? [\#60](https://github.com/feathersjs/feathers-knex/issues/60)
+- Ability to return value from original insert object [\#58](https://github.com/feathersjs/feathers-knex/issues/58)
+
+**Merged pull requests:**
+
+- Compatibility with latest service tests [\#75](https://github.com/feathersjs/feathers-knex/pull/75) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Grouping conditions [\#73](https://github.com/feathersjs/feathers-knex/pull/73) ([kaiquewdev](https://github.com/kaiquewdev))
+- Update knex to version 0.12.0 🚀 [\#72](https://github.com/feathersjs/feathers-knex/pull/72) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Added option to grab created resource id from original data object. [\#63](https://github.com/feathersjs/feathers-knex/pull/63) ([jayalfredprufrock](https://github.com/jayalfredprufrock))
+- Update mocha to version 3.0.0 🚀 [\#59](https://github.com/feathersjs/feathers-knex/pull/59) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update feathers-query-filters to version 2.0.0 🚀 [\#56](https://github.com/feathersjs/feathers-knex/pull/56) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+
 ## [v2.2.0](https://github.com/feathersjs/feathers-knex/tree/v2.2.0) (2016-06-17)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.1.3...v2.2.0)
 
