@@ -37,6 +37,7 @@ class Service {
     this.id = options.id || 'id';
     this.paginate = options.paginate || {};
     this.table = options.name;
+    this.events = options.events || [];
 	}
 
   // NOTE (EK): We need this method so that we return a new query
@@ -50,26 +51,29 @@ class Service {
 	}
 
   knexify(query, params, parentKey) {
-    Object.keys(params || {}).forEach((key) => {
+    Object.keys(params || {}).forEach(key => {
       const value = params[key];
 
       if (isPlainObject(value)) {
         return this.knexify(query, value, key);
       }
 
+      // const self = this;
       const column = parentKey || key;
       const method = METHODS[key];
       const operator = OPERATORS[key] || '=';
 
-      // TODO (EK): Handle $or queries with nested specials.
-      // Right now they won't work and we'd need to start diving
-      // into nested where conditions.
       if (method) {
         if (key === '$or') {
-          return query.where(function() {
-            value.forEach(condition => this[method].call(this, condition));
-          });  
+          const self = this;
+
+          return value.forEach(condition => {
+            query[method](function() {
+              self.knexify(this, condition);
+            });
+          });
         }
+
         return query[method].call(query, column, value);
       }
 
@@ -78,13 +82,12 @@ class Service {
   }
 
 	_find(params, count, getFilter = filter) {
+    const { filters, query } = getFilter(params.query || {});
     let q = this.db().select(['*']);
-    let { filters, query } = getFilter(params.query || {});
 
 		// $select uses a specific find syntax, so it has to come first.
 		if (filters.$select) {
-      let fields = filters.$select;
-      q = this.db().select(... fields);
+      q = this.db().select(... filters.$select);
 		}
 
     // build up the knex query out of the query params
@@ -176,21 +179,32 @@ class Service {
     return this._create(data, params);
 	}
 
-	patch(id, data, params) {
-    params.query = params.query || {};
-    data = Object.assign({}, data);
+	patch(id, raw, params) {
+    const query = Object.assign({}, params.query);
+    const data = Object.assign({}, raw);
+    const patchQuery = {};
 
     if(id !== null) {
-      params.query[this.id] = id;
+      query[this.id] = id;
     }
 
-    let query = this.db();
-    this.knexify(query, params.query);
+    // Account for potentially modified data
+    Object.keys(query).forEach(key => {
+      if(query[key] !== undefined && data[key] !== undefined &&
+          typeof data[key] !== 'object') {
+        patchQuery[key] = data[key];
+      } else {
+        patchQuery[key] = query[key];
+      }
+    });
+
+    let q = this.db();
+    this.knexify(q, query);
 
     delete data[this.id];
 
-    return query.update(data).then(() => {
-      return this._find(params).then(page => {
+    return q.update(data).then(() => {
+      return this._find({ query: patchQuery }).then(page => {
         const items = page.data;
 
         if(id !== null) {
