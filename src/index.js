@@ -15,7 +15,8 @@ const OPERATORS = {
   $lt: '<',
   $lte: '<=',
   $gt: '>',
-  $gte: '>='
+  $gte: '>=',
+  $like: 'like'
 };
 
 // Create the service.

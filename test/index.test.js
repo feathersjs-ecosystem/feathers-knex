@@ -82,6 +82,22 @@ describe('Feathers Knex Service', () => {
     base(app, errors, 'people');
     base(app, errors, 'people-customid', 'customid');
   });
+
+  describe('$like method', () => {
+    beforeEach(done => {
+      app.service('/people').create({
+        name: 'Charlie Brown',
+        age: 10
+      }, done);
+    });
+
+    it('$like in query', () => {
+      return app.service('/people').find({ query: { name: { $like: '%lie%' } } })
+        .then(data => {
+          expect(data[0].name).to.be.equal('Charlie Brown');
+        });
+    });
+  });
 });
 
 describe('Knex service example test', () => {
