@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.4.0](https://github.com/feathersjs/feathers-knex/tree/v2.4.0) (2016-10-19)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.3.0...v2.4.0)
+
+**Closed issues:**
+
+- $or filter doesn't group together conditions [\#71](https://github.com/feathersjs/feathers-knex/issues/71)
+- Patch many doesn't return patched items when the query includes patched fields [\#52](https://github.com/feathersjs/feathers-knex/issues/52)
+
+**Merged pull requests:**
+
+- Add $like query [\#79](https://github.com/feathersjs/feathers-knex/pull/79) ([mcchrish](https://github.com/mcchrish))
+
 ## [v2.3.0](https://github.com/feathersjs/feathers-knex/tree/v2.3.0) (2016-09-22)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.2.0...v2.3.0)
 
