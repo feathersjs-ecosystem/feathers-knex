@@ -12,11 +12,11 @@ const knex = require('knex')({
 
 // Clean up our data. This is optional and is here
 // because of our integration tests
-knex.schema.dropTableIfExists('todos').then(function() {
+knex.schema.dropTableIfExists('todos').then(function () {
   console.log('Dropped todos table');
 
   // Initialize your table
-  return knex.schema.createTable('todos', function(table) {
+  return knex.schema.createTable('todos', function (table) {
     console.log('Creating todos table');
     table.increments('id');
     table.string('text');
@@ -44,7 +44,7 @@ app.use('/todos', knexService({
   }
 }));
 
-app.use(function(error, req, res, next){
+app.use(function (error, req, res, next) {
   res.json(error);
 });
 

@@ -1,15 +1,15 @@
 import errors from 'feathers-errors';
 
-export default function errorHandler(error) {
+export default function errorHandler (error) {
   let feathersError = error;
 
-  //TODO (EK): Map PG, MySQL, Oracle, etc. errors
+  // TODO (EK): Map PG, MySQL, Oracle, etc. errors
 
   // NOTE (EK): Error codes taken from
   // https://www.sqlite.org/c3ref/c_abort.html
 
   if (error.code === 'SQLITE_ERROR') {
-    switch(error.errno) {
+    switch (error.errno) {
       case 1:
       case 8:
       case 18:
@@ -32,6 +32,6 @@ export default function errorHandler(error) {
         break;
     }
   }
-  
+
   throw feathersError;
 }
