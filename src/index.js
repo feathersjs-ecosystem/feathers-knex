@@ -21,7 +21,7 @@ const OPERATORS = {
 
 // Create the service.
 class Service {
-	constructor(options) {
+  constructor (options) {
     if (!options) {
       throw new Error('Knex options have to be provided');
     }
@@ -39,19 +39,19 @@ class Service {
     this.paginate = options.paginate || {};
     this.table = options.name;
     this.events = options.events || [];
-	}
+  }
 
   // NOTE (EK): We need this method so that we return a new query
   // instance each time, otherwise it will reuse the same query.
-  db() {
+  db () {
     return this.knex(this.table);
   }
 
-  extend(obj) {
-		return Proto.extend(obj, this);
-	}
+  extend (obj) {
+    return Proto.extend(obj, this);
+  }
 
-  knexify(query, params, parentKey) {
+  knexify (query, params, parentKey) {
     Object.keys(params || {}).forEach(key => {
       const value = params[key];
 
@@ -69,12 +69,12 @@ class Service {
           const self = this;
 
           return value.forEach(condition => {
-            query[method](function() {
+            query[method](function () {
               self.knexify(this, condition);
             });
           });
         }
-
+        // eslint-disable-next-line no-useless-call
         return query[method].call(query, column, value);
       }
 
@@ -82,33 +82,33 @@ class Service {
     });
   }
 
-	_find(params, count, getFilter = filter) {
+  _find (params, count, getFilter = filter) {
     const { filters, query } = getFilter(params.query || {});
     let q = this.db().select(['*']);
 
-		// $select uses a specific find syntax, so it has to come first.
-		if (filters.$select) {
-      q = this.db().select(... filters.$select);
-		}
+    // $select uses a specific find syntax, so it has to come first.
+    if (filters.$select) {
+      q = this.db().select(...filters.$select);
+    }
 
     // build up the knex query out of the query params
     this.knexify(q, query);
 
-		// Handle $sort
-		if (filters.$sort) {
+    // Handle $sort
+    if (filters.$sort) {
       Object.keys(filters.$sort).forEach(key =>
-        q = q.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc'));
-		}
+        (q = q.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc')));
+    }
 
-		// Handle $limit
-		if (filters.$limit) {
+    // Handle $limit
+    if (filters.$limit) {
       q.limit(filters.$limit);
-		}
+    }
 
-		// Handle $skip
-		if (filters.$skip) {
+    // Handle $skip
+    if (filters.$skip) {
       q.offset(filters.$skip);
-		}
+    }
 
     const executeQuery = total => {
       return q.then(data => {
@@ -121,7 +121,7 @@ class Service {
       });
     };
 
-    if(count) {
+    if (count) {
       let countQuery = this.db().count(`${this.id} as total`);
 
       this.knexify(countQuery, query);
@@ -130,68 +130,67 @@ class Service {
     }
 
     return executeQuery();
-	}
+  }
 
-  find(params) {
-    const paginate = (params && typeof params.paginate !== 'undefined') ?
-      params.paginate : this.paginate;
+  find (params) {
+    const paginate = (params && typeof params.paginate !== 'undefined')
+      ? params.paginate : this.paginate;
     const result = this._find(params, !!paginate.default,
       query => filter(query, paginate)
     );
 
-    if(!paginate.default) {
+    if (!paginate.default) {
       return result.then(page => page.data);
     }
 
     return result;
   }
 
-	_get(id, params) {
+  _get (id, params) {
     params.query = params.query || {};
     params.query[this.id] = id;
 
     return this._find(params)
       .then(page => {
-        if(page.data.length !== 1) {
+        if (page.data.length !== 1) {
           throw new errors.NotFound(`No record found for id '${id}'`);
         }
 
         return page.data[0];
       }).catch(errorHandler);
-	}
+  }
 
-  get(...args) {
+  get (...args) {
     return this._get(...args);
   }
 
-  _create(data, params) {
+  _create (data, params) {
     return this.db().insert(data, this.id).then(rows => {
-      const id = typeof data[this.id] !== 'undefined' ?
-        data[this.id] : rows[0];
+      const id = typeof data[this.id] !== 'undefined' ? data[this.id] : rows[0];
       return this._get(id, params);
     }).catch(errorHandler);
   }
 
-	create(data, params) {
-    if(Array.isArray(data)) {
+  create (data, params) {
+    if (Array.isArray(data)) {
       return Promise.all(data.map(current => this._create(current, params)));
     }
 
     return this._create(data, params);
-	}
+  }
 
-	patch(id, raw, params) {
+  patch (id, raw, params) {
     const query = Object.assign({}, params.query);
     const data = Object.assign({}, raw);
     const patchQuery = {};
 
-    if(id !== null) {
+    if (id !== null) {
       query[this.id] = id;
     }
 
     // Account for potentially modified data
     Object.keys(query).forEach(key => {
-      if(query[key] !== undefined && data[key] !== undefined &&
+      if (query[key] !== undefined && data[key] !== undefined &&
           typeof data[key] !== 'object') {
         patchQuery[key] = data[key];
       } else {
@@ -208,8 +207,8 @@ class Service {
       return this._find({ query: patchQuery }).then(page => {
         const items = page.data;
 
-        if(id !== null) {
-          if(items.length === 1) {
+        if (id !== null) {
+          if (items.length === 1) {
             return items[0];
           } else {
             throw new errors.NotFound(`No record found for id '${id}'`);
@@ -219,10 +218,10 @@ class Service {
         return items;
       });
     }).catch(errorHandler);
-	}
+  }
 
-	update(id, data, params) {
-    if(Array.isArray(data)) {
+  update (id, data, params) {
+    if (Array.isArray(data)) {
       return Promise.reject('Not replacing multiple records. Did you mean `patch`?');
     }
 
@@ -249,14 +248,14 @@ class Service {
         return newObject;
       });
     }).catch(errorHandler);
-	}
+  }
 
-	remove(id, params) {
+  remove (id, params) {
     params.query = params.query || {};
 
     // NOTE (EK): First fetch the record so that we can return
     // it when we delete it.
-    if(id !== null) {
+    if (id !== null) {
       params.query[this.id] = id;
     }
 
@@ -267,8 +266,8 @@ class Service {
       this.knexify(query, params.query);
 
       return query.del().then(() => {
-        if(id !== null) {
-          if(items.length === 1) {
+        if (id !== null) {
+          if (items.length === 1) {
             return items[0];
           } else {
             throw new errors.NotFound(`No record found for id '${id}'`);
@@ -278,10 +277,10 @@ class Service {
         return items;
       });
     }).catch(errorHandler);
-	}
+  }
 }
 
-export default function init(options) {
+export default function init (options) {
   return new Service(options);
 }
 

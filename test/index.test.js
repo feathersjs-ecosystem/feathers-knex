@@ -1,5 +1,3 @@
-/*jshint expr: true*/
-
 import { expect } from 'chai';
 import assert from 'assert';
 import feathers from 'feathers';
@@ -16,7 +14,7 @@ const db = knex({
   }
 });
 
-function clean() {
+function clean () {
   return db.schema.dropTableIfExists('people')
     .then(() => db.schema.dropTableIfExists('people-customid'))
     .then(() =>
