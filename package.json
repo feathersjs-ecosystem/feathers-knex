@@ -37,7 +37,7 @@
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "compile": "rm -rf lib/ && babel -d lib/ src/",
+    "compile": "rimraf lib/ && babel -d lib/ src/",
     "watch": "babel --watch -d lib/ src/",
     "lint": "eslint-if-supported semistandard --fix",
     "mocha": "mocha test/ --compilers js:babel-core/register --timeout 5000",
@@ -75,6 +75,7 @@
     "feathers-service-tests": "^0.8.0",
     "knex": "^0.12.0",
     "mocha": "^3.0.0",
+    "rimraf": "^2.5.4",
     "semistandard": "^9.1.0",
     "sqlite3": "^3.1.0"
   }
