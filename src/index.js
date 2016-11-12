@@ -88,7 +88,7 @@ class Service {
 
     // $select uses a specific find syntax, so it has to come first.
     if (filters.$select) {
-      q = this.db().select(...filters.$select);
+      q = this.db().select(...filters.$select.concat(this.id));
     }
 
     // build up the knex query out of the query params
@@ -110,7 +110,7 @@ class Service {
       q.offset(filters.$skip);
     }
 
-    const executeQuery = total => {
+    let executeQuery = total => {
       return q.then(data => {
         return {
           total,
@@ -120,6 +120,17 @@ class Service {
         };
       });
     };
+
+    if (filters.$limit === 0) {
+      executeQuery = total => {
+        return Promise.resolve({
+          total,
+          limit: filters.$limit,
+          skip: filters.$skip || 0,
+          data: []
+        });
+      };
+    }
 
     if (count) {
       let countQuery = this.db().count(`${this.id} as total`);
@@ -133,8 +144,7 @@ class Service {
   }
 
   find (params) {
-    const paginate = (params && typeof params.paginate !== 'undefined')
-      ? params.paginate : this.paginate;
+    const paginate = (params && typeof params.paginate !== 'undefined') ? params.paginate : this.paginate;
     const result = this._find(params, !!paginate.default,
       query => filter(query, paginate)
     );
@@ -147,10 +157,11 @@ class Service {
   }
 
   _get (id, params) {
-    params.query = params.query || {};
-    params.query[this.id] = id;
+    const query = Object.assign({}, params.query);
 
-    return this._find(params)
+    query[this.id] = id;
+
+    return this._find(Object.assign({}, params, { query }))
       .then(page => {
         if (page.data.length !== 1) {
           throw new errors.NotFound(`No record found for id '${id}'`);
@@ -180,42 +191,50 @@ class Service {
   }
 
   patch (id, raw, params) {
-    const query = Object.assign({}, params.query);
+    const query = filter(params.query || {}).query;
     const data = Object.assign({}, raw);
-    const patchQuery = {};
+    const mapIds = page => page.data.map(current => current[this.id]);
+
+    // By default we will just query for the one id. For multi patch
+    // we create a list of the ids of all items that will be changed
+    // to re-query them after the update
+    const ids = id === null ? this._find(params)
+        .then(mapIds) : Promise.resolve([ id ]);
 
     if (id !== null) {
       query[this.id] = id;
     }
 
-    // Account for potentially modified data
-    Object.keys(query).forEach(key => {
-      if (query[key] !== undefined && data[key] !== undefined &&
-          typeof data[key] !== 'object') {
-        patchQuery[key] = data[key];
-      } else {
-        patchQuery[key] = query[key];
-      }
-    });
-
     let q = this.db();
+
     this.knexify(q, query);
 
     delete data[this.id];
 
-    return q.update(data).then(() => {
-      return this._find({ query: patchQuery }).then(page => {
-        const items = page.data;
-
-        if (id !== null) {
-          if (items.length === 1) {
-            return items[0];
-          } else {
-            throw new errors.NotFound(`No record found for id '${id}'`);
-          }
+    return ids.then(idList => {
+      // Create a new query that re-queries all ids that
+      // were originally changed
+      const findParams = Object.assign({}, params, {
+        query: {
+          [this.id]: { $in: idList },
+          $select: params.query && params.query.$select
         }
+      });
 
-        return items;
+      return q.update(data).then(() => {
+        return this._find(findParams).then(page => {
+          const items = page.data;
+
+          if (id !== null) {
+            if (items.length === 1) {
+              return items[0];
+            } else {
+              throw new errors.NotFound(`No record found for id '${id}'`);
+            }
+          }
+
+          return items;
+        });
       });
     }).catch(errorHandler);
   }
