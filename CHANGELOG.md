@@ -1,5 +1,19 @@
 # Change Log
 
+## [v2.5.0](https://github.com/feathersjs/feathers-knex/tree/v2.5.0) (2016-11-12)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.4.0...v2.5.0)
+
+**Closed issues:**
+
+- Social Authentication SQL parse error with Knex [\#68](https://github.com/feathersjs/feathers-knex/issues/68)
+
+**Merged pull requests:**
+
+- Update feathers-service-tests to version 0.9.0 🚀 [\#86](https://github.com/feathersjs/feathers-knex/pull/86) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- 👻😱 Node.js 0.10 is unmaintained 😱👻 [\#84](https://github.com/feathersjs/feathers-knex/pull/84) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- babel-preset-es2015@6.18.0 breaks build 🚨 [\#83](https://github.com/feathersjs/feathers-knex/pull/83) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- jshint —\> semistandard [\#80](https://github.com/feathersjs/feathers-knex/pull/80) ([corymsmith](https://github.com/corymsmith))
+
 ## [v2.4.0](https://github.com/feathersjs/feathers-knex/tree/v2.4.0) (2016-10-19)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.3.0...v2.4.0)
 
