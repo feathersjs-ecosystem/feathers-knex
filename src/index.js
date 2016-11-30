@@ -187,7 +187,7 @@ class Service {
     return this.db().insert(data, this.id).then(rows => {
       const id = typeof data[this.id] !== 'undefined' ? data[this.id] : rows[0];
       return this._get(id, params);
-    });
+    }).catch(errorHandler);
   }
 
   create (data, params) {
@@ -273,8 +273,8 @@ class Service {
         // NOTE (EK): Restore the id field so we can return it to the client
         newObject[this.id] = id;
         return newObject;
-      }).catch(errorHandler);
-    });
+      });
+    }).catch(errorHandler);
   }
 
   remove (id, params) {
