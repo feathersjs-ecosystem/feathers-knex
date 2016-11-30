@@ -1,5 +1,16 @@
 # Change Log
 
+## [v2.6.0](https://github.com/feathersjs/feathers-knex/tree/v2.6.0) (2016-11-30)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.5.0...v2.6.0)
+
+**Closed issues:**
+
+- Exposing the query builder [\#87](https://github.com/feathersjs/feathers-knex/issues/87)
+
+**Merged pull requests:**
+
+- Add createQuery and remove error handler for now [\#88](https://github.com/feathersjs/feathers-knex/pull/88) ([daffl](https://github.com/daffl))
+
 ## [v2.5.0](https://github.com/feathersjs/feathers-knex/tree/v2.5.0) (2016-11-12)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.4.0...v2.5.0)
 
