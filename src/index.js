@@ -2,6 +2,7 @@ import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import { errors } from 'feathers-errors';
+import errorHandler from './error-handler';
 
 const METHODS = {
   $or: 'orWhere',
@@ -147,7 +148,7 @@ class Service {
       return countQuery.then(count => count[0].total).then(executeQuery);
     }
 
-    return executeQuery();
+    return executeQuery().catch(errorHandler);
   }
 
   find (params) {
@@ -175,7 +176,7 @@ class Service {
         }
 
         return page.data[0];
-      });
+      }).catch(errorHandler);
   }
 
   get (...args) {
@@ -243,7 +244,7 @@ class Service {
           return items;
         });
       });
-    });
+    }).catch(errorHandler);
   }
 
   update (id, data, params) {
@@ -302,7 +303,7 @@ class Service {
 
         return items;
       });
-    });
+    }).catch(errorHandler);
   }
 }
 
