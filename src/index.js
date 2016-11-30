@@ -273,7 +273,7 @@ class Service {
         // NOTE (EK): Restore the id field so we can return it to the client
         newObject[this.id] = id;
         return newObject;
-      });
+      }).catch(errorHandler);
     });
   }
 
