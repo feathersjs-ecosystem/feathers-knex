@@ -1,8 +1,8 @@
 import Proto from 'uberproto';
 import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
-import errorHandler from './error-handler';
 import { errors } from 'feathers-errors';
+import errorHandler from './error-handler';
 
 const METHODS = {
   $or: 'orWhere',
@@ -82,8 +82,8 @@ class Service {
     });
   }
 
-  _find (params, count, getFilter = filter) {
-    const { filters, query } = getFilter(params.query || {});
+  createQuery (paramsQuery = {}) {
+    const { filters, query } = filter(paramsQuery);
     let q = this.db().select(['*']);
 
     // $select uses a specific find syntax, so it has to come first.
@@ -96,9 +96,17 @@ class Service {
 
     // Handle $sort
     if (filters.$sort) {
-      Object.keys(filters.$sort).forEach(key =>
-        (q = q.orderBy(key, parseInt(filters.$sort[key], 10) === 1 ? 'asc' : 'desc')));
+      Object.keys(filters.$sort).forEach(key => {
+        q = q.orderBy(key, filters.$sort[key] === 1 ? 'asc' : 'desc');
+      });
     }
+
+    return q;
+  }
+
+  _find (params, count, getFilter = filter) {
+    const { filters, query } = getFilter(params.query || {});
+    const q = params.knex || this.createQuery(params.query);
 
     // Handle $limit
     if (filters.$limit) {
@@ -140,7 +148,7 @@ class Service {
       return countQuery.then(count => count[0].total).then(executeQuery);
     }
 
-    return executeQuery();
+    return executeQuery().catch(errorHandler);
   }
 
   find (params) {
