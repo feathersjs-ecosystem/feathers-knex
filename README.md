@@ -33,7 +33,7 @@ Here's a complete example of a Feathers server with a `todos` SQLite service. We
 import feathers from 'feathers';
 import rest from 'feathers-rest';
 import bodyParser from 'body-parser';
-import knexService from '../lib';
+import knexService from 'feathers-knex';
 
 const knex = require('knex')({
   client: 'sqlite3',
@@ -80,7 +80,11 @@ app.use(function(error, req, res, next){
   res.json(error);
 });
 
-console.log('Feathers Todo Knex service running on 127.0.0.1:3030');
+// Start the server.
+const port = 8080;
+app.listen(port, function() {
+  console.log(`Feathers server listening on port ${port}`);
+});
 ```
 
 You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
