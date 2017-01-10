@@ -84,11 +84,11 @@ class Service {
 
   createQuery (paramsQuery = {}) {
     const { filters, query } = filter(paramsQuery);
-    let q = this.db().select(['*']);
+    let q = this.db().select([`${this.table}.*`]);
 
     // $select uses a specific find syntax, so it has to come first.
     if (filters.$select) {
-      q = this.db().select(...filters.$select.concat(this.id));
+      q = this.db().select(...filters.$select.concat(`${this.table}.${this.id}`));
     }
 
     // build up the knex query out of the query params
