@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.6.1](https://github.com/feathersjs/feathers-knex/tree/v2.6.1) (2017-02-13)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.0...v2.6.1)
+
+**Merged pull requests:**
+
+- Add error handling for mysql and mysql2 server errors [\#92](https://github.com/feathersjs/feathers-knex/pull/92) ([lvivier](https://github.com/lvivier))
+- Update README Example [\#89](https://github.com/feathersjs/feathers-knex/pull/89) ([arlair](https://github.com/arlair))
+
 ## [v2.6.0](https://github.com/feathersjs/feathers-knex/tree/v2.6.0) (2016-11-30)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.5.0...v2.6.0)
 
