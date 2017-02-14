@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.6.2](https://github.com/feathersjs/feathers-knex/tree/v2.6.2) (2017-02-14)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.1...v2.6.2)
+
+**Merged pull requests:**
+
+- Fix wrong error constructor [\#93](https://github.com/feathersjs/feathers-knex/pull/93) ([lvivier](https://github.com/lvivier))
+
 ## [v2.6.1](https://github.com/feathersjs/feathers-knex/tree/v2.6.1) (2017-02-13)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.0...v2.6.1)
 
