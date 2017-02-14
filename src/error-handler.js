@@ -33,7 +33,7 @@ export default function errorHandler (error) {
       case '40':
       case '42':
       case '70':
-        feathersError = new errors.BadRequestError(error);
+        feathersError = new errors.BadRequest(error);
         break;
       default:
         feathersError = new errors.GeneralError(error);
