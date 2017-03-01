@@ -1,5 +1,16 @@
 # Change Log
 
+## [v2.6.3](https://github.com/feathersjs/feathers-knex/tree/v2.6.3) (2017-03-01)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.2...v2.6.3)
+
+**Closed issues:**
+
+- Update selected fields error [\#94](https://github.com/feathersjs/feathers-knex/issues/94)
+
+**Merged pull requests:**
+
+- Scoping select to current table to prevent "ambiguous" join queries [\#90](https://github.com/feathersjs/feathers-knex/pull/90) ([shadowRR](https://github.com/shadowRR))
+
 ## [v2.6.2](https://github.com/feathersjs/feathers-knex/tree/v2.6.2) (2017-02-14)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.1...v2.6.2)
 
