@@ -249,7 +249,7 @@ class Service {
 
   update (id, data, params) {
     if (Array.isArray(data)) {
-      return Promise.reject('Not replacing multiple records. Did you mean `patch`?');
+      return Promise.reject(errors.BadRequest('Not replacing multiple records. Did you mean `patch`?'));
     }
 
     // NOTE (EK): First fetch the old record so
