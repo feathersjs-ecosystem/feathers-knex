@@ -71,12 +71,12 @@ todos
   .init({}, function(table) {
 
     //define your schema
-    debug(`created ${table} table`);
+    console.log(`created ${table._tableName} table`);
     table.increments('id');
     table.string('text');
     table.boolean('complete');
 
-  }).then({} => {
+  }).then(() => {
 
     app.use('/todos', todos);
 
@@ -90,8 +90,7 @@ todos
       console.log(`Feathers server listening on port ${port}`);
     });
 
-  })
-
+  });
 ```
 
 You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
