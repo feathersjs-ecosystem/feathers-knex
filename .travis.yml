@@ -5,6 +5,7 @@ node_js:
   - '4'
 sudo: false
 before_script:
+- unset NVM_NODEJS_ORG_MIRROR NVM_IOJS_ORG_MIRROR
 - npm install -g codeclimate-test-reporter
 after_script:
 - codeclimate-test-reporter < coverage/lcov.info
