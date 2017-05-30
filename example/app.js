@@ -34,26 +34,19 @@ const app = feathers()
 // Initialize the database table with a schema
 // then mount the service and start the app
 todos
-  .init({}, function(table) {
-
-    //define your schema
+  .init({}, function (table) {
+    // define your schema
     console.log(`created ${table._tableName} table`);
     table.increments('id');
     table.string('text');
     table.boolean('complete');
-
   }).then(() => {
-
     app.use('/todos', todos);
 
-    app.use(function(error, req, res, next){
+    app.use(function (error, req, res, next) {
       res.json(error);
     });
-
-    // Start the server.
-    const port = 8080;
-    app.listen(port, function() {
-      console.log(`Feathers server listening on port ${port}`);
-    });
-
   });
+
+module.exports = app.listen(3030);
+console.log('Feathers Todo Knex service running on 127.0.0.1:3030');
