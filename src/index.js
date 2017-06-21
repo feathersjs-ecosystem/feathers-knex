@@ -57,7 +57,7 @@ class Service {
     let k = this.knex;
     let table = this.table;
 
-    return k.schema.dropTableIfExists(table)
+    return k.schema.createTableIfNotExists(table)
       .then(function () {
         debug(`dropped ${table} table`);
         return k.schema.createTable(table, cb);
