@@ -57,12 +57,14 @@ class Service {
     let k = this.knex;
     let table = this.table;
 
-    return new Promise(function(fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       k.schema.hasTable(table).then(exists => {
         if (!exists) {
-          k.schema.createTable(table, cb).then(fulfill);
+          debug(`creating ${table}`);
+          k.schema.createTable(table, cb).then(resolve);
         } else {
-          fulfill(null);
+          debug(`${table} already exists`);
+          resolve(null);
         }
       });
     });
