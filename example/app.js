@@ -41,6 +41,7 @@ todos
     table.string('text');
     table.boolean('complete');
   }).then(() => {
+    console.log('/todos mounted');
     app.use('/todos', todos);
 
     app.use(function (error, req, res, next) {
