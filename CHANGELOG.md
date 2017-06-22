@@ -1,5 +1,24 @@
 # Change Log
 
+## [v2.7.0](https://github.com/feathersjs/feathers-knex/tree/v2.7.0) (2017-06-22)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.3...v2.7.0)
+
+**Closed issues:**
+
+- Primary key is not "id" [\#101](https://github.com/feathersjs/feathers-knex/issues/101)
+- An in-range update of mocha is breaking the build 🚨 [\#100](https://github.com/feathersjs/feathers-knex/issues/100)
+- Datetype for mysql [\#98](https://github.com/feathersjs/feathers-knex/issues/98)
+
+**Merged pull requests:**
+
+- Minor init method refactoring [\#107](https://github.com/feathersjs/feathers-knex/pull/107) ([daffl](https://github.com/daffl))
+- Initialize Database Table [\#106](https://github.com/feathersjs/feathers-knex/pull/106) ([slajax](https://github.com/slajax))
+- Update chai to the latest version 🚀 [\#105](https://github.com/feathersjs/feathers-knex/pull/105) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update feathers-service-tests to the latest version 🚀 [\#104](https://github.com/feathersjs/feathers-knex/pull/104) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update knex to the latest version 🚀 [\#102](https://github.com/feathersjs/feathers-knex/pull/102) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update semistandard to the latest version 🚀 [\#99](https://github.com/feathersjs/feathers-knex/pull/99) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update dependencies to enable Greenkeeper 🌴 [\#97](https://github.com/feathersjs/feathers-knex/pull/97) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v2.6.3](https://github.com/feathersjs/feathers-knex/tree/v2.6.3) (2017-03-01)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.2...v2.6.3)
 
