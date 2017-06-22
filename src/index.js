@@ -53,20 +53,18 @@ class Service {
     return Proto.extend(obj, this);
   }
 
-  init (opts = {}, cb) {
+  init (opts, cb) {
     let k = this.knex;
     let table = this.table;
 
-    return new Promise(function (resolve, reject) {
-      k.schema.hasTable(table).then(exists => {
-        if (!exists) {
-          debug(`creating ${table}`);
-          k.schema.createTable(table, cb).then(resolve);
-        } else {
-          debug(`${table} already exists`);
-          resolve(null);
-        }
-      });
+    return k.schema.hasTable(table).then(exists => {
+      if (!exists) {
+        debug(`creating ${table}`);
+        return k.schema.createTable(table, cb).then(res => res);
+      } else {
+        debug(`${table} already exists`);
+        return null;
+      }
     });
   }
 
