@@ -3,6 +3,7 @@ import rest from 'feathers-rest';
 import bodyParser from 'body-parser';
 import knexService from '../lib';
 
+// Initialize knex database adapter
 const knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -10,18 +11,15 @@ const knex = require('knex')({
   }
 });
 
-// Clean up our data. This is optional and is here
-// because of our integration tests
-knex.schema.dropTableIfExists('todos').then(function () {
-  console.log('Dropped todos table');
-
-  // Initialize your table
-  return knex.schema.createTable('todos', function (table) {
-    console.log('Creating todos table');
-    table.increments('id');
-    table.string('text');
-    table.boolean('complete');
-  });
+// Create Knex Feathers service with a default page size of 2 items
+// and a maximum size of 4
+var todos = knexService({
+  Model: knex,
+  name: 'todos',
+  paginate: {
+    default: 2,
+    max: 4
+  }
 });
 
 // Create a feathers instance.
@@ -33,22 +31,23 @@ const app = feathers()
   // Turn on URL-encoded parser for REST services
   .use(bodyParser.urlencoded({ extended: true }));
 
-// Create Knex Feathers service with a default page size of 2 items
-// and a maximum size of 4
-app.use('/todos', knexService({
-  Model: knex,
-  name: 'todos',
-  paginate: {
-    default: 2,
-    max: 4
-  }
-}));
+// Initialize the database table with a schema
+// then mount the service and start the app
+todos
+  .init({}, function (table) {
+    // define your schema
+    console.log(`created ${table._tableName} table`);
+    table.increments('id');
+    table.string('text');
+    table.boolean('complete');
+  }).then(() => {
+    console.log('/todos mounted');
+    app.use('/todos', todos);
 
-app.use(function (error, req, res, next) {
-  res.json(error);
-});
+    app.use(function (error, req, res, next) {
+      res.json(error);
+    });
+  });
 
-// Start the server
 module.exports = app.listen(3030);
-
 console.log('Feathers Todo Knex service running on 127.0.0.1:3030');

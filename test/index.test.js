@@ -14,37 +14,44 @@ const db = knex({
   }
 });
 
+const people = service({
+  Model: db,
+  name: 'people',
+  events: [ 'testing' ]
+});
+
+const peopleId = service({
+  Model: db,
+  id: 'customid',
+  name: 'people-customid',
+  events: [ 'testing' ]
+});
+
 function clean () {
-  return db.schema.dropTableIfExists('people')
-    .then(() => db.schema.dropTableIfExists('people-customid'))
-    .then(() =>
-      db.schema.createTable('people', table => {
-        table.increments('id');
-        table.string('name');
-        table.integer('age');
-        table.integer('time');
-        table.boolean('created');
-      }).then(() => db.schema.createTable('people-customid', table => {
-        table.increments('customid');
-        table.string('name');
-        table.integer('age');
-        table.integer('time');
-        table.boolean('created');
-      }))
-  );
+  return people.init({}, (table) => {
+    table.increments('id');
+    table.string('name');
+    table.integer('age');
+    table.integer('time');
+    table.boolean('created');
+    return table;
+  })
+  .then(() => {
+    return peopleId.init({}, (table) => {
+      table.increments('customid');
+      table.string('name');
+      table.integer('age');
+      table.integer('time');
+      table.boolean('created');
+      return table;
+    });
+  });
 }
 
 describe('Feathers Knex Service', () => {
-  const app = feathers().use('/people', service({
-    Model: db,
-    name: 'people',
-    events: [ 'testing' ]
-  })).use('/people-customid', service({
-    Model: db,
-    id: 'customid',
-    name: 'people-customid',
-    events: [ 'testing' ]
-  }));
+  const app = feathers()
+    .use('/people', people)
+    .use('people-customid', peopleId);
 
   before(clean);
   after(clean);

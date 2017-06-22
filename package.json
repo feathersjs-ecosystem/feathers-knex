@@ -57,6 +57,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "debug": "^2.6.8",
     "feathers-errors": "^2.0.1",
     "feathers-query-filters": "^2.0.0",
     "is-plain-object": "^2.0.1",
@@ -79,6 +80,6 @@
     "mocha": "^3.0.0",
     "rimraf": "^2.5.4",
     "semistandard": "^11.0.0",
-    "sqlite3": "^3.1.0"
+    "sqlite3": "^3.1.8"
   }
 }

@@ -4,6 +4,8 @@ import isPlainObject from 'is-plain-object';
 import { errors } from 'feathers-errors';
 import errorHandler from './error-handler';
 
+const debug = require('debug')('feathers-knex');
+
 const METHODS = {
   $or: 'orWhere',
   $ne: 'whereNot',
@@ -49,6 +51,23 @@ class Service {
 
   extend (obj) {
     return Proto.extend(obj, this);
+  }
+
+  init (opts = {}, cb) {
+    let k = this.knex;
+    let table = this.table;
+
+    return new Promise(function (resolve, reject) {
+      k.schema.hasTable(table).then(exists => {
+        if (!exists) {
+          debug(`creating ${table}`);
+          k.schema.createTable(table, cb).then(resolve);
+        } else {
+          debug(`${table} already exists`);
+          resolve(null);
+        }
+      });
+    });
   }
 
   knexify (query, params, parentKey) {
