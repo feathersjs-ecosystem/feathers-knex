@@ -1,5 +1,18 @@
 # Change Log
 
+## [Unreleased](https://github.com/feathersjs/feathers-knex/tree/HEAD)
+
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.0...HEAD)
+
+**Closed issues:**
+
+- result.total type is string in postgres [\#108](https://github.com/feathersjs/feathers-knex/issues/108)
+- ER\_DUP\_KEYNAME: Duplicate key name [\#103](https://github.com/feathersjs/feathers-knex/issues/103)
+
+**Merged pull requests:**
+
+- Convert total to integer [\#109](https://github.com/feathersjs/feathers-knex/pull/109) ([daffl](https://github.com/daffl))
+
 ## [v2.7.0](https://github.com/feathersjs/feathers-knex/tree/v2.7.0) (2017-06-22)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.6.3...v2.7.0)
 
