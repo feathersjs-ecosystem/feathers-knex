@@ -138,7 +138,7 @@ class Service {
     let executeQuery = total => {
       return q.then(data => {
         return {
-          total,
+          total: parseInt(total, 10),
           limit: filters.$limit,
           skip: filters.$skip || 0,
           data
