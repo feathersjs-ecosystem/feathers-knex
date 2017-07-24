@@ -2,7 +2,14 @@
 
 ## [Unreleased](https://github.com/feathersjs/feathers-knex/tree/HEAD)
 
-[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.0...HEAD)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.1...HEAD)
+
+**Merged pull requests:**
+
+- Convert total to integer for count\(\)  [\#110](https://github.com/feathersjs/feathers-knex/pull/110) ([runningskull](https://github.com/runningskull))
+
+## [v2.7.1](https://github.com/feathersjs/feathers-knex/tree/v2.7.1) (2017-07-22)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.0...v2.7.1)
 
 **Closed issues:**
 
