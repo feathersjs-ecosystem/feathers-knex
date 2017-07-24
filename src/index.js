@@ -149,7 +149,7 @@ class Service {
     if (filters.$limit === 0) {
       executeQuery = total => {
         return Promise.resolve({
-          total,
+          total: parseInt(total, 10),
           limit: filters.$limit,
           skip: filters.$skip || 0,
           data: []
