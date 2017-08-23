@@ -47,8 +47,8 @@ class Service {
 
   // NOTE (EK): We need this method so that we return a new query
   // instance each time, otherwise it will reuse the same query.
-  db (params) {
-    if (params.transaction.trx) {
+  db (params = {}) {
+    if (params.transaction) {
       const { trx, id } = params.transaction;
       debugTransaction('ran %s with transaction %s', this.table, id);
       return trx(this.table);
@@ -106,8 +106,8 @@ class Service {
     });
   }
 
-  createQuery (params) {
-    const { filters, query } = filter(params.query);
+  createQuery (params = {}) {
+    const { filters, query } = filter(params.query || {});
     let q = this.db(params).select([`${this.table}.*`]);
 
     // $select uses a specific find syntax, so it has to come first.
