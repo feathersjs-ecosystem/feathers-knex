@@ -6,16 +6,16 @@ export const start = (options) => {
   return (hook) =>
     new Promise(resolve =>
       hook.app.get(dbServiceName).transaction(trx => {
-        const id = Date.now()
+        const id = Date.now();
         hook.params.transaction = {
           trx,
           id
-        }
+        };
         debug('started a new transaction %s', id);
         return resolve(hook);
       })
-    )
-}
+    );
+};
 
 export const end = (options) => {
   return (hook) => {
@@ -26,8 +26,8 @@ export const end = (options) => {
         .then(hook);
     }
     return hook;
-  }
-}
+  };
+};
 
 export const rollback = (options) => {
   return (hook) => {
@@ -38,5 +38,5 @@ export const rollback = (options) => {
         .then(hook);
     }
     return hook;
-  }
-}
+  };
+};
