@@ -47,4 +47,4 @@ export default {
     end,
     rollback
   }
-}
+};
