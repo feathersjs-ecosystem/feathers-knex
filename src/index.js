@@ -3,7 +3,7 @@ import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import { errors } from 'feathers-errors';
 import errorHandler from './error-handler';
-import * as transactionHooks from './transaction-hooks';
+import hooks from './transaction-hooks';
 
 const debug = require('debug')('feathers-knex');
 
@@ -334,5 +334,5 @@ export default function init (options) {
   return new Service(options);
 }
 
-init.transactionHooks = transactionHooks;
+init.hooks = hooks;
 init.Service = Service;
