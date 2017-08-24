@@ -6,7 +6,6 @@ import errorHandler from './error-handler';
 import * as transactionHooks from './transaction-hooks';
 
 const debug = require('debug')('feathers-knex');
-const debugTransaction = require('debug')('feathers-knex-transaction');
 
 const METHODS = {
   $or: 'orWhere',
@@ -50,7 +49,7 @@ class Service {
   db (params = {}) {
     if (params.transaction) {
       const { trx, id } = params.transaction;
-      debugTransaction('ran %s with transaction %s', this.table, id);
+      debug('ran %s with transaction %s', this.table, id);
       return trx(this.table);
     }
     return this.knex(this.table);
