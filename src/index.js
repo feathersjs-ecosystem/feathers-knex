@@ -3,7 +3,7 @@ import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import { errors } from 'feathers-errors';
 import errorHandler from './error-handler';
-import hooks from './transaction-hooks';
+import hooks from './hooks';
 
 const debug = require('debug')('feathers-knex');
 
