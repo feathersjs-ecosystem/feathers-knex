@@ -1,6 +1,6 @@
 const debug = require('debug')('feathers-knex-transaction');
 
-export const start = (options) => {
+const start = (options) => {
   const { dbServiceName } = options;
   debug('started transaction system with %s service', dbServiceName);
   return (hook) =>
@@ -17,7 +17,7 @@ export const start = (options) => {
     );
 };
 
-export const end = (options) => {
+const end = (options) => {
   return (hook) => {
     if (hook.params.transaction) {
       const { trx, id } = hook.params.transaction;
@@ -29,7 +29,7 @@ export const end = (options) => {
   };
 };
 
-export const rollback = (options) => {
+const rollback = (options) => {
   return (hook) => {
     if (hook.params.transaction) {
       const { trx, id } = hook.params.transaction;
@@ -40,3 +40,11 @@ export const rollback = (options) => {
     return hook;
   };
 };
+
+export default {
+  transaction: {
+    start,
+    end,
+    rollback
+  }
+}
