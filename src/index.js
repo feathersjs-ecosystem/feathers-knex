@@ -175,7 +175,6 @@ class Service {
   }
 
   find (params) {
-    debug('method find of service %s called', this.table);
     const paginate = (params && typeof params.paginate !== 'undefined') ? params.paginate : this.paginate;
     const result = this._find(params, !!paginate.default,
       query => filter(query, paginate)
