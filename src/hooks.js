@@ -1,11 +1,13 @@
 const debug = require('debug')('feathers-knex-transaction');
 
 const start = (options) => {
-  const { dbServiceName } = options;
-  debug('started transaction system with %s service', dbServiceName);
   return (hook) =>
-    new Promise(resolve =>
-      hook.app.get(dbServiceName).transaction(trx => {
+    new Promise(resolve => {
+      if (!hook.service.Model || typeof hook.service.Model.transaction !== 'function') {
+        return resolve(hook);
+      }
+
+      hook.service.Model.transaction(trx => {
         const id = Date.now();
         hook.params.transaction = {
           trx,
@@ -13,8 +15,8 @@ const start = (options) => {
         };
         debug('started a new transaction %s', id);
         return resolve(hook);
-      })
-    );
+      });
+    });
 };
 
 const end = (options) => {

@@ -1,11 +1,15 @@
 import { expect } from 'chai';
 import assert from 'assert';
 import feathers from 'feathers';
+import hooks from 'feathers-hooks';
 import knex from 'knex';
 import { base, example } from 'feathers-service-tests';
 import { errors } from 'feathers-errors';
+
 import service from '../src';
 import server from '../example/app';
+
+const { transaction } = service.hooks;
 
 const db = knex({
   client: 'sqlite3',
@@ -50,9 +54,14 @@ function clean () {
 
 describe('Feathers Knex Service', () => {
   const app = feathers()
+    .configure(hooks())
+    .hooks({
+      before: transaction.start(),
+      after: transaction.end(),
+      error: transaction.rollback()
+    })
     .use('/people', people)
     .use('people-customid', peopleId);
-
   before(clean);
   after(clean);
 
@@ -97,10 +106,11 @@ describe('Feathers Knex Service', () => {
     });
 
     it('$like in query', () => {
-      return app.service('/people').find({ query: { name: { $like: '%lie%' } } })
-        .then(data => {
-          expect(data[0].name).to.be.equal('Charlie Brown');
-        });
+      return app.service('/people').find({
+        query: { name: { $like: '%lie%' } }
+      }).then(data => {
+        expect(data[0].name).to.be.equal('Charlie Brown');
+      });
     });
   });
 });
