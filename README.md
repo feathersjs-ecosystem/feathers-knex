@@ -96,6 +96,56 @@ todos
 
 You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
 
+# Transaction Support
+A example of using the transaction hooks:
+```javascript
+// A common hooks file
+import { hooks } from 'feathers-knex';
+
+const { transaction } = hooks;
+
+const logger = require('./hooks/logger');
+
+module.exports = {
+  before: {
+    all: [transaction.start({ dbServiceName: 'knexClient' })],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  },
+
+  after: {
+    all: [logger(), transaction.end()],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  },
+
+  error: {
+    all: [transaction.rollback(), logger()],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  }
+};
+```
+
+To use the transactions feature, you must ensure that the three hooks (start, commit and rollback) are being used.
+
+At the start of any request, a new transaction will be started. All the changes made during the request to the services that are using the `feathers-knex` will use the transaction. At the end of the request, if sucessful, the changes will be commited. If an error occurs, the changes will be forfeit, all the `creates`, `patches`, `updates` and `deletes` are not going to be commited.
+
+The object that contains `transaction` is stored in the `params.transaction` of each request. If you must extend the `feathers-knex` service, use the `params.transaction.trx` to make your database calls, or simply call the method `this.db(params)` inside a class that extends de `feathers-knex` service.
+
+
 ## License
 
 Copyright (c) 2016

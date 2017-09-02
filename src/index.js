@@ -3,6 +3,7 @@ import filter from 'feathers-query-filters';
 import isPlainObject from 'is-plain-object';
 import { errors } from 'feathers-errors';
 import errorHandler from './error-handler';
+import hooks from './hooks';
 
 const debug = require('debug')('feathers-knex');
 
@@ -45,7 +46,12 @@ class Service {
 
   // NOTE (EK): We need this method so that we return a new query
   // instance each time, otherwise it will reuse the same query.
-  db () {
+  db (params = {}) {
+    if (params.transaction) {
+      const { trx, id } = params.transaction;
+      debug('ran %s with transaction %s', this.table, id);
+      return trx(this.table);
+    }
     return this.knex(this.table);
   }
 
@@ -99,13 +105,13 @@ class Service {
     });
   }
 
-  createQuery (paramsQuery = {}) {
-    const { filters, query } = filter(paramsQuery);
-    let q = this.db().select([`${this.table}.*`]);
+  createQuery (params = {}) {
+    const { filters, query } = filter(params.query || {});
+    let q = this.db(params).select([`${this.table}.*`]);
 
     // $select uses a specific find syntax, so it has to come first.
     if (filters.$select) {
-      q = this.db().select(...filters.$select.concat(`${this.table}.${this.id}`));
+      q = this.db(params).select(...filters.$select.concat(`${this.table}.${this.id}`));
     }
 
     // build up the knex query out of the query params
@@ -123,7 +129,7 @@ class Service {
 
   _find (params, count, getFilter = filter) {
     const { filters, query } = getFilter(params.query || {});
-    const q = params.knex || this.createQuery(params.query);
+    const q = params.knex || this.createQuery(params);
 
     // Handle $limit
     if (filters.$limit) {
@@ -158,7 +164,7 @@ class Service {
     }
 
     if (count) {
-      let countQuery = this.db().count(`${this.id} as total`);
+      let countQuery = this.db(params).count(`${this.id} as total`);
 
       this.knexify(countQuery, query);
 
@@ -201,7 +207,7 @@ class Service {
   }
 
   _create (data, params) {
-    return this.db().insert(data, this.id).then(rows => {
+    return this.db(params).insert(data, this.id).then(rows => {
       const id = typeof data[this.id] !== 'undefined' ? data[this.id] : rows[0];
       return this._get(id, params);
     }).catch(errorHandler);
@@ -230,7 +236,7 @@ class Service {
       query[this.id] = id;
     }
 
-    let q = this.db();
+    let q = this.db(params);
 
     this.knexify(q, query);
 
@@ -286,7 +292,7 @@ class Service {
       // NOTE (EK): Delete id field so we don't update it
       delete newObject[this.id];
 
-      return this.db().where(this.id, id).update(newObject).then(() => {
+      return this.db(params).where(this.id, id).update(newObject).then(() => {
         // NOTE (EK): Restore the id field so we can return it to the client
         newObject[this.id] = id;
         return newObject;
@@ -305,7 +311,7 @@ class Service {
 
     return this._find(params).then(page => {
       const items = page.data;
-      const query = this.db();
+      const query = this.db(params);
 
       this.knexify(query, params.query);
 
@@ -328,4 +334,5 @@ export default function init (options) {
   return new Service(options);
 }
 
+init.hooks = hooks;
 init.Service = Service;
