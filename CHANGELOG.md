@@ -1,8 +1,21 @@
 # Change Log
 
-## [Unreleased](https://github.com/feathersjs/feathers-knex/tree/HEAD)
+## [v2.8.0](https://github.com/feathersjs/feathers-knex/tree/v2.8.0) (2017-09-03)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.2...v2.8.0)
 
-[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.1...HEAD)
+**Closed issues:**
+
+- Service methods are not executed in transaction [\#91](https://github.com/feathersjs/feathers-knex/issues/91)
+
+**Merged pull requests:**
+
+- Finalize transaction hooks and functionality, add to tests [\#114](https://github.com/feathersjs/feathers-knex/pull/114) ([daffl](https://github.com/daffl))
+- Executing services methods using transaction, implementation of issue \#91 [\#113](https://github.com/feathersjs/feathers-knex/pull/113) ([pnakibar](https://github.com/pnakibar))
+- Update debug to the latest version 🚀 [\#112](https://github.com/feathersjs/feathers-knex/pull/112) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Fixing broken docs links [\#111](https://github.com/feathersjs/feathers-knex/pull/111) ([corymsmith](https://github.com/corymsmith))
+
+## [v2.7.2](https://github.com/feathersjs/feathers-knex/tree/v2.7.2) (2017-07-24)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.1...v2.7.2)
 
 **Merged pull requests:**
 
