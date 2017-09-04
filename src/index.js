@@ -37,7 +37,7 @@ class Service {
       throw new Error('No table name specified.');
     }
 
-    this.knex = options.Model;
+    this.knex = this.Model = options.Model;
     this.id = options.id || 'id';
     this.paginate = options.paginate || {};
     this.table = options.name;
