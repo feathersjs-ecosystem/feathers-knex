@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.8.1](https://github.com/feathersjs/feathers-knex/tree/v2.8.1) (2017-09-04)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.8.0...v2.8.1)
+
+**Merged pull requests:**
+
+- Add this.Model reference for the Knex client [\#115](https://github.com/feathersjs/feathers-knex/pull/115) ([daffl](https://github.com/daffl))
+
 ## [v2.8.0](https://github.com/feathersjs/feathers-knex/tree/v2.8.0) (2017-09-03)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.7.2...v2.8.0)
 
