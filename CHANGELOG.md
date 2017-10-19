@@ -1,5 +1,20 @@
 # Change Log
 
+## [v2.8.2](https://github.com/feathersjs/feathers-knex/tree/v2.8.2) (2017-10-19)
+[Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.8.1...v2.8.2)
+
+**Closed issues:**
+
+- Wrong total if params.knex is set [\#121](https://github.com/feathersjs/feathers-knex/issues/121)
+- $or bug [\#120](https://github.com/feathersjs/feathers-knex/issues/120)
+- knexfile.js for migrations [\#116](https://github.com/feathersjs/feathers-knex/issues/116)
+
+**Merged pull requests:**
+
+- Add tests for or bug [\#123](https://github.com/feathersjs/feathers-knex/pull/123) ([daffl](https://github.com/daffl))
+- fix nested $or [\#122](https://github.com/feathersjs/feathers-knex/pull/122) ([sylvainlap](https://github.com/sylvainlap))
+- Update mocha to the latest version 🚀 [\#119](https://github.com/feathersjs/feathers-knex/pull/119) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v2.8.1](https://github.com/feathersjs/feathers-knex/tree/v2.8.1) (2017-09-04)
 [Full Changelog](https://github.com/feathersjs/feathers-knex/compare/v2.8.0...v2.8.1)
 
