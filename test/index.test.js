@@ -98,18 +98,47 @@ describe('Feathers Knex Service', () => {
   });
 
   describe('$like method', () => {
-    beforeEach(done => {
-      app.service('/people').create({
-        name: 'Charlie Brown',
-        age: 10
-      }, done);
-    });
+    beforeEach(() => app.service('/people').create({
+      name: 'Charlie Brown',
+      age: 10
+    }));
 
     it('$like in query', () => {
       return app.service('/people').find({
         query: { name: { $like: '%lie%' } }
       }).then(data => {
         expect(data[0].name).to.be.equal('Charlie Brown');
+      });
+    });
+  });
+
+  describe('adapter specifics', () => {
+    it('$or works properly (#120)', () => {
+      app.service('/people').create([{
+        name: 'Dave',
+        age: 23
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          name: 'Dave',
+          $or: [{
+            age: 1
+          }, {
+            age: 32
+          }]
+        }
+      }).then(data => {
+        expect(data.length).to.equal(1);
+        expect(data[0].name).to.be.equal('Dave');
+        expect(data[0].age).to.be.equal(32);
+        app.service('/people').remove(null);
       });
     });
   });
