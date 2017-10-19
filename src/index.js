@@ -91,9 +91,11 @@ class Service {
         if (key === '$or') {
           const self = this;
 
-          return value.forEach(condition => {
-            query[method](function () {
-              self.knexify(this, condition);
+          return query.where(function () {
+            return value.forEach((condition) => {
+              this.orWhere(function () {
+                self.knexify(this, condition);
+              });
             });
           });
         }
