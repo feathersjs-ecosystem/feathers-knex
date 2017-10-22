@@ -68,5 +68,31 @@ export default function errorHandler (error) {
     }
   }
 
+  // NOTE: Error codes taken from
+  // https://www.postgresql.org/docs/9.6/static/errcodes-appendix.html
+  if (typeof error.code === 'string' && error.severity && error.routine) {
+    // Omit query information
+    const messages = error.message.split('-');
+    error.message = messages[messages.length - 1]
+
+    switch (error.code.slice(0,2)) {
+      case '22':
+      case '23':
+        feathersError = new errors.BadRequest(error);
+        break;
+      case '28':
+        feathersError = new errors.Forbidden(error);
+        break;
+      case '3D':
+      case '3F':
+      case '42':
+        feathersError = new errors.Unprocessable(error);
+        break;
+      default:
+        feathersError = new errors.GeneralError(error);
+        break;
+    }
+  }
+
   throw feathersError;
 }
