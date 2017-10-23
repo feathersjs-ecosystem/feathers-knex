@@ -85,7 +85,7 @@ class Service {
       // const self = this;
       const column = parentKey || key;
       const method = METHODS[key];
-      const operator = OPERATORS[key] || '=';
+      const operator = OPERATORS[key];
 
       if (method) {
         if (key === '$or') {
@@ -103,7 +103,7 @@ class Service {
         return query[method].call(query, column, value);
       }
 
-      return query.where(column, operator, value);
+      return operator ? query.where(column, operator, value) : query.where(column, value);
     });
   }
 
