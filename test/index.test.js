@@ -141,6 +141,114 @@ describe('Feathers Knex Service', () => {
         app.service('/people').remove(null);
       });
     });
+
+    it('where conditions support NULL values properly', () => {
+      app.service('/people').create([{
+        name: 'Dave without age',
+        age: null
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          age: null
+        }
+      }).then(data => {
+        expect(data.length).to.equal(1);
+        expect(data[0].name).to.be.equal('Dave without age');
+        expect(data[0].age).to.be.equal(null);
+        app.service('/people').remove(null);
+      });
+    });
+
+    it('where conditions support NOT NULL case properly', () => {
+      app.service('/people').create([{
+        name: 'Dave without age',
+        age: null
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          age: {$ne: null}
+        }
+      }).then(data => {
+        expect(data.length).to.equal(2);
+        expect(data[0].name).to.be.equal('Dave');
+        expect(data[0].age).to.be.equal(32);
+        expect(data[1].name).to.be.equal('Dada');
+        expect(data[1].age).to.be.equal(1);
+        app.service('/people').remove(null);
+      });
+    });
+
+    it('where conditions support NULL values within AND conditions', () => {
+      app.service('/people').create([{
+        name: 'Dave',
+        age: null
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          age: null,
+          name: 'Dave'
+        }
+      }).then(data => {
+        expect(data.length).to.equal(1);
+        expect(data[0].name).to.be.equal('Dave');
+        expect(data[0].age).to.be.equal(null);
+        app.service('/people').remove(null);
+      });
+    });
+
+    it('where conditions support NULL values within OR conditions', () => {
+      app.service('/people').create([{
+        name: 'Dave',
+        age: null
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          $or: [
+            {
+              age: null
+            },
+            {
+              name: 'Dada'
+            }
+          ]
+        }
+      }).then(data => {
+        expect(data.length).to.equal(2);
+        expect(data[0].name).to.be.equal('Dave');
+        expect(data[0].age).to.be.equal(null);
+        expect(data[1].name).to.be.equal('Dada');
+        expect(data[1].age).to.be.equal(1);
+        app.service('/people').remove(null);
+      });
+    });
   });
 });
 

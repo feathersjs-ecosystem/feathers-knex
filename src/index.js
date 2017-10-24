@@ -103,7 +103,7 @@ class Service {
         return query[method].call(query, column, value);
       }
 
-      return query.where(column, operator, value);
+      return operator === '=' ? query.where(column, value) : query.where(column, operator, value);
     });
   }
 
