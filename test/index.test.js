@@ -184,10 +184,10 @@ describe('Feathers Knex Service', () => {
         }
       }).then(data => {
         expect(data.length).to.equal(2);
-        expect(data[0].name).to.be.equal('Dave');
-        expect(data[0].age).to.be.equal(32);
-        expect(data[1].name).to.be.equal('Dada');
-        expect(data[1].age).to.be.equal(1);
+        expect(data[0].name).to.not.be.equal('Dave without age');
+        expect(data[0].age).to.not.be.equal(null);
+        expect(data[1].name).to.not.be.equal('Dave without age');
+        expect(data[1].age).to.not.be.equal(null);
         app.service('/people').remove(null);
       });
     });
