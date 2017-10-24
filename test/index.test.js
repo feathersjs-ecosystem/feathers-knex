@@ -219,7 +219,7 @@ describe('Feathers Knex Service', () => {
 
     it('where conditions support NULL values within OR conditions', () => {
       app.service('/people').create([{
-        name: 'Dave',
+        name: 'Dave without age',
         age: null
       }, {
         name: 'Dave',
@@ -242,10 +242,10 @@ describe('Feathers Knex Service', () => {
         }
       }).then(data => {
         expect(data.length).to.equal(2);
-        expect(data[0].name).to.be.equal('Dave');
-        expect(data[0].age).to.be.equal(null);
-        expect(data[1].name).to.be.equal('Dada');
-        expect(data[1].age).to.be.equal(1);
+        expect(data[0].name).not.be.equal('Dave');
+        expect(data[0].age).not.be.equal(32);
+        expect(data[1].name).not.be.equal('Dave');
+        expect(data[1].age).not.be.equal(32);
         app.service('/people').remove(null);
       });
     });
