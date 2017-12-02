@@ -1,32 +1,31 @@
 const debug = require('debug')('feathers-knex-transaction');
 
 const start = (options) => {
-  return (hook) =>
-    new Promise(resolve => {
-      if (!hook.service.Model || typeof hook.service.Model.transaction !== 'function') {
-        return resolve(hook);
-      }
+  return hook => new Promise(resolve => {
+    if (!hook.service.Model || typeof hook.service.Model.transaction !== 'function') {
+      return resolve(hook);
+    }
 
-      if (hook.params.transaction) {
-        hook.params.transaction.count += 1;
-        return resolve(hook);
-      }
+    if (hook.params.transaction) {
+      hook.params.transaction.count += 1;
+      return resolve(hook);
+    }
 
-      hook.service.Model.transaction(trx => {
-        const id = Date.now();
-        hook.params.transaction = {
-          trx,
-          id,
-          count: 0
-        };
-        debug('started a new transaction %s', id);
-        return resolve(hook);
-      });
+    hook.service.Model.transaction(trx => {
+      const id = Date.now();
+      hook.params.transaction = {
+        trx,
+        id,
+        count: 0
+      };
+      debug('started a new transaction %s', id);
+      return resolve(hook);
     });
+  });
 };
 
 const end = (options) => {
-  return (hook) => {
+  return hook => {
     if (hook.params.transaction) {
       const { trx, id, count } = hook.params.transaction;
 
@@ -46,7 +45,7 @@ const end = (options) => {
 };
 
 const rollback = (options) => {
-  return (hook) => {
+  return hook => {
     if (hook.params.transaction) {
       const { trx, id } = hook.params.transaction;
       return trx.rollback()

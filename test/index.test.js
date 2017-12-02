@@ -3,11 +3,10 @@ import assert from 'assert';
 import feathers from 'feathers';
 import hooks from 'feathers-hooks';
 import knex from 'knex';
-import { base, example } from 'feathers-service-tests';
+import { base } from 'feathers-service-tests';
 import { errors } from 'feathers-errors';
 
 import service from '../src';
-import server from '../example/app';
 
 const { transaction } = service.hooks;
 
@@ -250,10 +249,4 @@ describe('Feathers Knex Service', () => {
       });
     });
   });
-});
-
-describe('Knex service example test', () => {
-  after(done => server.close(() => done()));
-
-  example();
 });
