@@ -73,9 +73,9 @@ export default function errorHandler (error) {
   if (typeof error.code === 'string' && error.severity && error.routine) {
     // Omit query information
     const messages = error.message.split('-');
-    error.message = messages[messages.length - 1]
+    error.message = messages[messages.length - 1];
 
-    switch (error.code.slice(0,2)) {
+    switch (error.code.slice(0, 2)) {
       case '22':
       case '23':
         feathersError = new errors.BadRequest(error);
