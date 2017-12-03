@@ -1,11 +1,18 @@
 # Change Log
 
-## [Unreleased](https://github.com/feathersjs-ecosystem/feathers-knex/tree/HEAD)
+## [v3.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.0) (2017-12-03)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.9.0...v3.0.0)
 
-[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.9.0...HEAD)
+**Closed issues:**
+
+- Nested service usage with transaction hooks at both of them? [\#118](https://github.com/feathersjs-ecosystem/feathers-knex/issues/118)
 
 **Merged pull requests:**
 
+- Upgrade to Feathers Buzzard \(v3\) [\#135](https://github.com/feathersjs-ecosystem/feathers-knex/pull/135) ([daffl](https://github.com/daffl))
+- Update to new plugin infrastructure [\#134](https://github.com/feathersjs-ecosystem/feathers-knex/pull/134) ([daffl](https://github.com/daffl))
+- Update knex to the latest version 🚀 [\#132](https://github.com/feathersjs-ecosystem/feathers-knex/pull/132) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- add transaction support to nested service calls [\#130](https://github.com/feathersjs-ecosystem/feathers-knex/pull/130) ([paflopes](https://github.com/paflopes))
 - Update repository location [\#129](https://github.com/feathersjs-ecosystem/feathers-knex/pull/129) ([daffl](https://github.com/daffl))
 
 ## [v2.9.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.9.0) (2017-10-25)
