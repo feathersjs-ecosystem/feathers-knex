@@ -1,12 +1,13 @@
-import { expect } from 'chai';
-import assert from 'assert';
-import feathers from 'feathers';
-import hooks from 'feathers-hooks';
-import knex from 'knex';
-import { base } from 'feathers-service-tests';
-import { errors } from 'feathers-errors';
+const { expect } = require('chai');
+const assert = require('assert');
+const feathers = require('feathers');
+const hooks = require('feathers-hooks');
+const knex = require('knex');
 
-import service from '../src';
+const { base } = require('feathers-service-tests');
+const { errors } = require('feathers-errors');
+
+const service = require('../lib');
 
 const { transaction } = service.hooks;
 

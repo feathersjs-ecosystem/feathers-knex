@@ -3,15 +3,3 @@ node_js:
   - '8'
   - '6'
 sudo: false
-before_script:
-- npm install -g codeclimate-test-reporter
-after_script:
-- codeclimate-test-reporter < coverage/lcov.info
-addons:
-  code_climate:
-    repo_token: 4f34d386760d6426e3b3cb862ab40197329fb49cec11321d15b4612143d491fd
-notifications:
-  email: false
-  slack:
-    rooms:
-      secure: eShpiNkdr1mwDoHA/PSIC40F5/szDXdK3ozNi0T48UxTZMNoFSVmXTXT2IRArDUdQUc4hg0f56eLEd2r9XXkvc495lC0+14kBFL84SSNq4lbUt3iYYQ9jAsbBFGChvH0lDFyD2wn/z1nFXDCYSLZoY2kIfWKhuL6HIur2r1m1VtI5/xLUTbzBUuLrvWCIilWkyKahKxPgsasU46W7uv95mWx/69Uuf9u5881c4+LmjoNde6Jh+V8g57tSFljgqCHKmMwvrME6H6JrD6AI3gCLoNffYWyE/DGKCXJQk4VbI8iBR3rUE/Wx7mqRyfcAwBSBP/IEUmLPPqq/NmHBxVtUB4MAZpYyWzMgrTK5DDZQ0xL9OqlUGNdW5yES4gLicWQ3D5z3qkwq7izOaaMUm7hw/vOulRJjYYCk0PGQLa0HzMZRRlNxDqZmFs3ZIqlAwMI5qiwfqVz2w0dyWNKciDp/yXua8CnRkfm4k+FQu+lIL0z+Cut9xEG0MYAi7I1YgC2mX9E54ZwXVLxXeXQ4E+XBq2kkts/uriwC0ga7QCr+HegwmVIvexotK9vj666i9/j4A00kAr0ujZaw8YA61vtiBnWmrUExjnl5zLTOWXtK5i25BL8ItltSZfmTp/dhkR+ozaqjNSO4jE3mUWr85/j7O8gYy/OoM98d5kC3X88FZc=
