@@ -3,98 +3,260 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs-ecosystem/feathers-knex.svg)](https://greenkeeper.io/)
 
 [![Build Status](https://travis-ci.org/feathersjs-ecosystem/feathers-knex.png?branch=master)](https://travis-ci.org/feathersjs-ecosystem/feathers-knex)
-[![Code Climate](https://codeclimate.com/github/feathersjs-ecosystem/feathers-knex.png)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-knex)
-[![Test Coverage](https://codeclimate.com/github/feathersjs-ecosystem/feathers-knex/badges/coverage.svg)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-knex/coverage)
 [![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-knex.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-knex)
 [![Download Status](https://img.shields.io/npm/dm/feathers-knex.svg?style=flat-square)](https://www.npmjs.com/package/feathers-knex)
-[![Slack Status](http://slack.feathersjs.com/badge.svg)](http://slack.feathersjs.com)
 
-> A [Knex.js](http://knexjs.org/) service adapter for [FeathersJS](http://feathersjs.com)
-
-
-## Installation
+A database adapter for [KnexJS](http://knexjs.org/), an SQL query builder for Postgres, MSSQL, MySQL, MariaDB, SQLite3, and Oracle.
 
 ```bash
-npm install feathers-knex --save
+npm install --save mysql knex feathers-knex
 ```
 
-## Documentation
+> __Important:__ `feathers-knex` implements the [Feathers Common database adapter API](https://docs.feathersjs.com/api/databases/common.html) and [querying syntax](https://docs.feathersjs.com/api/databases/querying.html).
 
-Please refer to the [Feathers database adapter documentation](https://docs.feathersjs.com/api/databases/common.html) for more details or directly at:
+<!-- -->
 
-- [KnexJS](http://docs.feathersjs.com/api/databases/knexjs.html) - The detailed documentation for this adapter
-- [Extending](https://docs.feathersjs.com/api/databases/common.html#extending-adapters) - How to extend a database adapter
-- [Pagination](https://docs.feathersjs.com/api/databases/common.html#pagination) - How to use pagination
-- [Querying and Sorting](https://docs.feathersjs.com/api/databases/querying.html) - The common adapter querying mechanism and sorting for the database adapter
+> **Note:** You also need to [install the database driver](http://knexjs.org/#Installation-node) for the DB you want to use.
 
+## API
 
-## Complete Example
+### `service(options)`
 
-Here's a complete example of a Feathers server with a `todos` SQLite service. We are using the [Knex schema builder](http://knexjs.org/#Schema)
+Returns a new service instance initialized with the given options.
 
 ```js
-import feathers from 'feathers';
-import rest from 'feathers-rest';
-import bodyParser from 'body-parser';
-import knexService from 'feathers-knex';
+const knex = require('knex');
+const service = require('feathers-knex');
 
-// Initialize knex database adapter
-const knex = require('knex')({
+const db = knex({
   client: 'sqlite3',
   connection: {
     filename: './db.sqlite'
   }
 });
 
-// Create Knex Feathers service with a default page size of 2 items
-// and a maximum size of 4
-var todos = knexService({
-  Model: knex,
-  name: 'todos',
-  paginate: {
-    default: 2,
-    max: 4
+// Create the schema
+db.schema.createTable('messages', table => {
+  table.increments('id');
+  table.string('text');
+});
+
+app.use('/messages', service({
+  Model: db,
+  name: 'messages'
+}));
+app.use('/messages', service({ Model, name, id, events, paginate }));
+```
+
+__Options:__
+
+- `Model` (**required**) - The KnexJS database instance
+- `name` (**required**) - The name of the table
+- `id` (*optional*, default: `'id'`) - The name of the id field property.
+- `events` (*optional*) - A list of [custom service events](https://docs.feathersjs.com/api/events.html#custom-events) sent by this service
+- `paginate` (*optional*) - A [pagination object](https://docs.feathersjs.com/api/databases/common.html#pagination) containing a `default` and `max` page size
+
+### `adapter.createQuery(query)`
+
+Returns a KnexJS query with the [common filter criteria](https://docs.feathersjs.com/api/databases/querying.html) (without pagination) applied.
+
+### params.knex
+
+When making a [service method](https://docs.feathersjs.com/api/services.html) call, `params` can contain an `knex` property which allows to modify the options used to run the KnexJS query. See [customizing the query](#customizing-the-query) for an example.
+
+
+## Example
+
+Here's a complete example of a Feathers server with a `messages` SQLite service. We are using the [Knex schema builder](http://knexjs.org/#Schema) and [SQLite](https://sqlite.org/) as the database.
+
+```
+$ npm install @feathersjs/feathers @feathersjs/errors @feathersjs/express @feathersjs/socketio feathers-knex knex sqlite3
+```
+
+In `app.js`:
+
+```js
+const feathers = require('@feathersjs/feathers');
+const express = require('@feathersjs/express');
+const socketio = require('@feathersjs/socketio');
+
+const service = require('feathers-knex');
+const knex = require('knex');
+
+const db = knex({
+  client: 'sqlite3',
+  connection: {
+    filename: './db.sqlite'
   }
 });
 
 // Create a feathers instance.
-const app = feathers()
-  // Enable REST services
-  .configure(rest())
-  // Turn on JSON parser for REST services
-  .use(bodyParser.json())
-  // Turn on URL-encoded parser for REST services
-  .use(bodyParser.urlencoded({ extended: true }));
+const app = express(feathers());
+// Turn on JSON parser for REST services
+app.use(express.json());
+// Turn on URL-encoded parser for REST services
+app.use(express.urlencoded({ extended: true }));
+// Enable REST services
+app.configure(express.rest());
+// Enable Socket.io services
+app.configure(socketio());
+// Create Knex Feathers service with a default page size of 2 items
+// and a maximum size of 4
+app.use('/messages', service({
+  Model: db,
+  name: 'messages',
+  paginate: {
+    default: 2,
+    max: 4
+  }
+}))
+app.use(express.errorHandler());
 
-// Initialize the database table with a schema
-// then mount the service and start the app
-todos
-  .init({}, function(table) {
+// Clean up our data. This is optional and is here
+// because of our integration tests
+db.schema.dropTableIfExists('messages').then(() => {
+  console.log('Dropped messages table');
 
-    //define your schema
-    console.log(`created ${table._tableName} table`);
+  // Initialize your table
+  return db.schema.createTable('messages', table => {
+    console.log('Creating messages table');
     table.increments('id');
     table.string('text');
-    table.boolean('complete');
-
-  }).then(() => {
-
-    app.use('/todos', todos);
-
-    app.use(function(error, req, res, next){
-      res.json(error);
-    });
-
-    // Start the server.
-    const port = 8080;
-    app.listen(port, function() {
-      console.log(`Feathers server listening on port ${port}`);
-    });
-
   });
+}).then(() => {
+  // Create a dummy Message
+  app.service('messages').create({
+    text: 'Message created on server'
+  }).then(message => console.log('Created message', message));
+});
+
+// Start the server.
+const port = 3030;
+
+app.listen(port, () => {
+  console.log(`Feathers server listening on port ${port}`);
+});
 ```
 
-You can run this example by using `node server` and going to [localhost:8080/todos](http://localhost:8080/todos). You should see an empty array. That's because you don't have any Todos yet but you now have full CRUD for your new todos service!
+Run the example with `node app` and go to [localhost:3030/messages](http://localhost:3030/messages).
+
+## Querying
+
+In addition to the [common querying mechanism](https://docs.feathersjs.com/api/databases/querying.html), this adapter also supports:
+
+### $like
+
+Find all records where the value matches the given string pattern. The following query retrieves all messages that start with `Hello`:
+
+```js
+app.service('messages').find({
+  query: {
+    text: {
+      $like: 'Hello%'
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?text[$like]=Hello%
+```
+
+### $ilike
+
+For PostgreSQL only, the keywork $ilike can be used instead of $like to make the match case insensitive. The following query retrieves all messages that start with `hello` (case insensitive):
+
+```js
+app.service('messages').find({
+  query: {
+    text: {
+      $ilike: 'hello%'
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?text[$ilike]=hello%
+```
+
+
+## Transaction Support
+
+The Knex adapter comes with three hooks that allows to run service method calls in a transaction. They can be used as application wide (`app.hooks.js`) hooks or per service like this:
+
+```javascript
+// A common hooks file
+const { hooks } = require('feathers-knex');
+
+const { transaction } = hooks;
+
+module.exports = {
+  before: {
+    all: [ transaction.start() ],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  },
+
+  after: {
+    all: [ transaction.end() ],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  },
+
+  error: {
+    all: [ transaction.rollback() ],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+  }
+};
+```
+
+To use the transactions feature, you must ensure that the three hooks (start, commit and rollback) are being used.
+
+At the start of any request, a new transaction will be started. All the changes made during the request to the services that are using the `feathers-knex` will use the transaction. At the end of the request, if sucessful, the changes will be commited. If an error occurs, the changes will be forfeit, all the `creates`, `patches`, `updates` and `deletes` are not going to be commited.
+
+The object that contains `transaction` is stored in the `params.transaction` of each request.
+
+> __Important:__ If you call another Knex service within a hook and want to share the transaction you will have to pass `context.params.transaction` in the parameters of the service call.
+
+
+## Customizing the query
+
+In a `find` call, `params.knex` can be passed a KnexJS query (without pagination) to customize the find results.
+
+Combined with `.createQuery({ query: {...} })`, which returns a new KnexJS query with the [common filter criteria](https://docs.feathersjs.com/api/databases/querying.html) applied, this can be used to create more complex queries. The best way to customize the query is in a [before hook](https://docs.feathersjs.com/api/hooks.html) for `find`.
+
+```js
+app.service('mesages').hooks({
+  before: {
+    find(context) {
+      const query = this.createQuery({ query: context.params.query });
+
+      // do something with query here
+      query.orderBy('name', 'desc');
+
+      context.params.knex = query;
+    }
+  }
+});
+```
 
 ## License
 
