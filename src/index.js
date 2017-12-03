@@ -304,7 +304,7 @@ class Service {
   }
 
   remove (id, params) {
-    params.query = params.query || {};
+    params.query = Object.assign({}, params.query);
 
     // NOTE (EK): First fetch the record so that we can return
     // it when we delete it.
@@ -314,9 +314,7 @@ class Service {
 
     return this._find(params).then(page => {
       const items = page.data;
-      const query = this.db(params);
-
-      this.knexify(query, params.query);
+      const query = this.createQuery(params);
 
       return query.del().then(() => {
         if (id !== null) {
