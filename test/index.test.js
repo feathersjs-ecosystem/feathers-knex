@@ -1,11 +1,10 @@
 const { expect } = require('chai');
 const assert = require('assert');
-const feathers = require('feathers');
-const hooks = require('feathers-hooks');
+const feathers = require('@feathersjs/feathers');
 const knex = require('knex');
 
 const { base } = require('feathers-service-tests');
-const { errors } = require('feathers-errors');
+const errors = require('@feathersjs/errors');
 
 const service = require('../lib');
 
@@ -54,7 +53,6 @@ function clean () {
 
 describe('Feathers Knex Service', () => {
   const app = feathers()
-    .configure(hooks())
     .hooks({
       before: transaction.start(),
       after: transaction.end(),
