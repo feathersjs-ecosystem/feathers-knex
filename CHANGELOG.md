@@ -1,5 +1,16 @@
 # Change Log
 
+## [v3.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.1) (2017-12-14)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.0...v3.0.1)
+
+**Closed issues:**
+
+- Warning message output from hook.js [\#136](https://github.com/feathersjs-ecosystem/feathers-knex/issues/136)
+
+**Merged pull requests:**
+
+- Pass function to then\(\) to remove warning [\#137](https://github.com/feathersjs-ecosystem/feathers-knex/pull/137) ([sonycamera](https://github.com/sonycamera))
+
 ## [v3.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.0) (2017-12-03)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.9.0...v3.0.0)
 
