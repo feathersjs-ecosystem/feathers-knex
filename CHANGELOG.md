@@ -1,5 +1,18 @@
 # Change Log
 
+## [v3.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.2) (2018-02-05)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.1...v3.0.2)
+
+**Closed issues:**
+
+- Properties not passed to Feathers are getting set to null [\#140](https://github.com/feathersjs-ecosystem/feathers-knex/issues/140)
+
+**Merged pull requests:**
+
+- Add default sorting to $skip query if not set [\#142](https://github.com/feathersjs-ecosystem/feathers-knex/pull/142) ([roemhildtg](https://github.com/roemhildtg))
+- Update mocha to the latest version 🚀 [\#139](https://github.com/feathersjs-ecosystem/feathers-knex/pull/139) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update semistandard to the latest version 🚀 [\#138](https://github.com/feathersjs-ecosystem/feathers-knex/pull/138) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v3.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.1) (2017-12-14)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.0...v3.0.1)
 
