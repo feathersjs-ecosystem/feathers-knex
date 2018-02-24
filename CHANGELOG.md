@@ -1,5 +1,19 @@
 # Change Log
 
+## [v3.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.3) (2018-02-24)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.2...v3.0.3)
+
+**Closed issues:**
+
+- nested tables on join [\#144](https://github.com/feathersjs-ecosystem/feathers-knex/issues/144)
+- How to implement soft deletes? [\#143](https://github.com/feathersjs-ecosystem/feathers-knex/issues/143)
+- Pagination broken in SQL-Server [\#141](https://github.com/feathersjs-ecosystem/feathers-knex/issues/141)
+- Wrong total if params.knex is set [\#121](https://github.com/feathersjs-ecosystem/feathers-knex/issues/121)
+
+**Merged pull requests:**
+
+- Fix count query when using params.knex [\#145](https://github.com/feathersjs-ecosystem/feathers-knex/pull/145) ([omeid](https://github.com/omeid))
+
 ## [v3.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.2) (2018-02-05)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.1...v3.0.2)
 
