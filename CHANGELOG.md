@@ -1,5 +1,16 @@
 # Change Log
 
+## [v3.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.4) (2018-03-06)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.3...v3.0.4)
+
+**Closed issues:**
+
+- Error handling question. [\#133](https://github.com/feathersjs-ecosystem/feathers-knex/issues/133)
+
+**Merged pull requests:**
+
+- call update directly on knex instead of where. [\#146](https://github.com/feathersjs-ecosystem/feathers-knex/pull/146) ([omeid](https://github.com/omeid))
+
 ## [v3.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.3) (2018-02-24)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.2...v3.0.3)
 
