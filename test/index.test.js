@@ -31,24 +31,28 @@ const peopleId = service({
 });
 
 function clean () {
-  return people.init({}, (table) => {
-    table.increments('id');
-    table.string('name');
-    table.integer('age');
-    table.integer('time');
-    table.boolean('created');
-    return table;
-  })
-  .then(() => {
-    return peopleId.init({}, (table) => {
-      table.increments('customid');
-      table.string('name');
-      table.integer('age');
-      table.integer('time');
-      table.boolean('created');
-      return table;
-    });
-  });
+  return Promise.all([
+    db.schema.dropTableIfExists('people').then(() => {
+      return people.init({}, (table) => {
+        table.increments('id');
+        table.string('name');
+        table.integer('age');
+        table.integer('time');
+        table.boolean('created');
+        return table;
+      });
+    }),
+    db.schema.dropTableIfExists('people-customid').then(() => {
+      return peopleId.init({}, (table) => {
+        table.increments('customid');
+        table.string('name');
+        table.integer('age');
+        table.integer('time');
+        table.boolean('created');
+        return table;
+      });
+    })
+  ]);
 }
 
 describe('Feathers Knex Service', () => {
@@ -93,6 +97,36 @@ describe('Feathers Knex Service', () => {
 
     base(app, errors, 'people');
     base(app, errors, 'people-customid', 'customid');
+  });
+
+  describe('custom queries', () => {
+    before(clean);
+    before(() => {
+      app.hooks({}).service('people').hooks({
+        before: {
+          find (context) {
+            const query = this.createQuery(context.params);
+
+            // do something with query here
+            query.orderBy('name', 'desc');
+            // console.log(query.toSQL().toNative());
+
+            context.params.knex = query;
+            return context;
+          }
+        }
+      });
+    });
+    after(clean);
+    after(() => {
+      app.hooks({
+        before: transaction.start(),
+        after: transaction.end(),
+        error: transaction.rollback()
+      }).service('people').hooks({});
+    });
+
+    base(app, errors, 'people');
   });
 
   describe('$like method', () => {
