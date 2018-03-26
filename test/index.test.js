@@ -109,7 +109,7 @@ describe('Feathers Knex Service', () => {
 
             // do something with query here
             query.orderBy('name', 'desc');
-            console.log(query.toSQL().toNative());
+            //console.log(query.toSQL().toNative());
 
             context.params.knex = query;
             return context;
