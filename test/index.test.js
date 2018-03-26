@@ -104,12 +104,12 @@ describe('Feathers Knex Service', () => {
     before(() => {
       app.hooks({}).service('people').hooks({
         before: {
-          find(context) {
+          find (context) {
             const query = this.createQuery(context.params);
 
             // do something with query here
             query.orderBy('name', 'desc');
-            //console.log(query.toSQL().toNative());
+            // console.log(query.toSQL().toNative());
 
             context.params.knex = query;
             return context;
