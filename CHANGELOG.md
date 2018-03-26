@@ -1,5 +1,17 @@
 # Change Log
 
+## [v3.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.5) (2018-03-26)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.4...v3.0.5)
+
+**Closed issues:**
+
+- Support querying null value [\#149](https://github.com/feathersjs-ecosystem/feathers-knex/issues/149)
+
+**Merged pull requests:**
+
+- Fixing count default sort [\#151](https://github.com/feathersjs-ecosystem/feathers-knex/pull/151) ([jerfowler](https://github.com/jerfowler))
+- Update sqlite3 to the latest version 🚀 [\#148](https://github.com/feathersjs-ecosystem/feathers-knex/pull/148) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v3.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.4) (2018-03-06)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.3...v3.0.4)
 
