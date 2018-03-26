@@ -247,12 +247,13 @@ Combined with `.createQuery({ query: {...} })`, which returns a new KnexJS query
 app.service('mesages').hooks({
   before: {
     find(context) {
-      const query = this.createQuery({ query: context.params.query });
+      const query = this.createQuery(context.params);
 
       // do something with query here
       query.orderBy('name', 'desc');
 
       context.params.knex = query;
+      return context;
     }
   }
 });
