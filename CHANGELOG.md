@@ -1,5 +1,16 @@
 # Change Log
 
+## [v3.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.6) (2018-03-27)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.5...v3.0.6)
+
+**Closed issues:**
+
+- createQuery on empty table throws an error [\#147](https://github.com/feathersjs-ecosystem/feathers-knex/issues/147)
+
+**Merged pull requests:**
+
+- Fix \#147 [\#152](https://github.com/feathersjs-ecosystem/feathers-knex/pull/152) ([Vasilcenko](https://github.com/Vasilcenko))
+
 ## [v3.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.5) (2018-03-26)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.4...v3.0.5)
 
