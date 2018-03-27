@@ -30,4 +30,4 @@ node_modules
 .lock-wscript
 
 dist/
-db.sqlite
+*.sqlite
