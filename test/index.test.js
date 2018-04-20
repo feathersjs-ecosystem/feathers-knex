@@ -17,6 +17,15 @@ const db = knex({
   }
 });
 
+// Create a public database to mimic a "schema"
+const schemaName = 'public';
+knex({
+  client: 'sqlite3',
+  connection: {
+    filename: `./${schemaName}.sqlite`
+  }
+});
+
 const people = service({
   Model: db,
   name: 'people',
@@ -30,9 +39,16 @@ const peopleId = service({
   events: [ 'testing' ]
 });
 
+const users = service({
+  Model: db,
+  schema: schemaName,
+  name: 'users',
+  events: [ 'testing' ]
+});
+
 function clean () {
   return Promise.all([
-    db.schema.dropTableIfExists('people').then(() => {
+    db.schema.dropTableIfExists(people.fullName).then(() => {
       return people.init({}, (table) => {
         table.increments('id');
         table.string('name');
@@ -42,9 +58,19 @@ function clean () {
         return table;
       });
     }),
-    db.schema.dropTableIfExists('people-customid').then(() => {
+    db.schema.dropTableIfExists(peopleId.fullName).then(() => {
       return peopleId.init({}, (table) => {
         table.increments('customid');
+        table.string('name');
+        table.integer('age');
+        table.integer('time');
+        table.boolean('created');
+        return table;
+      });
+    }),
+    db.schema.dropTableIfExists(users.fullName).then(() => {
+      return users.init({}, (table) => {
+        table.increments('id');
         table.string('name');
         table.integer('age');
         table.integer('time');
@@ -55,6 +81,25 @@ function clean () {
   ]);
 }
 
+function attachSchema () {
+  // Attach the public database to mimic a "schema"
+  return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+}
+
+function customQuery () {
+  return (context) => {
+    const { params, service } = context;
+    const query = service.createQuery(params);
+
+    // do something with query here
+    query.orderBy('name', 'desc');
+    // console.log(query.toSQL().toNative());
+
+    context.params.knex = query;
+    return context;
+  };
+}
+
 describe('Feathers Knex Service', () => {
   const app = feathers()
     .hooks({
@@ -63,7 +108,10 @@ describe('Feathers Knex Service', () => {
       error: transaction.rollback()
     })
     .use('/people', people)
-    .use('people-customid', peopleId);
+    .use('people-customid', peopleId)
+    .use('/users', users);
+
+  before(attachSchema);
   before(clean);
   after(clean);
 
@@ -97,23 +145,24 @@ describe('Feathers Knex Service', () => {
 
     base(app, errors, 'people');
     base(app, errors, 'people-customid', 'customid');
+
+    describe('database schema support', () => {
+      base(app, errors, 'users');
+    });
   });
 
   describe('custom queries', () => {
     before(clean);
     before(() => {
-      app.hooks({}).service('people').hooks({
+      app.hooks({});
+      app.service('people').hooks({
         before: {
-          find (context) {
-            const query = this.createQuery(context.params);
-
-            // do something with query here
-            query.orderBy('name', 'desc');
-            // console.log(query.toSQL().toNative());
-
-            context.params.knex = query;
-            return context;
-          }
+          find: customQuery()
+        }
+      });
+      app.service('users').hooks({
+        before: {
+          find: customQuery()
         }
       });
     });
@@ -123,10 +172,16 @@ describe('Feathers Knex Service', () => {
         before: transaction.start(),
         after: transaction.end(),
         error: transaction.rollback()
-      }).service('people').hooks({});
+      });
+      app.service('people').hooks({});
+      app.service('users').hooks({});
     });
 
     base(app, errors, 'people');
+
+    describe('database schema support', () => {
+      base(app, errors, 'users');
+    });
   });
 
   describe('$like method', () => {

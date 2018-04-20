@@ -52,6 +52,7 @@ __Options:__
 
 - `Model` (**required**) - The KnexJS database instance
 - `name` (**required**) - The name of the table
+- `schema` (*optional*) - The name of the schema table prefix (example: `schema.table`)
 - `id` (*optional*, default: `'id'`) - The name of the id field property.
 - `events` (*optional*) - A list of [custom service events](https://docs.feathersjs.com/api/events.html#custom-events) sent by this service
 - `paginate` (*optional*) - A [pagination object](https://docs.feathersjs.com/api/databases/common.html#pagination) containing a `default` and `max` page size
