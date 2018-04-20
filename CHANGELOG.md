@@ -1,5 +1,17 @@
 # Change Log
 
+## [v3.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.0) (2018-04-20)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.6...v3.1.0)
+
+**Closed issues:**
+
+- How to properly extend knex service [\#155](https://github.com/feathersjs-ecosystem/feathers-knex/issues/155)
+- Support Database Schemas [\#153](https://github.com/feathersjs-ecosystem/feathers-knex/issues/153)
+
+**Merged pull requests:**
+
+- Schema support [\#154](https://github.com/feathersjs-ecosystem/feathers-knex/pull/154) ([jerfowler](https://github.com/jerfowler))
+
 ## [v3.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.6) (2018-03-27)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.5...v3.0.6)
 
