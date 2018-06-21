@@ -1,5 +1,19 @@
 # Change Log
 
+## [v3.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.1) (2018-06-03)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.0...v3.1.1)
+
+**Closed issues:**
+
+- Version 10 of node.js has been released [\#156](https://github.com/feathersjs-ecosystem/feathers-knex/issues/156)
+- Can't find relation if table name != service name? [\#150](https://github.com/feathersjs-ecosystem/feathers-knex/issues/150)
+
+**Merged pull requests:**
+
+- Update uberproto to the latest version 🚀 [\#160](https://github.com/feathersjs-ecosystem/feathers-knex/pull/160) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Do clearOrder\(\) for countQuery [\#159](https://github.com/feathersjs-ecosystem/feathers-knex/pull/159) ([ik9999](https://github.com/ik9999))
+- Update to node 10 in .travis.yml [\#157](https://github.com/feathersjs-ecosystem/feathers-knex/pull/157) ([daffl](https://github.com/daffl))
+
 ## [v3.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.0) (2018-04-20)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.6...v3.1.0)
 
@@ -298,7 +312,7 @@
 **Closed issues:**
 
 - Review patch and remove many for consistency [\#26](https://github.com/feathersjs-ecosystem/feathers-knex/issues/26)
-- Feature request: ability to CRUD without needing to bind as a feathers service [\#19](https://github.com/feathersjs-ecosystem/feathers-knex/issues/19)
+- Feature: ability to CRUD without needing to bind as a feathers service [\#19](https://github.com/feathersjs-ecosystem/feathers-knex/issues/19)
 
 **Merged pull requests:**
 
