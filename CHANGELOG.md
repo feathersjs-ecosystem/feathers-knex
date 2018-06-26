@@ -1,5 +1,13 @@
 # Change Log
 
+## [v3.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.2.0) (2018-06-26)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.1...v3.2.0)
+
+**Merged pull requests:**
+
+- Add explicit peer dependency on latest Knex version [\#162](https://github.com/feathersjs-ecosystem/feathers-knex/pull/162) ([daffl](https://github.com/daffl))
+- Do clearOrder\(\) for countQuery [\#161](https://github.com/feathersjs-ecosystem/feathers-knex/pull/161) ([ik9999](https://github.com/ik9999))
+
 ## [v3.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.1) (2018-06-03)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.0...v3.1.1)
 
