@@ -57,6 +57,9 @@
     "is-plain-object": "^2.0.1",
     "uberproto": "^2.0.0"
   },
+  "peerDependencies": {
+    "knex": "^0.14.6"
+  },
   "devDependencies": {
     "@feathersjs/express": "^1.1.2",
     "@feathersjs/feathers": "^3.0.1",
