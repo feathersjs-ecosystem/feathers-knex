@@ -1,5 +1,12 @@
 # Change Log
 
+## [v3.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.3.0) (2018-06-29)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.2.0...v3.3.0)
+
+**Merged pull requests:**
+
+- Add support for $and [\#163](https://github.com/feathersjs-ecosystem/feathers-knex/pull/163) ([vonagam](https://github.com/vonagam))
+
 ## [v3.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.2.0) (2018-06-26)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.1...v3.2.0)
 
