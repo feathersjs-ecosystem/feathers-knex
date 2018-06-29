@@ -229,6 +229,37 @@ describe('Feathers Knex Service', () => {
       });
     });
 
+    it('$and works properly', () => {
+      app.service('/people').create([{
+        name: 'Dave',
+        age: 23
+      }, {
+        name: 'Dave',
+        age: 32
+      }, {
+        name: 'Dada',
+        age: 1
+      }]);
+
+      return app.service('/people').find({
+        query: {
+          $and: [{
+            $or: [
+              {name: 'Dave'},
+              {name: 'Dada'}
+            ]
+          }, {
+            age: {$lt: 23}
+          }]
+        }
+      }).then(data => {
+        expect(data.length).to.equal(1);
+        expect(data[0].name).to.be.equal('Dada');
+        expect(data[0].age).to.be.equal(1);
+        app.service('/people').remove(null);
+      });
+    });
+
     it('where conditions support NULL values properly', () => {
       app.service('/people').create([{
         name: 'Dave without age',
