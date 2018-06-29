@@ -145,6 +145,27 @@ Run the example with `node app` and go to [localhost:3030/messages](http://local
 
 In addition to the [common querying mechanism](https://docs.feathersjs.com/api/databases/querying.html), this adapter also supports:
 
+### $and
+
+Find all records that match all of the given criteria. The following query retrieves all messages that have foo and bar attributes as true.
+
+```js
+app.service('messages').find({
+  query: {
+    $and: [
+      {foo: true},
+      {bar: true}
+    ]
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?$and[][foo]=true&$and[][bar]=true
+```
+
 ### $like
 
 Find all records where the value matches the given string pattern. The following query retrieves all messages that start with `Hello`:
