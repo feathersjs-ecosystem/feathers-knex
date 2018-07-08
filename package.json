@@ -65,6 +65,7 @@
     "@feathersjs/feathers": "^3.1.7",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "feathers-service-tests": "^0.10.2",
     "istanbul": "^1.1.0-alpha.1",
     "knex": "^0.15.0",
