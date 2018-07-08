@@ -1,4 +1,5 @@
-const { expect } = require('chai');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
 const knex = require('knex');
@@ -7,6 +8,9 @@ const { base } = require('feathers-service-tests');
 const errors = require('@feathersjs/errors');
 
 const service = require('../lib');
+
+chai.use(chaiAsPromised);
+const { expect } = chai;
 
 const { transaction } = service.hooks;
 
@@ -335,6 +339,32 @@ describe('Feathers Knex Service', () => {
         expect(data[1].age).not.be.equal(32);
         app.service('/people').remove(null);
       });
+    });
+  });
+
+  describe('hooks', () => {
+    const app2 = feathers()
+      .hooks({
+        before: transaction.start(),
+        after: [
+          (context) => {
+            let client = context.params.transaction.trx.client;
+            let query = client.query;
+            client.query = (conn, sql) => {
+              if (sql === 'COMMIT;') sql = 'COMMITA;';
+              return query.call(client, conn, sql);
+            };
+          },
+          transaction.end()
+        ],
+        error: transaction.rollback()
+      })
+      .use('/people', people);
+
+    it('does fail on unsuccessful commit', () => {
+      return expect(
+        app2.service('/people').create({name: 'Foo'})
+      ).to.eventually.be.rejected;
     });
   });
 });
