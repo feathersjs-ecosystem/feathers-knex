@@ -250,7 +250,7 @@ module.exports = {
 };
 ```
 
-To use the transactions feature, you must ensure that the three hooks (start, commit and rollback) are being used.
+To use the transactions feature, you must ensure that the three hooks (start, end and rollback) are being used.
 
 At the start of any request, a new transaction will be started. All the changes made during the request to the services that are using the `feathers-knex` will use the transaction. At the end of the request, if sucessful, the changes will be commited. If an error occurs, the changes will be forfeit, all the `creates`, `patches`, `updates` and `deletes` are not going to be commited.
 
