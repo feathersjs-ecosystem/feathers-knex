@@ -1,5 +1,19 @@
 # Change Log
 
+## [v4.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v4.0.0) (2018-10-15)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.3.0...v4.0.0)
+
+**Closed issues:**
+
+- An in-range update of debug is breaking the build 🚨 [\#171](https://github.com/feathersjs-ecosystem/feathers-knex/issues/171)
+
+**Merged pull requests:**
+
+- Update debug to the latest version 🚀 [\#172](https://github.com/feathersjs-ecosystem/feathers-knex/pull/172) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update README.md [\#168](https://github.com/feathersjs-ecosystem/feathers-knex/pull/168) ([shadowRR](https://github.com/shadowRR))
+- Catch unhandled transaction rejections [\#166](https://github.com/feathersjs-ecosystem/feathers-knex/pull/166) ([vonagam](https://github.com/vonagam))
+- Update knex to the latest version 🚀 [\#165](https://github.com/feathersjs-ecosystem/feathers-knex/pull/165) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v3.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.3.0) (2018-06-29)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.2.0...v3.3.0)
 
