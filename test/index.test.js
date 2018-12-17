@@ -1,13 +1,72 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
 const knex = require('knex');
 
-const { base } = require('feathers-service-tests');
+const adapterTests = require('@feathersjs/adapter-commons/tests');
 const errors = require('@feathersjs/errors');
 
 const service = require('../lib');
+const testSuite = adapterTests([
+  '.options',
+  '.events',
+  '._get',
+  '._find',
+  '._create',
+  '._update',
+  '._patch',
+  '._remove',
+  '.get',
+  '.get + $select',
+  '.get + id + query',
+  '.get + NotFound',
+  '.find',
+  '.remove',
+  '.remove + $select',
+  '.remove + id + query',
+  '.remove + multi',
+  '.update',
+  '.update + $select',
+  '.update + id + query',
+  '.update + NotFound',
+  '.patch',
+  '.patch + $select',
+  '.patch + id + query',
+  '.patch multiple',
+  '.patch multi query',
+  '.patch + NotFound',
+  '.create',
+  '.create + $select',
+  '.create multi',
+  'internal .find',
+  'internal .get',
+  'internal .create',
+  'internal .update',
+  'internal .patch',
+  'internal .remove',
+  '.find + equal',
+  '.find + equal multiple',
+  '.find + $sort',
+  '.find + $sort + string',
+  '.find + $limit',
+  '.find + $limit 0',
+  '.find + $skip',
+  '.find + $select',
+  '.find + $or',
+  '.find + $in',
+  '.find + $nin',
+  '.find + $lt',
+  '.find + $lte',
+  '.find + $gt',
+  '.find + $gte',
+  '.find + $ne',
+  '.find + $gt + $lt + $sort',
+  '.find + $or nested + $sort',
+  '.find + paginate',
+  '.find + paginate + $limit + $skip',
+  '.find + paginate + $limit 0',
+  '.find + paginate + params'
+]);
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -63,7 +122,7 @@ function clean () {
       });
     }),
     db.schema.dropTableIfExists(peopleId.fullName).then(() => {
-      return peopleId.init({}, (table) => {
+      return peopleId.init({}, table => {
         table.increments('customid');
         table.string('name');
         table.integer('age');
@@ -73,7 +132,7 @@ function clean () {
       });
     }),
     db.schema.dropTableIfExists(users.fullName).then(() => {
-      return users.init({}, (table) => {
+      return users.init({}, table => {
         table.increments('id');
         table.string('name');
         table.integer('age');
@@ -114,6 +173,7 @@ describe('Feathers Knex Service', () => {
     .use('/people', people)
     .use('people-customid', peopleId)
     .use('/users', users);
+  const peopleService = app.service('people');
 
   before(attachSchema);
   before(clean);
@@ -123,7 +183,7 @@ describe('Feathers Knex Service', () => {
     describe('when missing options', () => {
       it('throws an error', () =>
         expect(service.bind(null))
-          .to.throw('Knex options have to be provided')
+          .to.throw('You must provide a Model (the initialized knex object)')
       );
     });
 
@@ -139,19 +199,6 @@ describe('Feathers Knex Service', () => {
         expect(service.bind(null, { Model: {} }))
           .to.throw('No table name specified.')
       );
-    });
-  });
-
-  describe('Common functionality', () => {
-    it('is CommonJS compatible', () =>
-      assert.equal(typeof require('../lib'), 'function')
-    );
-
-    base(app, errors, 'people');
-    base(app, errors, 'people-customid', 'customid');
-
-    describe('database schema support', () => {
-      base(app, errors, 'users');
     });
   });
 
@@ -180,43 +227,57 @@ describe('Feathers Knex Service', () => {
       app.service('people').hooks({});
       app.service('users').hooks({});
     });
-
-    base(app, errors, 'people');
-
-    describe('database schema support', () => {
-      base(app, errors, 'users');
-    });
   });
 
   describe('$like method', () => {
-    beforeEach(() => app.service('/people').create({
-      name: 'Charlie Brown',
-      age: 10
-    }));
+    let charlie;
 
-    it('$like in query', () => {
-      return app.service('/people').find({
-        query: { name: { $like: '%lie%' } }
-      }).then(data => {
-        expect(data[0].name).to.be.equal('Charlie Brown');
+    beforeEach(async () => {
+      charlie = await peopleService.create({
+        name: 'Charlie Brown',
+        age: 10
       });
+    });
+
+    afterEach(() => peopleService.remove(charlie.id));
+
+    it('$like in query', async () => {
+      const data = await peopleService.find({
+        query: { name: { $like: '%lie%' } }
+      });
+
+      expect(data[0].name).to.be.equal('Charlie Brown');
     });
   });
 
   describe('adapter specifics', () => {
-    it('$or works properly (#120)', () => {
-      app.service('/people').create([{
-        name: 'Dave',
-        age: 23
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
+    let daves;
 
-      return app.service('/people').find({
+    beforeEach(async () => {
+      daves = await Promise.all([
+        peopleService.create({
+          name: 'Ageless',
+          age: null
+        }),
+        peopleService.create({
+          name: 'Dave',
+          age: 32
+        }),
+        peopleService.create({
+          name: 'Dada',
+          age: 1
+        })
+      ]);
+    });
+
+    afterEach(async () => Promise.all([
+      peopleService.remove(daves[0].id),
+      peopleService.remove(daves[1].id),
+      peopleService.remove(daves[2].id)
+    ]).catch(() => {}));
+
+    it('$or works properly (#120)', async () => {
+      const data = await peopleService.find({
         query: {
           name: 'Dave',
           $or: [{
@@ -225,133 +286,73 @@ describe('Feathers Knex Service', () => {
             age: 32
           }]
         }
-      }).then(data => {
-        expect(data.length).to.equal(1);
-        expect(data[0].name).to.be.equal('Dave');
-        expect(data[0].age).to.be.equal(32);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(1);
+      expect(data[0].name).to.be.equal('Dave');
+      expect(data[0].age).to.be.equal(32);
     });
 
-    it('$and works properly', () => {
-      app.service('/people').create([{
-        name: 'Dave',
-        age: 23
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
-
-      return app.service('/people').find({
+    it('$and works properly', async () => {
+      const data = await peopleService.find({
         query: {
           $and: [{
             $or: [
-              {name: 'Dave'},
-              {name: 'Dada'}
+              { name: 'Dave' },
+              { name: 'Dada' }
             ]
           }, {
-            age: {$lt: 23}
+            age: { $lt: 23 }
           }]
         }
-      }).then(data => {
-        expect(data.length).to.equal(1);
-        expect(data[0].name).to.be.equal('Dada');
-        expect(data[0].age).to.be.equal(1);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(1);
+      expect(data[0].name).to.be.equal('Dada');
+      expect(data[0].age).to.be.equal(1);
     });
 
-    it('where conditions support NULL values properly', () => {
-      app.service('/people').create([{
-        name: 'Dave without age',
-        age: null
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
-
-      return app.service('/people').find({
+    it('where conditions support NULL values properly', async () => {
+      const data = await peopleService.find({
         query: {
           age: null
         }
-      }).then(data => {
-        expect(data.length).to.equal(1);
-        expect(data[0].name).to.be.equal('Dave without age');
-        expect(data[0].age).to.be.equal(null);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(1);
+      expect(data[0].name).to.be.equal('Ageless');
+      expect(data[0].age).to.be.equal(null);
     });
 
-    it('where conditions support NOT NULL case properly', () => {
-      app.service('/people').create([{
-        name: 'Dave without age',
-        age: null
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
-
-      return app.service('/people').find({
+    it('where conditions support NOT NULL case properly', async () => {
+      const data = await peopleService.find({
         query: {
-          age: {$ne: null}
+          age: { $ne: null }
         }
-      }).then(data => {
-        expect(data.length).to.equal(2);
-        expect(data[0].name).to.not.be.equal('Dave without age');
-        expect(data[0].age).to.not.be.equal(null);
-        expect(data[1].name).to.not.be.equal('Dave without age');
-        expect(data[1].age).to.not.be.equal(null);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(2);
+      expect(data[0].name).to.not.be.equal('Ageless');
+      expect(data[0].age).to.not.be.equal(null);
+      expect(data[1].name).to.not.be.equal('Ageless');
+      expect(data[1].age).to.not.be.equal(null);
     });
 
-    it('where conditions support NULL values within AND conditions', () => {
-      app.service('/people').create([{
-        name: 'Dave',
-        age: null
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
-
-      return app.service('/people').find({
+    it('where conditions support NULL values within AND conditions', async () => {
+      const data = await peopleService.find({
         query: {
           age: null,
-          name: 'Dave'
+          name: 'Ageless'
         }
-      }).then(data => {
-        expect(data.length).to.equal(1);
-        expect(data[0].name).to.be.equal('Dave');
-        expect(data[0].age).to.be.equal(null);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(1);
+      expect(data[0].name).to.be.equal('Ageless');
+      expect(data[0].age).to.be.equal(null);
     });
 
-    it('where conditions support NULL values within OR conditions', () => {
-      app.service('/people').create([{
-        name: 'Dave without age',
-        age: null
-      }, {
-        name: 'Dave',
-        age: 32
-      }, {
-        name: 'Dada',
-        age: 1
-      }]);
-
-      return app.service('/people').find({
+    it('where conditions support NULL values within OR conditions', async () => {
+      const data = await peopleService.find({
         query: {
           $or: [
             {
@@ -362,14 +363,13 @@ describe('Feathers Knex Service', () => {
             }
           ]
         }
-      }).then(data => {
-        expect(data.length).to.equal(2);
-        expect(data[0].name).not.be.equal('Dave');
-        expect(data[0].age).not.be.equal(32);
-        expect(data[1].name).not.be.equal('Dave');
-        expect(data[1].age).not.be.equal(32);
-        app.service('/people').remove(null);
       });
+
+      expect(data.length).to.equal(2);
+      expect(data[0].name).not.be.equal('Dave');
+      expect(data[0].age).not.be.equal(32);
+      expect(data[1].name).not.be.equal('Dave');
+      expect(data[1].age).not.be.equal(32);
     });
   });
 
@@ -394,8 +394,12 @@ describe('Feathers Knex Service', () => {
 
     it('does fail on unsuccessful commit', () => {
       return expect(
-        app2.service('/people').create({name: 'Foo'})
+        app2.service('/people').create({ name: 'Foo' })
       ).to.eventually.be.rejected;
     });
   });
+
+  // testSuite(app, errors, 'users');
+  testSuite(app, errors, 'people');
+  // testSuite(app, errors, 'people-customid', 'customid');
 });
