@@ -40,7 +40,7 @@
     "mocha": "mocha --opts mocha.opts",
     "test": "npm run lint && npm run coverage",
     "example": "babel-node example/app",
-    "coverage": "shx rm *.sqlite && istanbul cover node_modules/mocha/bin/_mocha -- --opts mocha.opts"
+    "coverage": "shx -rf rm *.sqlite && istanbul cover node_modules/mocha/bin/_mocha -- --opts mocha.opts"
   },
   "semistandard": {
     "env": [
