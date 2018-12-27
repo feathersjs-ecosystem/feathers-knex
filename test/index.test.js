@@ -149,20 +149,6 @@ function attachSchema () {
   return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
 }
 
-function customQuery () {
-  return (context) => {
-    const { params, service } = context;
-    const query = service.createQuery(params);
-
-    // do something with query here
-    query.orderBy('name', 'desc');
-    // console.log(query.toSQL().toNative());
-
-    context.params.knex = query;
-    return context;
-  };
-}
-
 describe('Feathers Knex Service', () => {
   const app = feathers()
     .hooks({
@@ -199,33 +185,6 @@ describe('Feathers Knex Service', () => {
         expect(service.bind(null, { Model: {} }))
           .to.throw('No table name specified.')
       );
-    });
-  });
-
-  describe('custom queries', () => {
-    before(clean);
-    before(() => {
-      app.hooks({});
-      app.service('people').hooks({
-        before: {
-          find: customQuery()
-        }
-      });
-      app.service('users').hooks({
-        before: {
-          find: customQuery()
-        }
-      });
-    });
-    after(clean);
-    after(() => {
-      app.hooks({
-        before: transaction.start(),
-        after: transaction.end(),
-        error: transaction.rollback()
-      });
-      app.service('people').hooks({});
-      app.service('users').hooks({});
     });
   });
 
@@ -374,6 +333,12 @@ describe('Feathers Knex Service', () => {
   });
 
   describe('hooks', () => {
+    const people2 = service({
+      Model: db,
+      name: 'people2',
+      events: [ 'testing' ]
+    });
+
     const app2 = feathers()
       .hooks({
         before: transaction.start(),
@@ -390,16 +355,21 @@ describe('Feathers Knex Service', () => {
         ],
         error: transaction.rollback()
       })
-      .use('/people', people);
+      .use('/people', people2);
 
-    it('does fail on unsuccessful commit', () => {
-      return expect(
-        app2.service('/people').create({ name: 'Foo' })
-      ).to.eventually.be.rejected;
+    it('does fail on unsuccessful commit', async () => {
+      const message = 'Should never get here';
+
+      try {
+        await app2.service('/people').create({ name: 'Foo' });
+        throw new Error(message);
+      } catch (error) {
+        expect(error.message !== message);
+      }
     });
   });
 
-  // testSuite(app, errors, 'users');
+  testSuite(app, errors, 'users');
   testSuite(app, errors, 'people');
-  // testSuite(app, errors, 'people-customid', 'customid');
+  testSuite(app, errors, 'people-customid', 'customid');
 });
