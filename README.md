@@ -56,6 +56,8 @@ __Options:__
 - `id` (*optional*, default: `'id'`) - The name of the id field property.
 - `events` (*optional*) - A list of [custom service events](https://docs.feathersjs.com/api/events.html#custom-events) sent by this service
 - `paginate` (*optional*) - A [pagination object](https://docs.feathersjs.com/api/databases/common.html#pagination) containing a `default` and `max` page size
+- `multi` (*optional*) - Allow `create` with arrays and `update` and `remove` with `id` `null` to change multiple items. Can be `true` for all methods or an array of allowed methods (e.g. `[ 'remove', 'create' ]`)
+- `whitelist` (*optional*) - A list of additional query parameters to allow (e..g `[ '$regex', '$geoNear' ]`). Default is the supported `operators`
 
 ### `adapter.createQuery(query)`
 
@@ -281,8 +283,24 @@ app.service('mesages').hooks({
 });
 ```
 
+### Error handling
+
+As of version 4.0.0 `feathers-knex` only throws [Feathers Errors](https://docs.feathersjs.com/api/errors.html) with the message. On the server, the original error can be retrieved through a secure symbol via  `error[require('feathers-knex').ERROR]`
+
+```js
+const { ERROR } = require('feathers-knex');
+
+try {
+  await sequelizeService.doSomething();
+} catch(error) {
+  // error is a FeathersError with just the message
+  // Safely retrieve the Knex error
+  const knexError = error[ERROR];
+}
+```
+
 ## License
 
-Copyright (c) 2016
+Copyright (c) 2019
 
 Licensed under the [MIT license](LICENSE).

@@ -114,7 +114,7 @@ function clean () {
     db.schema.dropTableIfExists(people.fullName).then(() => {
       return people.init({}, (table) => {
         table.increments('id');
-        table.string('name');
+        table.string('name').notNullable();
         table.integer('age');
         table.integer('time');
         table.boolean('created');
@@ -329,6 +329,16 @@ describe('Feathers Knex Service', () => {
       expect(data[0].age).not.be.equal(32);
       expect(data[1].name).not.be.equal('Dave');
       expect(data[1].age).not.be.equal(32);
+    });
+
+    it('attaches the SQL error', async () => {
+      try {
+        await peopleService.create({});
+        expect(false);
+      } catch (error) {
+        expect(error.name).to.equal('GeneralError');
+        expect(error[service.ERROR]);
+      }
     });
   });
 
