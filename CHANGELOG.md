@@ -1,5 +1,20 @@
 # Change Log
 
+## [v5.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.0) (2018-12-28)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v4.0.0...v5.0.0)
+
+**Closed issues:**
+
+- An in-range update of debug is breaking the build 🚨 [\#180](https://github.com/feathersjs-ecosystem/feathers-knex/issues/180)
+- An in-range update of @feathersjs/feathers is breaking the build 🚨 [\#179](https://github.com/feathersjs-ecosystem/feathers-knex/issues/179)
+- An in-range update of @feathersjs/express is breaking the build 🚨 [\#178](https://github.com/feathersjs-ecosystem/feathers-knex/issues/178)
+- An in-range update of @feathersjs/errors is breaking the build 🚨 [\#177](https://github.com/feathersjs-ecosystem/feathers-knex/issues/177)
+
+**Merged pull requests:**
+
+- Upgrade to @feathersjs/adapter-commons and latest common service features [\#181](https://github.com/feathersjs-ecosystem/feathers-knex/pull/181) ([daffl](https://github.com/daffl))
+- Update knex to the latest version 🚀 [\#176](https://github.com/feathersjs-ecosystem/feathers-knex/pull/176) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v4.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v4.0.0) (2018-10-15)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.3.0...v4.0.0)
 
