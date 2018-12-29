@@ -1,5 +1,12 @@
 # Change Log
 
+## [v5.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.1) (2018-12-29)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.0...v5.0.1)
+
+**Merged pull requests:**
+
+- Add default parameters to hook-less service methods [\#182](https://github.com/feathersjs-ecosystem/feathers-knex/pull/182) ([daffl](https://github.com/daffl))
+
 ## [v5.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.0) (2018-12-28)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v4.0.0...v5.0.0)
 
