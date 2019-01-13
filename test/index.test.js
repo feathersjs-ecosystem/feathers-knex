@@ -3,7 +3,7 @@ const chaiAsPromised = require('chai-as-promised');
 const feathers = require('@feathersjs/feathers');
 const knex = require('knex');
 
-const adapterTests = require('@feathersjs/adapter-commons/tests');
+const adapterTests = require('@feathersjs/adapter-tests');
 const errors = require('@feathersjs/errors');
 
 const service = require('../lib');
@@ -65,7 +65,11 @@ const testSuite = adapterTests([
   '.find + paginate',
   '.find + paginate + $limit + $skip',
   '.find + paginate + $limit 0',
-  '.find + paginate + params'
+  '.find + paginate + params',
+  '.get + id + query id',
+  '.remove + id + query id',
+  '.update + id + query id',
+  '.patch + id + query id'
 ]);
 
 chai.use(chaiAsPromised);
