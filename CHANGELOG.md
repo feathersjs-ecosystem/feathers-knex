@@ -1,5 +1,12 @@
 # Change Log
 
+## [v5.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.2) (2019-01-13)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.1...v5.0.2)
+
+**Merged pull requests:**
+
+- Make sure ids in queries are respected [\#185](https://github.com/feathersjs-ecosystem/feathers-knex/pull/185) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v5.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.1) (2018-12-29)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.0...v5.0.1)
 
