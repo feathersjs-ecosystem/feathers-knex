@@ -1,5 +1,17 @@
 # Change Log
 
+## [v5.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.3) (2019-01-16)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.2...v5.0.3)
+
+**Closed issues:**
+
+- Oracle Proxy User [\#186](https://github.com/feathersjs-ecosystem/feathers-knex/issues/186)
+- No record found for id '${id}' [\#184](https://github.com/feathersjs-ecosystem/feathers-knex/issues/184)
+
+**Merged pull requests:**
+
+- Fix patch with pagination enabled [\#187](https://github.com/feathersjs-ecosystem/feathers-knex/pull/187) ([daffl](https://github.com/daffl))
+
 ## [v5.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.2) (2019-01-13)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.1...v5.0.2)
 
