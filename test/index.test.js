@@ -344,6 +344,16 @@ describe('Feathers Knex Service', () => {
         expect(error[service.ERROR]);
       }
     });
+
+    it('.patch works with paginate (#184)', async () => {
+      const dave = await peopleService.patch(daves[1].id, { age: 33 }, {
+        paginate: {
+          default: 10
+        }
+      });
+
+      expect(dave.age).to.equal(33);
+    });
   });
 
   describe('hooks', () => {
