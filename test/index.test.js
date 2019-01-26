@@ -1,4 +1,5 @@
 const chai = require('chai');
+const knex = require('knex');
 const chaiAsPromised = require('chai-as-promised');
 const feathers = require('@feathersjs/feathers');
 
@@ -77,7 +78,7 @@ const { expect } = chai;
 
 const { transaction } = service.hooks;
 const TYPE = process.env.DB || 'sqlite';
-const db = connection(TYPE);
+const db = knex(connection(TYPE));
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
@@ -151,7 +152,12 @@ describe('Feathers Knex Service', () => {
 
   before(async () => {
     if (TYPE !== 'sqlite') {
-      await db.raw('CREATE DATABASE feathers_knex;');
+      const config = connection(TYPE);
+      delete config.connection.database;
+      const rawDb = knex(config);
+
+      await rawDb.raw('CREATE DATABASE feathers_knex;');
+      await rawDb.destroy();
     } else {
       // Attach the public database to mimic a "schema"
       await db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);

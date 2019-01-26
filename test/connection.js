@@ -1,17 +1,15 @@
-const knex = require('knex');
-
 module.exports = DB => {
   if (DB === 'sqlite') {
-    return knex({
+    return {
       client: 'sqlite3',
       connection: {
         filename: './db.sqlite'
       }
-    });
+    };
   }
 
   if (DB === 'mysql') {
-    return knex({
+    return {
       client: 'mysql',
       connection: {
         host: '127.0.0.1',
@@ -19,11 +17,11 @@ module.exports = DB => {
         password: '',
         database: 'feathers_knex'
       }
-    });
+    };
   }
 
   if (DB === 'postgres') {
-    return knex({
+    return {
       client: 'postgresql',
       connection: {
         host: 'localhost',
@@ -31,6 +29,6 @@ module.exports = DB => {
         user: 'postgres',
         password: ''
       }
-    });
+    };
   }
 };
