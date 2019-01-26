@@ -52,9 +52,12 @@ __Options:__
 
 - `Model` (**required**) - The KnexJS database instance
 - `name` (**required**) - The name of the table
+- `schema` (*optional*) - The name of the schema table prefix (example: `schema.table`)
 - `id` (*optional*, default: `'id'`) - The name of the id field property.
 - `events` (*optional*) - A list of [custom service events](https://docs.feathersjs.com/api/events.html#custom-events) sent by this service
 - `paginate` (*optional*) - A [pagination object](https://docs.feathersjs.com/api/databases/common.html#pagination) containing a `default` and `max` page size
+- `multi` (*optional*) - Allow `create` with arrays and `update` and `remove` with `id` `null` to change multiple items. Can be `true` for all methods or an array of allowed methods (e.g. `[ 'remove', 'create' ]`)
+- `whitelist` (*optional*) - A list of additional query parameters to allow (e..g `[ '$regex', '$geoNear' ]`). Default is the supported `operators`
 
 ### `adapter.createQuery(query)`
 
@@ -144,6 +147,27 @@ Run the example with `node app` and go to [localhost:3030/messages](http://local
 
 In addition to the [common querying mechanism](https://docs.feathersjs.com/api/databases/querying.html), this adapter also supports:
 
+### $and
+
+Find all records that match all of the given criteria. The following query retrieves all messages that have foo and bar attributes as true.
+
+```js
+app.service('messages').find({
+  query: {
+    $and: [
+      {foo: true},
+      {bar: true}
+    ]
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?$and[][foo]=true&$and[][bar]=true
+```
+
 ### $like
 
 Find all records where the value matches the given string pattern. The following query retrieves all messages that start with `Hello`:
@@ -228,7 +252,7 @@ module.exports = {
 };
 ```
 
-To use the transactions feature, you must ensure that the three hooks (start, commit and rollback) are being used.
+To use the transactions feature, you must ensure that the three hooks (start, end and rollback) are being used.
 
 At the start of any request, a new transaction will be started. All the changes made during the request to the services that are using the `feathers-knex` will use the transaction. At the end of the request, if sucessful, the changes will be commited. If an error occurs, the changes will be forfeit, all the `creates`, `patches`, `updates` and `deletes` are not going to be commited.
 
@@ -247,7 +271,7 @@ Combined with `.createQuery({ query: {...} })`, which returns a new KnexJS query
 app.service('mesages').hooks({
   before: {
     find(context) {
-      const query = this.createQuery(context.params);
+      const query = context.service.createQuery(context.params);
 
       // do something with query here
       query.orderBy('name', 'desc');
@@ -259,8 +283,24 @@ app.service('mesages').hooks({
 });
 ```
 
+### Error handling
+
+As of version 4.0.0 `feathers-knex` only throws [Feathers Errors](https://docs.feathersjs.com/api/errors.html) with the message. On the server, the original error can be retrieved through a secure symbol via  `error[require('feathers-knex').ERROR]`
+
+```js
+const { ERROR } = require('feathers-knex');
+
+try {
+  await sequelizeService.doSomething();
+} catch(error) {
+  // error is a FeathersError with just the message
+  // Safely retrieve the Knex error
+  const knexError = error[ERROR];
+}
+```
+
 ## License
 
-Copyright (c) 2016
+Copyright (c) 2019
 
 Licensed under the [MIT license](LICENSE).

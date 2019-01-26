@@ -1,5 +1,112 @@
 # Change Log
 
+## [v5.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.3) (2019-01-16)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.2...v5.0.3)
+
+**Closed issues:**
+
+- Oracle Proxy User [\#186](https://github.com/feathersjs-ecosystem/feathers-knex/issues/186)
+- No record found for id '${id}' [\#184](https://github.com/feathersjs-ecosystem/feathers-knex/issues/184)
+
+**Merged pull requests:**
+
+- Fix patch with pagination enabled [\#187](https://github.com/feathersjs-ecosystem/feathers-knex/pull/187) ([daffl](https://github.com/daffl))
+
+## [v5.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.2) (2019-01-13)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.1...v5.0.2)
+
+**Merged pull requests:**
+
+- Make sure ids in queries are respected [\#185](https://github.com/feathersjs-ecosystem/feathers-knex/pull/185) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
+## [v5.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.1) (2018-12-29)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.0...v5.0.1)
+
+**Merged pull requests:**
+
+- Add default parameters to hook-less service methods [\#182](https://github.com/feathersjs-ecosystem/feathers-knex/pull/182) ([daffl](https://github.com/daffl))
+
+## [v5.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.0) (2018-12-28)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v4.0.0...v5.0.0)
+
+**Closed issues:**
+
+- An in-range update of debug is breaking the build 🚨 [\#180](https://github.com/feathersjs-ecosystem/feathers-knex/issues/180)
+- An in-range update of @feathersjs/feathers is breaking the build 🚨 [\#179](https://github.com/feathersjs-ecosystem/feathers-knex/issues/179)
+- An in-range update of @feathersjs/express is breaking the build 🚨 [\#178](https://github.com/feathersjs-ecosystem/feathers-knex/issues/178)
+- An in-range update of @feathersjs/errors is breaking the build 🚨 [\#177](https://github.com/feathersjs-ecosystem/feathers-knex/issues/177)
+
+**Merged pull requests:**
+
+- Upgrade to @feathersjs/adapter-commons and latest common service features [\#181](https://github.com/feathersjs-ecosystem/feathers-knex/pull/181) ([daffl](https://github.com/daffl))
+- Update knex to the latest version 🚀 [\#176](https://github.com/feathersjs-ecosystem/feathers-knex/pull/176) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
+## [v4.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v4.0.0) (2018-10-15)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.3.0...v4.0.0)
+
+**Closed issues:**
+
+- An in-range update of debug is breaking the build 🚨 [\#171](https://github.com/feathersjs-ecosystem/feathers-knex/issues/171)
+
+**Merged pull requests:**
+
+- Update debug to the latest version 🚀 [\#172](https://github.com/feathersjs-ecosystem/feathers-knex/pull/172) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update README.md [\#168](https://github.com/feathersjs-ecosystem/feathers-knex/pull/168) ([shadowRR](https://github.com/shadowRR))
+- Catch unhandled transaction rejections [\#166](https://github.com/feathersjs-ecosystem/feathers-knex/pull/166) ([vonagam](https://github.com/vonagam))
+- Update knex to the latest version 🚀 [\#165](https://github.com/feathersjs-ecosystem/feathers-knex/pull/165) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
+## [v3.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.3.0) (2018-06-29)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.2.0...v3.3.0)
+
+**Merged pull requests:**
+
+- Add support for $and [\#163](https://github.com/feathersjs-ecosystem/feathers-knex/pull/163) ([vonagam](https://github.com/vonagam))
+
+## [v3.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.2.0) (2018-06-26)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.1...v3.2.0)
+
+**Merged pull requests:**
+
+- Add explicit peer dependency on latest Knex version [\#162](https://github.com/feathersjs-ecosystem/feathers-knex/pull/162) ([daffl](https://github.com/daffl))
+- Do clearOrder\(\) for countQuery [\#161](https://github.com/feathersjs-ecosystem/feathers-knex/pull/161) ([ik9999](https://github.com/ik9999))
+
+## [v3.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.1) (2018-06-03)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.0...v3.1.1)
+
+**Closed issues:**
+
+- Version 10 of node.js has been released [\#156](https://github.com/feathersjs-ecosystem/feathers-knex/issues/156)
+- Can't find relation if table name != service name? [\#150](https://github.com/feathersjs-ecosystem/feathers-knex/issues/150)
+
+**Merged pull requests:**
+
+- Update uberproto to the latest version 🚀 [\#160](https://github.com/feathersjs-ecosystem/feathers-knex/pull/160) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Do clearOrder\(\) for countQuery [\#159](https://github.com/feathersjs-ecosystem/feathers-knex/pull/159) ([ik9999](https://github.com/ik9999))
+- Update to node 10 in .travis.yml [\#157](https://github.com/feathersjs-ecosystem/feathers-knex/pull/157) ([daffl](https://github.com/daffl))
+
+## [v3.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.0) (2018-04-20)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.6...v3.1.0)
+
+**Closed issues:**
+
+- How to properly extend knex service [\#155](https://github.com/feathersjs-ecosystem/feathers-knex/issues/155)
+- Support Database Schemas [\#153](https://github.com/feathersjs-ecosystem/feathers-knex/issues/153)
+
+**Merged pull requests:**
+
+- Schema support [\#154](https://github.com/feathersjs-ecosystem/feathers-knex/pull/154) ([jerfowler](https://github.com/jerfowler))
+
+## [v3.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.6) (2018-03-27)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.5...v3.0.6)
+
+**Closed issues:**
+
+- createQuery on empty table throws an error [\#147](https://github.com/feathersjs-ecosystem/feathers-knex/issues/147)
+
+**Merged pull requests:**
+
+- Fix \#147 [\#152](https://github.com/feathersjs-ecosystem/feathers-knex/pull/152) ([Vasilcenko](https://github.com/Vasilcenko))
+
 ## [v3.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.5) (2018-03-26)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.4...v3.0.5)
 
@@ -275,7 +382,7 @@
 **Closed issues:**
 
 - Review patch and remove many for consistency [\#26](https://github.com/feathersjs-ecosystem/feathers-knex/issues/26)
-- Feature request: ability to CRUD without needing to bind as a feathers service [\#19](https://github.com/feathersjs-ecosystem/feathers-knex/issues/19)
+- Feature: ability to CRUD without needing to bind as a feathers service [\#19](https://github.com/feathersjs-ecosystem/feathers-knex/issues/19)
 
 **Merged pull requests:**
 
