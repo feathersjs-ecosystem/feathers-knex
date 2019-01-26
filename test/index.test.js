@@ -76,8 +76,8 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 const { transaction } = service.hooks;
-
-const db = connection(process.env.DB || 'sqlite');
+const TYPE = process.env.DB || 'sqlite';
+const db = connection(TYPE);
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
@@ -102,7 +102,11 @@ const users = service({
   events: [ 'testing' ]
 });
 
-function clean () {
+async function clean () {
+  if (TYPE !== 'sqlite') {
+    await db.raw('CREATE DATABASE feathers_knex;');
+  }
+
   return Promise.all([
     db.schema.dropTableIfExists(people.fullName).then(() => {
       return people.init({}, (table) => {
