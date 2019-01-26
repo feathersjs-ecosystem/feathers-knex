@@ -103,10 +103,6 @@ const users = service({
 });
 
 async function clean () {
-  if (TYPE !== 'sqlite') {
-    await db.raw('CREATE DATABASE feathers_knex;');
-  }
-
   return Promise.all([
     db.schema.dropTableIfExists(people.fullName).then(() => {
       return people.init({}, (table) => {
@@ -141,9 +137,13 @@ async function clean () {
   ]);
 }
 
-function attachSchema () {
-  // Attach the public database to mimic a "schema"
-  return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+async function attachSchema () {
+  if (TYPE !== 'sqlite') {
+    await db.raw('CREATE DATABASE feathers_knex;');
+  } else {
+    // Attach the public database to mimic a "schema"
+    return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+  }
 }
 
 describe('Feathers Knex Service', () => {
