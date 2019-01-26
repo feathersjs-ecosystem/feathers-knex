@@ -102,7 +102,7 @@ const users = service({
   events: [ 'testing' ]
 });
 
-async function clean () {
+function clean () {
   return Promise.all([
     db.schema.dropTableIfExists(people.fullName).then(() => {
       return people.init({}, (table) => {
@@ -137,15 +137,6 @@ async function clean () {
   ]);
 }
 
-async function attachSchema () {
-  if (TYPE !== 'sqlite') {
-    await db.raw('CREATE DATABASE feathers_knex;');
-  } else {
-    // Attach the public database to mimic a "schema"
-    return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
-  }
-}
-
 describe('Feathers Knex Service', () => {
   const app = feathers()
     .hooks({
@@ -158,8 +149,17 @@ describe('Feathers Knex Service', () => {
     .use('/users', users);
   const peopleService = app.service('people');
 
-  before(attachSchema);
-  before(clean);
+  before(async () => {
+    if (TYPE !== 'sqlite') {
+      await db.raw('CREATE DATABASE feathers_knex;');
+    } else {
+      // Attach the public database to mimic a "schema"
+      await db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+    }
+
+    await clean();
+  });
+
   after(clean);
 
   describe('Initialization', () => {
