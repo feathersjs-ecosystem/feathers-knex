@@ -1,5 +1,16 @@
 # Change Log
 
+## [v5.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.4) (2019-01-26)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.3...v5.0.4)
+
+**Closed issues:**
+
+- Patch has broke for MSSQL adapter: selecting the same field twice returns an array [\#188](https://github.com/feathersjs-ecosystem/feathers-knex/issues/188)
+
+**Merged pull requests:**
+
+- Mssql patch issue, closes \#188 [\#189](https://github.com/feathersjs-ecosystem/feathers-knex/pull/189) ([jerfowler](https://github.com/jerfowler))
+
 ## [v5.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.3) (2019-01-16)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.2...v5.0.3)
 
