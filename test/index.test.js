@@ -1,11 +1,11 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const feathers = require('@feathersjs/feathers');
-const knex = require('knex');
 
 const adapterTests = require('@feathersjs/adapter-tests');
 const errors = require('@feathersjs/errors');
 
+const connection = require('./connection');
 const service = require('../lib');
 const testSuite = adapterTests([
   '.options',
@@ -77,21 +77,10 @@ const { expect } = chai;
 
 const { transaction } = service.hooks;
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: './db.sqlite'
-  }
-});
+const db = connection(process.env.DB || 'sqlite');
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
-knex({
-  client: 'sqlite3',
-  connection: {
-    filename: `./${schemaName}.sqlite`
-  }
-});
 
 const people = service({
   Model: db,
