@@ -3,4 +3,14 @@ node_js:
   - 'node'
   - 8
 sudo: false
+env:
+  - DB=postgres
+  - DB=mysql
+  - DB=sqlite
 install: npm install
+before_script:
+  - npm install -g codeclimate-test-reporter
+  - psql -c 'create database sequelize;' -U postgres
+  - mysql -e 'CREATE DATABASE sequelize;'
+services:
+  - postgresql
