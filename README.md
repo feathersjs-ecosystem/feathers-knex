@@ -268,7 +268,7 @@ In a `find` call, `params.knex` can be passed a KnexJS query (without pagination
 Combined with `.createQuery({ query: {...} })`, which returns a new KnexJS query with the [common filter criteria](https://docs.feathersjs.com/api/databases/querying.html) applied, this can be used to create more complex queries. The best way to customize the query is in a [before hook](https://docs.feathersjs.com/api/hooks.html) for `find`.
 
 ```js
-app.service('mesages').hooks({
+app.service('messages').hooks({
   before: {
     find(context) {
       const query = context.service.createQuery(context.params);
