@@ -188,6 +188,26 @@ Through the REST API:
 /messages?text[$like]=Hello%
 ```
 
+### $notlike
+
+The opposite of `$like`; resulting in an SQL condition similar to this: `WHERE some_field NOT LIKE 'X'`
+
+```js
+app.service('messages').find({
+  query: {
+    text: {
+      $notlike: '%bar'
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?text[$notlike]=%bar
+```
+
 ### $ilike
 
 For PostgreSQL only, the keywork $ilike can be used instead of $like to make the match case insensitive. The following query retrieves all messages that start with `hello` (case insensitive):
