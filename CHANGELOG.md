@@ -1,5 +1,13 @@
 # Change Log
 
+## [v5.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.5) (2019-02-18)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.4...v5.0.5)
+
+**Merged pull requests:**
+
+- expose ERROR symbol from error-handler [\#193](https://github.com/feathersjs-ecosystem/feathers-knex/pull/193) ([betarabbit](https://github.com/betarabbit))
+- Typo Fix [\#191](https://github.com/feathersjs-ecosystem/feathers-knex/pull/191) ([Jarwain](https://github.com/Jarwain))
+
 ## [v5.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.4) (2019-01-26)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.3...v5.0.4)
 

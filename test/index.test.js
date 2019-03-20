@@ -336,6 +336,8 @@ describe('Feathers Knex Service', () => {
     });
 
     it('attaches the SQL error', async () => {
+      expect(service.ERROR).to.not.equal(undefined);
+
       try {
         await peopleService.create({});
         expect(false);
