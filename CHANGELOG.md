@@ -1,5 +1,13 @@
 # Change Log
 
+## [v5.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.6) (2019-03-30)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.5...v5.0.6)
+
+**Merged pull requests:**
+
+- Catch unhandled promise rejections [\#196](https://github.com/feathersjs-ecosystem/feathers-knex/pull/196) ([betarabbit](https://github.com/betarabbit))
+- Update mocha to the latest version 🚀 [\#194](https://github.com/feathersjs-ecosystem/feathers-knex/pull/194) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v5.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.5) (2019-02-18)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.4...v5.0.5)
 
