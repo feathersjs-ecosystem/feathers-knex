@@ -213,6 +213,34 @@ describe('Feathers Knex Service', () => {
     });
   });
 
+  describe('$notlike method', () => {
+    let hasMatch;
+    let hasNoMatch;
+
+    beforeEach(async () => {
+      hasMatch = await peopleService.create({
+        name: 'XYZabcZYX'
+      });
+      hasNoMatch = await peopleService.create({
+        name: 'XYZZYX'
+      });
+    });
+
+    afterEach(() => {
+      peopleService.remove(hasMatch.id);
+      peopleService.remove(hasNoMatch.id);
+    });
+
+    it('$notlike in query', async () => {
+      const data = await peopleService.find({
+        query: { name: { $notlike: '%abc%' } }
+      });
+
+      expect(data.length).to.be.equal(1);
+      expect(data[0].name).to.be.equal('XYZZYX');
+    });
+  });
+
   describe('adapter specifics', () => {
     let daves;
 
