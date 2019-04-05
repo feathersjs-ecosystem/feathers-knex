@@ -291,7 +291,7 @@ As of version 4.0.0 `feathers-knex` only throws [Feathers Errors](https://docs.f
 const { ERROR } = require('feathers-knex');
 
 try {
-  await sequelizeService.doSomething();
+  await knexService.doSomething();
 } catch(error) {
   // error is a FeathersError with just the message
   // Safely retrieve the Knex error
