@@ -1,5 +1,14 @@
 # Change Log
 
+## [v5.0.7](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.7) (2019-04-16)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.6...v5.0.7)
+
+**Merged pull requests:**
+
+- Disambiguates find query after patch [\#199](https://github.com/feathersjs-ecosystem/feathers-knex/pull/199) ([coreysan](https://github.com/coreysan))
+- typo in README [\#198](https://github.com/feathersjs-ecosystem/feathers-knex/pull/198) ([Arryan](https://github.com/Arryan))
+- Adds  $notlike operator [\#195](https://github.com/feathersjs-ecosystem/feathers-knex/pull/195) ([coreysan](https://github.com/coreysan))
+
 ## [v5.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.6) (2019-03-30)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.5...v5.0.6)
 
