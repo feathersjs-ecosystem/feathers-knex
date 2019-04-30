@@ -55,7 +55,7 @@
     "@feathersjs/commons": "^4.0.0",
     "@feathersjs/errors": "^3.3.5",
     "debug": "^4.1.0",
-    "is-plain-object": "^2.0.4"
+    "is-plain-object": "^3.0.0"
   },
   "devDependencies": {
     "@feathersjs/adapter-tests": "^1.0.1",
