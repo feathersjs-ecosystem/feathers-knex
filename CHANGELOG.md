@@ -1,5 +1,20 @@
 # Change Log
 
+## [v5.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.1.0) (2019-06-10)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.7...v5.1.0)
+
+**Closed issues:**
+
+- An in-range update of knex is breaking the build 🚨 [\#203](https://github.com/feathersjs-ecosystem/feathers-knex/issues/203)
+- An in-range update of sqlite3 is breaking the build 🚨 [\#202](https://github.com/feathersjs-ecosystem/feathers-knex/issues/202)
+- An in-range update of body-parser is breaking the build 🚨 [\#200](https://github.com/feathersjs-ecosystem/feathers-knex/issues/200)
+
+**Merged pull requests:**
+
+- Hooks: proper nesting with savepoints, customisation, fix tests [\#206](https://github.com/feathersjs-ecosystem/feathers-knex/pull/206) ([vonagam](https://github.com/vonagam))
+- Update knex to the latest version 🚀 [\#205](https://github.com/feathersjs-ecosystem/feathers-knex/pull/205) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Lock Node version in Travis CI [\#204](https://github.com/feathersjs-ecosystem/feathers-knex/pull/204) ([daffl](https://github.com/daffl))
+
 ## [v5.0.7](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.7) (2019-04-16)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.6...v5.0.7)
 
