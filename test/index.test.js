@@ -387,39 +387,104 @@ describe('Feathers Knex Service', () => {
   });
 
   describe('hooks', () => {
-    const people2 = service({
-      Model: db,
-      name: 'people2',
-      events: [ 'testing' ]
+    afterEach(async () => {
+      await db('people').truncate();
     });
 
-    const app2 = feathers()
-      .hooks({
+    it('does reject on problem with commit', async () => {
+      const app = feathers();
+
+      app.hooks({
         before: transaction.start(),
         after: [
           (context) => {
-            let client = context.params.transaction.trx.client;
-            let query = client.query;
+            const client = context.params.transaction.trx.client;
+            const query = client.query;
+
             client.query = (conn, sql) => {
-              if (sql === 'COMMIT;') sql = 'COMMITA;';
-              return query.call(client, conn, sql);
+              let result = query.call(client, conn, sql);
+
+              if (sql === 'COMMIT;') {
+                result = result.then(() => {
+                  throw new TypeError('Deliberate');
+                });
+              }
+
+              return result;
             };
           },
-          transaction.end()
+          transaction.end(),
         ],
-        error: transaction.rollback()
-      })
-      .use('/people', people2);
+        error: transaction.rollback(),
+      });
 
-    it('does fail on unsuccessful commit', async () => {
-      const message = 'Should never get here';
+      app.use('/people', people);
 
-      try {
-        await app2.service('/people').create({ name: 'Foo' });
-        throw new Error(message);
-      } catch (error) {
-        expect(error.message !== message);
-      }
+      await expect(app.service('/people').create({ name: 'Foo' }))
+        .to.eventually.be.rejectedWith(TypeError, 'Deliberate');
+    });
+
+    it('does commit, rollback, nesting', async () => {
+      const app = feathers();
+
+      app.hooks({
+        before: transaction.start({ getKnex: () => db }),
+        after: transaction.end(),
+        error: transaction.rollback(),
+      });
+
+      app.use('/people', people);
+
+      app.use('/test', { create: async (data, params) => {
+        await app.service('/people').create({ name: 'Foo' }, { ...params });
+
+        if (data.throw) {
+          throw new TypeError('Deliberate');
+        }
+      } } );
+
+      await expect(app.service('/test').create({ throw: true }))
+        .to.eventually.be.rejectedWith(TypeError, 'Deliberate');
+
+      expect(await app.service('/people').find()).to.have.length(0);
+
+      await expect(app.service('/test').create({}))
+        .to.eventually.be.fulfilled;
+
+      expect(await app.service('/people').find()).to.have.length(1);
+    });
+
+    it('does use savepoints for nested calls', async () => {
+      const app = feathers();
+
+      app.hooks({
+        before: transaction.start({ getKnex: () => db }),
+        after: transaction.end(),
+        error: transaction.rollback(),
+      });
+
+      app.use('/people', people);
+
+      app.use('/success', { create: async (data, params) => {
+        await app.service('/people').create({ name: 'Success' }, { ...params });
+      }});
+
+      app.use('/fail', { create: async (data, params) => {
+        await app.service('/people').create({ name: 'Fail' }, { ...params });
+        throw new TypeError('Deliberate');
+      }});
+
+      app.use('/test', { create: async (data, params) => {
+        await app.service('/success').create({}, { ...params });
+        await app.service('/fail').create({}, { ...params }).catch(() => {});
+      }});
+
+      await app.service('/test').create({});
+
+      const created = await await app.service('/people').find();
+
+      expect(created).to.have.length(1);
+      expect(created[0]).to.have.property('name', 'Success');
     });
   });
 
