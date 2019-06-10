@@ -67,7 +67,7 @@ function attachSchema () {
   return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
 }
 
-describe.only('Feathers Knex Overridden Method With Self-Join', () => {
+describe('Feathers Knex Overridden Method With Self-Join', () => {
   let ancestor;
   let animal;
 
