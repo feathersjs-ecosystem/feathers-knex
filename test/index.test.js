@@ -413,9 +413,9 @@ describe('Feathers Knex Service', () => {
               return result;
             };
           },
-          transaction.end(),
+          transaction.end()
         ],
-        error: transaction.rollback(),
+        error: transaction.rollback()
       });
 
       app.use('/people', people);
@@ -430,7 +430,7 @@ describe('Feathers Knex Service', () => {
       app.hooks({
         before: transaction.start({ getKnex: () => db }),
         after: transaction.end(),
-        error: transaction.rollback(),
+        error: transaction.rollback()
       });
 
       app.use('/people', people);
@@ -441,7 +441,7 @@ describe('Feathers Knex Service', () => {
         if (data.throw) {
           throw new TypeError('Deliberate');
         }
-      } } );
+      } });
 
       await expect(app.service('/test').create({ throw: true }))
         .to.eventually.be.rejectedWith(TypeError, 'Deliberate');
@@ -460,24 +460,24 @@ describe('Feathers Knex Service', () => {
       app.hooks({
         before: transaction.start({ getKnex: () => db }),
         after: transaction.end(),
-        error: transaction.rollback(),
+        error: transaction.rollback()
       });
 
       app.use('/people', people);
 
       app.use('/success', { create: async (data, params) => {
         await app.service('/people').create({ name: 'Success' }, { ...params });
-      }});
+      } });
 
       app.use('/fail', { create: async (data, params) => {
         await app.service('/people').create({ name: 'Fail' }, { ...params });
         throw new TypeError('Deliberate');
-      }});
+      } });
 
       app.use('/test', { create: async (data, params) => {
         await app.service('/success').create({}, { ...params });
         await app.service('/fail').create({}, { ...params }).catch(() => {});
-      }});
+      } });
 
       await app.service('/test').create({});
 
