@@ -1,5 +1,22 @@
 # Change Log
 
+## [v6.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.0) (2019-07-06)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.1.0...v6.0.0)
+
+**Fixed bugs:**
+
+- transaction rollback not executed [\#197](https://github.com/feathersjs-ecosystem/feathers-knex/issues/197)
+
+**Closed issues:**
+
+- Overriding knex-adapter default post-create behaviour [\#207](https://github.com/feathersjs-ecosystem/feathers-knex/issues/207)
+
+**Merged pull requests:**
+
+- Add TypeScript definitions and upgrade tests to Feathers 4 [\#211](https://github.com/feathersjs-ecosystem/feathers-knex/pull/211) ([daffl](https://github.com/daffl))
+- Ensure tests failure on unhandled rejections [\#210](https://github.com/feathersjs-ecosystem/feathers-knex/pull/210) ([vonagam](https://github.com/vonagam))
+- Update knex to the latest version 🚀 [\#208](https://github.com/feathersjs-ecosystem/feathers-knex/pull/208) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v5.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.1.0) (2019-06-10)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.7...v5.1.0)
 
