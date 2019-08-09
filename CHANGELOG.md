@@ -1,5 +1,18 @@
 # Change Log
 
+## [v6.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.1) (2019-08-09)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.0...v6.0.1)
+
+**Closed issues:**
+
+- .returning\(\) is not supported by mysql and will not have any effect. [\#209](https://github.com/feathersjs-ecosystem/feathers-knex/issues/209)
+
+**Merged pull requests:**
+
+- Remove field selection to prevent .returning warning [\#214](https://github.com/feathersjs-ecosystem/feathers-knex/pull/214) ([daffl](https://github.com/daffl))
+- Update dtslint to the latest version 🚀 [\#213](https://github.com/feathersjs-ecosystem/feathers-knex/pull/213) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update knex to the latest version 🚀 [\#212](https://github.com/feathersjs-ecosystem/feathers-knex/pull/212) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
 ## [v6.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.0) (2019-07-06)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.1.0...v6.0.0)
 
