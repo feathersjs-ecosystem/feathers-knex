@@ -1,5 +1,17 @@
 # Change Log
 
+## [v6.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.2) (2019-08-14)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.1...v6.0.2)
+
+**Closed issues:**
+
+- Issue with whitelist [\#215](https://github.com/feathersjs-ecosystem/feathers-knex/issues/215)
+
+**Merged pull requests:**
+
+- Fix whitelist initialization [\#218](https://github.com/feathersjs-ecosystem/feathers-knex/pull/218) ([daffl](https://github.com/daffl))
+- fix: postgres should also returning \[id\] [\#216](https://github.com/feathersjs-ecosystem/feathers-knex/pull/216) ([ucokfm](https://github.com/ucokfm))
+
 ## [v6.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.1) (2019-08-09)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.0...v6.0.1)
 
