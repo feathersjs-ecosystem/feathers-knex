@@ -96,21 +96,21 @@ knex({
 const people = service({
   Model: db,
   name: 'people',
-  events: [ 'testing' ]
+  events: ['testing']
 });
 
 const peopleId = service({
   Model: db,
   id: 'customid',
   name: 'people-customid',
-  events: [ 'testing' ]
+  events: ['testing']
 });
 
 const users = service({
   Model: db,
   schema: schemaName,
   name: 'users',
-  events: [ 'testing' ]
+  events: ['testing']
 });
 
 function clean () {
@@ -435,13 +435,15 @@ describe('Feathers Knex Service', () => {
 
       app.use('/people', people);
 
-      app.use('/test', { create: async (data, params) => {
-        await app.service('/people').create({ name: 'Foo' }, { ...params });
+      app.use('/test', {
+        create: async (data, params) => {
+          await app.service('/people').create({ name: 'Foo' }, { ...params });
 
-        if (data.throw) {
-          throw new TypeError('Deliberate');
+          if (data.throw) {
+            throw new TypeError('Deliberate');
+          }
         }
-      } });
+      });
 
       await expect(app.service('/test').create({ throw: true }))
         .to.eventually.be.rejectedWith(TypeError, 'Deliberate');
@@ -465,19 +467,25 @@ describe('Feathers Knex Service', () => {
 
       app.use('/people', people);
 
-      app.use('/success', { create: async (data, params) => {
-        await app.service('/people').create({ name: 'Success' }, { ...params });
-      } });
+      app.use('/success', {
+        create: async (data, params) => {
+          await app.service('/people').create({ name: 'Success' }, { ...params });
+        }
+      });
 
-      app.use('/fail', { create: async (data, params) => {
-        await app.service('/people').create({ name: 'Fail' }, { ...params });
-        throw new TypeError('Deliberate');
-      } });
+      app.use('/fail', {
+        create: async (data, params) => {
+          await app.service('/people').create({ name: 'Fail' }, { ...params });
+          throw new TypeError('Deliberate');
+        }
+      });
 
-      app.use('/test', { create: async (data, params) => {
-        await app.service('/success').create({}, { ...params });
-        await app.service('/fail').create({}, { ...params }).catch(() => {});
-      } });
+      app.use('/test', {
+        create: async (data, params) => {
+          await app.service('/success').create({}, { ...params });
+          await app.service('/fail').create({}, { ...params }).catch(() => {});
+        }
+      });
 
       await app.service('/test').create({});
 
