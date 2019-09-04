@@ -35,10 +35,10 @@ class Animal extends service.Service {
     knexQuery
       .select('ancestors.name as ancestor_name')
       .leftJoin(
-        `animals as ancestors`,
+        'animals as ancestors',
         'ancestors.id',
         '=',
-        `animals.ancestor_id`
+        'animals.ancestor_id'
       );
     params.knex = knexQuery;
     return super._find(params);
@@ -98,7 +98,7 @@ describe('Feathers Knex Overridden Method With Self-Join', () => {
     const foundAnimals = await animalService.find({
       query: {
         $limit: 1,
-        'ancestor_name': 'Ape'
+        ancestor_name: 'Ape'
       }
     });
     expect(foundAnimals[0].id).to.equal(animal.id);
