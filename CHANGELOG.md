@@ -1,5 +1,18 @@
 # Change Log
 
+## [v6.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.1.0) (2019-09-04)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.2...v6.1.0)
+
+**Closed issues:**
+
+- Nested transactions stepping on each other [\#217](https://github.com/feathersjs-ecosystem/feathers-knex/issues/217)
+
+**Merged pull requests:**
+
+- Update all dependencies [\#222](https://github.com/feathersjs-ecosystem/feathers-knex/pull/222) ([daffl](https://github.com/daffl))
+- Fix \_create for oracledb client [\#221](https://github.com/feathersjs-ecosystem/feathers-knex/pull/221) ([lucas-portela](https://github.com/lucas-portela))
+- Make hooks replace params instead of mutating [\#219](https://github.com/feathersjs-ecosystem/feathers-knex/pull/219) ([vonagam](https://github.com/vonagam))
+
 ## [v6.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.2) (2019-08-14)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.1...v6.0.2)
 
