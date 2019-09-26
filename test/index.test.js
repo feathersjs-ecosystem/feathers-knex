@@ -116,7 +116,7 @@ const users = service({
 function clean () {
   return Promise.all([
     db.schema.dropTableIfExists(people.fullName).then(() => {
-      return people.init({}, (table) => {
+      return db.schema.createTable(people.fullName, (table) => {
         table.increments('id');
         table.string('name').notNullable();
         table.integer('age');
@@ -126,7 +126,7 @@ function clean () {
       });
     }),
     db.schema.dropTableIfExists(peopleId.fullName).then(() => {
-      return peopleId.init({}, table => {
+      return db.schema.createTable(peopleId.fullName, (table) => {
         table.increments('customid');
         table.string('name');
         table.integer('age');
@@ -136,7 +136,7 @@ function clean () {
       });
     }),
     db.schema.dropTableIfExists(users.fullName).then(() => {
-      return users.init({}, table => {
+      return db.schema.createTable(users.fullName, (table) => {
         table.increments('id');
         table.string('name');
         table.integer('age');
