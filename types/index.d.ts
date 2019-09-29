@@ -1,5 +1,5 @@
 // TypeScript Version: 3.0
-import { Params, Paginated, Id, NullableId, Hook } from '@feathersjs/feathers';
+import { Params, Paginated, Id, NullableId, HookContext, Hook } from '@feathersjs/feathers';
 import { AdapterService, ServiceOptions, InternalServiceMethods } from '@feathersjs/adapter-commons';
 import * as Knex from 'knex';
 import { start } from 'repl';
@@ -12,13 +12,13 @@ export interface KnexServiceOptions extends ServiceOptions {
 
 export namespace hooks {
   namespace transaction {
-    function start(options?: any): Hook;
-    function end(options?: any): Hook;
-    function rollback(options?: any): Hook;
+    function start(options?: { getKnex: (hook: HookContext) => Knex | undefined }): Hook;
+    function end(): Hook;
+    function rollback(): Hook;
   }
 }
 
-export class Service<T = any> extends AdapterService implements InternalServiceMethods<T> {
+export class Service<T = any> extends AdapterService<T> implements InternalServiceMethods<T> {
   Model: Knex;
   knex: Knex;
   fullName: string;
