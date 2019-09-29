@@ -53,7 +53,7 @@ const animals = new Animal({
 
 function clean () {
   return db.schema.dropTableIfExists(animals.fullName).then(() => {
-    return animals.init({}, (table) => {
+    return db.schema.createTable(animals.fullName, (table) => {
       table.increments('id');
       table.integer('ancestor_id');
       table.string('name').notNullable();
