@@ -1,5 +1,18 @@
 # Change Log
 
+## [v7.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.0.0) (2019-09-29)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.1.0...v7.0.0)
+
+**Implemented enhancements:**
+
+- Why is there an init method in this service? [\#183](https://github.com/feathersjs-ecosystem/feathers-knex/issues/183)
+- Getting affected rows after a patch? [\#164](https://github.com/feathersjs-ecosystem/feathers-knex/issues/164)
+
+**Merged pull requests:**
+
+- Improve types [\#224](https://github.com/feathersjs-ecosystem/feathers-knex/pull/224) ([vonagam](https://github.com/vonagam))
+- Remove init method [\#223](https://github.com/feathersjs-ecosystem/feathers-knex/pull/223) ([vonagam](https://github.com/vonagam))
+
 ## [v6.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.1.0) (2019-09-04)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.2...v6.1.0)
 
