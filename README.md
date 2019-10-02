@@ -303,6 +303,19 @@ app.service('messages').hooks({
 });
 ```
 
+## Configuring migrations
+
+For using knex's migration CLI, we need to make the configuration available by the CLI. We can do that by providing a `knexfile.js` in the root folder with the following contents:
+
+```js
+const app = require('./src/app')
+module.exports = app.get('mysql')
+```
+
+You will need to replace the `mysql` part with the adapter you are using.
+
+Then, by running: `npm run knex migrate:make create-users`, a `migrations` directory will be created, with the new migration.
+
 ### Error handling
 
 As of version 4.0.0 `feathers-knex` only throws [Feathers Errors](https://docs.feathersjs.com/api/errors.html) with the message. On the server, the original error can be retrieved through a secure symbol via  `error[require('feathers-knex').ERROR]`
