@@ -489,7 +489,7 @@ describe('Feathers Knex Service', () => {
 
       await app.service('/test').create({});
 
-      const created = await await app.service('/people').find();
+      const created = await app.service('/people').find();
 
       expect(created).to.have.length(1);
       expect(created[0]).to.have.property('name', 'Success');
