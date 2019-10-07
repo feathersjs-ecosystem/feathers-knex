@@ -1,5 +1,14 @@
 # Change Log
 
+## [v7.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.0) (2019-10-07)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.0.0...v7.1.0)
+
+**Merged pull requests:**
+
+- Update all dependencies [\#227](https://github.com/feathersjs-ecosystem/feathers-knex/pull/227) ([daffl](https://github.com/daffl))
+- fix 'await await' [\#226](https://github.com/feathersjs-ecosystem/feathers-knex/pull/226) ([bertho-zero](https://github.com/bertho-zero))
+- Add migrations section in readme [\#225](https://github.com/feathersjs-ecosystem/feathers-knex/pull/225) ([nuc](https://github.com/nuc))
+
 ## [v7.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.0.0) (2019-09-29)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.1.0...v7.0.0)
 
