@@ -309,12 +309,27 @@ For using knex's migration CLI, we need to make the configuration available by t
 
 ```js
 const app = require('./src/app')
-module.exports = app.get('mysql')
+module.exports = app.get('postgres')
 ```
 
-You will need to replace the `mysql` part with the adapter you are using.
+You will need to replace the `postgres` part with the adapter you are using. You will also need to add a `migrations` key to your feathersjs config under your database adapter. Optionally, add a `seeds` key if you will be using [seeds](http://knexjs.org/#Seeds-CLI).
 
-Then, by running: `npm run knex migrate:make create-users`, a `migrations` directory will be created, with the new migration.
+```js
+// src/config/default.json
+...
+  "postgres": {
+    "client": "pg",
+    "connection": "postgres://user:password@localhost:5432/database",
+    "migrations": {
+      "tableName": "knex_migrations"
+    },
+    "seeds": {
+      "directory": "../src/seeds"
+    }
+  }
+```
+
+Then, by running: `knex migrate:make create-users`, a `migrations` directory will be created, with the new migration.
 
 ### Error handling
 
