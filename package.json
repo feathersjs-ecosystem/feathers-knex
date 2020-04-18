@@ -68,7 +68,7 @@
     "chai-as-promised": "^7.1.1",
     "dtslint": "^3.0.0",
     "istanbul": "^1.1.0-alpha.1",
-    "knex": "^0.20.8",
+    "knex": "^0.21.0",
     "loud-rejection": "^2.2.0",
     "mocha": "^7.0.0",
     "semistandard": "^14.2.0",
