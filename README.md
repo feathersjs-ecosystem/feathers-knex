@@ -305,11 +305,19 @@ app.service('messages').hooks({
 
 ## Configuring migrations
 
-For using knex's migration CLI, we need to make the configuration available by the CLI. We can do that by providing a `knexfile.js` in the root folder with the following contents:
+For using knex's migration CLI, we need to make the configuration available by the CLI. We can do that by providing a `knexfile.js` (OR `knexfile.ts` when using TypeScript) in the root folder with the following contents:
 
+knexfile.js
 ```js
 const app = require('./src/app')
 module.exports = app.get('postgres')
+```
+OR
+
+knexfile.ts
+```ts
+import app from './src/app';
+module.exports = app.get('postgres');
 ```
 
 You will need to replace the `postgres` part with the adapter you are using. You will also need to add a `migrations` key to your feathersjs config under your database adapter. Optionally, add a `seeds` key if you will be using [seeds](http://knexjs.org/#Seeds-CLI).
