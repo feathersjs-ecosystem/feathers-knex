@@ -39,10 +39,10 @@
     "release:major": "npm version major && npm publish",
     "lint": "semistandard --fix",
     "dtslint": "dtslint types",
-    "mocha": "mocha --opts mocha.opts",
+    "mocha": "mocha test/",
     "test": "npm run lint && npm run dtslint && npm run coverage",
     "example": "babel-node example/app",
-    "coverage": "shx rm -rf *.sqlite && istanbul cover node_modules/mocha/bin/_mocha -- --opts mocha.opts"
+    "coverage": "shx rm -rf *.sqlite && istanbul cover node_modules/mocha/bin/_mocha -- test/"
   },
   "semistandard": {
     "env": [
@@ -57,7 +57,7 @@
     "@feathersjs/commons": "^4.5.3",
     "@feathersjs/errors": "^4.5.3",
     "debug": "^4.1.1",
-    "is-plain-object": "^3.0.0"
+    "is-plain-object": "^3.0.1"
   },
   "devDependencies": {
     "@feathersjs/adapter-tests": "^4.5.2",
@@ -66,13 +66,14 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "dtslint": "^3.4.2",
+    "dtslint": "^3.6.12",
     "istanbul": "^1.1.0-alpha.1",
     "knex": "^0.21.1",
     "loud-rejection": "^2.2.0",
-    "mocha": "^7.1.2",
-    "semistandard": "^14.2.0",
+    "mocha": "^8.0.1",
+    "semistandard": "^14.2.2",
     "shx": "^0.3.2",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^5.0.0",
+    "typescript": "^3.9.6"
   }
 }

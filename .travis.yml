@@ -1,6 +1,4 @@
 language: node_js
-node_js:
-  - 11
-  - 8
+node_js: node
 sudo: false
 install: npm install
