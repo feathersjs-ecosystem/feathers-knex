@@ -1,5 +1,33 @@
 # Change Log
 
+## [v7.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.1) (2020-07-05)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.1.0...v7.1.1)
+
+**Closed issues:**
+
+- No release [\#252](https://github.com/feathersjs-ecosystem/feathers-knex/issues/252)
+- SQL Server "Cannot read property '0' of undefined" when create [\#247](https://github.com/feathersjs-ecosystem/feathers-knex/issues/247)
+- Closing the database connection / cleanup ? [\#246](https://github.com/feathersjs-ecosystem/feathers-knex/issues/246)
+- An in-range update of knex is breaking the build 🚨 [\#245](https://github.com/feathersjs-ecosystem/feathers-knex/issues/245)
+- Create method with knex plugged with mssql database returns no id. Gets General Error in feathers api   [\#243](https://github.com/feathersjs-ecosystem/feathers-knex/issues/243)
+- An in-range update of @feathersjs/adapter-commons is breaking the build 🚨 [\#238](https://github.com/feathersjs-ecosystem/feathers-knex/issues/238)
+- An in-range update of knex is breaking the build 🚨 [\#231](https://github.com/feathersjs-ecosystem/feathers-knex/issues/231)
+- An in-range update of @feathersjs/adapter-commons is breaking the build 🚨 [\#228](https://github.com/feathersjs-ecosystem/feathers-knex/issues/228)
+
+**Merged pull requests:**
+
+- Update all dependencies and Mocha usage [\#253](https://github.com/feathersjs-ecosystem/feathers-knex/pull/253) ([daffl](https://github.com/daffl))
+- Add knexfile.ts example to README.md [\#250](https://github.com/feathersjs-ecosystem/feathers-knex/pull/250) ([jhuizingh](https://github.com/jhuizingh))
+- Update all dependencies [\#249](https://github.com/feathersjs-ecosystem/feathers-knex/pull/249) ([daffl](https://github.com/daffl))
+- Added mssql as client when returning id of inserted row [\#244](https://github.com/feathersjs-ecosystem/feathers-knex/pull/244) ([Oumar24sh](https://github.com/Oumar24sh))
+- Update dtslint to the latest version 🚀 [\#242](https://github.com/feathersjs-ecosystem/feathers-knex/pull/242) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update all dependencies and Types version [\#241](https://github.com/feathersjs-ecosystem/feathers-knex/pull/241) ([daffl](https://github.com/daffl))
+- Fix and expand "Configuring migrations" section in README [\#237](https://github.com/feathersjs-ecosystem/feathers-knex/pull/237) ([markneub](https://github.com/markneub))
+- Update dtslint to the latest version 🚀 [\#234](https://github.com/feathersjs-ecosystem/feathers-knex/pull/234) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Update dtslint to version 1.0.2 [\#233](https://github.com/feathersjs-ecosystem/feathers-knex/pull/233) ([daffl](https://github.com/daffl))
+- Update knex to the latest version 🚀 [\#230](https://github.com/feathersjs-ecosystem/feathers-knex/pull/230) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
+- Greenkeeper/@feathersjs/adapter commons 4.3.8 [\#229](https://github.com/feathersjs-ecosystem/feathers-knex/pull/229) ([daffl](https://github.com/daffl))
+
 ## [v7.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.0) (2019-10-07)
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.0.0...v7.1.0)
 
