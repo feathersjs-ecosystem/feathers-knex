@@ -1,4 +1,0 @@
---require loud-rejection/register
---recursive test/
---timeout 5000
---exit

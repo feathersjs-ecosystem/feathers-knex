@@ -1,0 +1,6 @@
+{
+  "require": ["loud-rejection/register"],
+  "timeout": 5000,
+  "recursive": true,
+  "exit": true
+}
