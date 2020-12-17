@@ -355,6 +355,27 @@ try {
 }
 ```
 
+### Waiting for transactions to complete
+
+Sometimes it can be important to know when the transaction has been completed (committed or rolled back). For example, we might want to wait for transaction to complete before we send out any realtime events. This can be done by awaiting on the `transaction.committed` promise which will always resolve to either `true` in case the transaction has been committed, or `false` in case the transaction has been rejected.
+
+```js
+app.service('messages').publish((data, context) => {
+  const { transaction } = context.params
+
+  if (transaction) {
+    const success = await transaction.committed
+    if (!success) {
+      return []
+    }
+  }
+
+  return app.channel(`rooms/${data.roomId}`)
+})
+```
+
+This also works with nested service calls and nested transactions. For example, if a service calls `transaction.start()` and passes the transaction param to a nested service call, which also calls `transaction.start()` in it's own hooks, they will share the top most `committed` promise that will resolve once all of the transactions have succesfully committed.
+
 ## License
 
 Copyright (c) 2019
