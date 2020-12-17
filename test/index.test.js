@@ -494,6 +494,100 @@ describe('Feathers Knex Service', () => {
       expect(created).to.have.length(1);
       expect(created[0]).to.have.property('name', 'Success');
     });
+
+    it('allows waiting for transaction to complete', async () => {
+      const app = feathers();
+
+      let seq = []
+
+      app.hooks({
+        before: [
+          transaction.start({ getKnex: () => db }),
+          context => {
+            seq.push(`${context.path}: waiting for trx to be committed`)
+            context.params.transaction.committed.then((success) => {
+              seq.push(`${context.path}: committed ${success}`)
+            })
+          },
+          async context => {
+            seq.push(`${context.path}: another hook`)
+          }
+        ],
+        after: [
+          transaction.end(),
+          context => { seq.push(`${context.path}: trx ended`) }
+        ],
+        error: [
+          transaction.rollback(),
+          context => { seq.push(`${context.path}: trx rolled back`) }
+        ]
+      });
+
+      app.use('/people', people);
+
+      app.use('/test', {
+        create: async (data, params) => {
+          await app.service('/people').create({ name: 'Foo' }, { ...params });
+
+          if (data.throw) {
+            throw new TypeError('Deliberate');
+          }
+        }
+      });
+
+      expect(seq).to.eql([])
+
+      await expect(app.service('/test').create({ throw: true })).to.eventually.be.rejectedWith(TypeError, 'Deliberate');
+
+      expect(seq).to.eql([
+        'test: waiting for trx to be committed',
+        'test: another hook',
+        'people: waiting for trx to be committed',
+        'people: another hook',
+        'people: trx ended',
+        'test: committed false',
+        'people: committed false',
+        'test: trx rolled back',
+      ])
+
+      seq = []
+
+      expect(await app.service('/people').find()).to.have.length(0);
+
+      expect(seq).to.eql([
+        'people: waiting for trx to be committed',
+        'people: another hook',
+        'people: committed true',
+        'people: trx ended'
+      ])
+
+      seq = []
+
+      await expect(app.service('/test').create({}))
+        .to.eventually.be.fulfilled;
+
+      expect(seq).to.eql([
+        'test: waiting for trx to be committed',
+        'test: another hook',
+        'people: waiting for trx to be committed',
+        'people: another hook',
+        'people: trx ended',
+        'test: committed true',
+        'people: committed true',
+        'test: trx ended',
+      ])
+
+      seq = []
+
+      expect(await app.service('/people').find()).to.have.length(1);
+
+      expect(seq).to.eql([
+        'people: waiting for trx to be committed',
+        'people: another hook',
+        'people: committed true',
+        'people: trx ended'
+      ])
+    });
   });
 
   testSuite(app, errors, 'users');
