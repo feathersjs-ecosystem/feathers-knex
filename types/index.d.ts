@@ -1,8 +1,7 @@
-// TypeScript Version: 3.7
+// TypeScript Version: 4.1
 import { Params, Paginated, Id, NullableId, HookContext, Hook } from '@feathersjs/feathers';
 import { AdapterService, ServiceOptions, InternalServiceMethods } from '@feathersjs/adapter-commons';
 import { Knex } from 'knex';
-import { start } from 'repl';
 
 export interface KnexServiceOptions extends ServiceOptions {
   Model: Knex;

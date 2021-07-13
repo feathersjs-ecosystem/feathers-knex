@@ -501,28 +501,28 @@ describe('Feathers Knex Service', () => {
     it('allows waiting for transaction to complete', async () => {
       const app = feathers();
 
-      let seq = []
+      let seq = [];
 
       app.hooks({
         before: [
           transaction.start({ getKnex: () => db }),
           context => {
-            seq.push(`${context.path}: waiting for trx to be committed`)
+            seq.push(`${context.path}: waiting for trx to be committed`);
             context.params.transaction.committed.then((success) => {
-              seq.push(`${context.path}: committed ${success}`)
-            })
+              seq.push(`${context.path}: committed ${success}`);
+            });
           },
           async context => {
-            seq.push(`${context.path}: another hook`)
+            seq.push(`${context.path}: another hook`);
           }
         ],
         after: [
           transaction.end(),
-          context => { seq.push(`${context.path}: trx ended`) }
+          context => { seq.push(`${context.path}: trx ended`); }
         ],
         error: [
           transaction.rollback(),
-          context => { seq.push(`${context.path}: trx rolled back`) }
+          context => { seq.push(`${context.path}: trx rolled back`); }
         ]
       });
 
@@ -538,7 +538,7 @@ describe('Feathers Knex Service', () => {
         }
       });
 
-      expect(seq).to.eql([])
+      expect(seq).to.eql([]);
 
       await expect(app.service('/test').create({ throw: true })).to.eventually.be.rejectedWith(TypeError, 'Deliberate');
 
@@ -550,10 +550,10 @@ describe('Feathers Knex Service', () => {
         'people: trx ended',
         'test: committed false',
         'people: committed false',
-        'test: trx rolled back',
-      ])
+        'test: trx rolled back'
+      ]);
 
-      seq = []
+      seq = [];
 
       expect(await app.service('/people').find()).to.have.length(0);
 
@@ -562,9 +562,9 @@ describe('Feathers Knex Service', () => {
         'people: another hook',
         'people: committed true',
         'people: trx ended'
-      ])
+      ]);
 
-      seq = []
+      seq = [];
 
       await expect(app.service('/test').create({}))
         .to.eventually.be.fulfilled;
@@ -577,10 +577,10 @@ describe('Feathers Knex Service', () => {
         'people: trx ended',
         'test: committed true',
         'people: committed true',
-        'test: trx ended',
-      ])
+        'test: trx ended'
+      ]);
 
-      seq = []
+      seq = [];
 
       expect(await app.service('/people').find()).to.have.length(1);
 
@@ -589,7 +589,7 @@ describe('Feathers Knex Service', () => {
         'people: another hook',
         'people: committed true',
         'people: trx ended'
-      ])
+      ]);
     });
   });
 
