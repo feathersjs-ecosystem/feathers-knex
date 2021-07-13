@@ -1,6 +1,28 @@
-# Change Log
+# Changelog
+
+## [Unreleased](https://github.com/feathersjs-ecosystem/feathers-knex/tree/HEAD)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v8.0.0...HEAD)
+
+**Merged pull requests:**
+
+- Update all dependencies and types and move to GitHub action [\#263](https://github.com/feathersjs-ecosystem/feathers-knex/pull/263) ([daffl](https://github.com/daffl))
+- Update Knex Typescript definition import. [\#262](https://github.com/feathersjs-ecosystem/feathers-knex/pull/262) ([cbeninati](https://github.com/cbeninati))
+- Upgrade deps [\#258](https://github.com/feathersjs-ecosystem/feathers-knex/pull/258) ([KidkArolis](https://github.com/KidkArolis))
+- Fix id extraction in id [\#257](https://github.com/feathersjs-ecosystem/feathers-knex/pull/257) ([KidkArolis](https://github.com/KidkArolis))
+- Put the caller's transaction back in the params on end/rollback [\#256](https://github.com/feathersjs-ecosystem/feathers-knex/pull/256) ([KidkArolis](https://github.com/KidkArolis))
+
+## [v8.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v8.0.0) (2021-07-13)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.1.1...v8.0.0)
+
+**Closed issues:**
+
+- Fix types to work with knex \> 0.95 [\#261](https://github.com/feathersjs-ecosystem/feathers-knex/issues/261)
+- Cannot use namespace 'Knex' as a type [\#259](https://github.com/feathersjs-ecosystem/feathers-knex/issues/259)
 
 ## [v7.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.1) (2020-07-05)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.1.0...v7.1.1)
 
 **Closed issues:**
@@ -29,6 +51,7 @@
 - Greenkeeper/@feathersjs/adapter commons 4.3.8 [\#229](https://github.com/feathersjs-ecosystem/feathers-knex/pull/229) ([daffl](https://github.com/daffl))
 
 ## [v7.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.0) (2019-10-07)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v7.0.0...v7.1.0)
 
 **Merged pull requests:**
@@ -38,6 +61,7 @@
 - Add migrations section in readme [\#225](https://github.com/feathersjs-ecosystem/feathers-knex/pull/225) ([nuc](https://github.com/nuc))
 
 ## [v7.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.0.0) (2019-09-29)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.1.0...v7.0.0)
 
 **Implemented enhancements:**
@@ -51,6 +75,7 @@
 - Remove init method [\#223](https://github.com/feathersjs-ecosystem/feathers-knex/pull/223) ([vonagam](https://github.com/vonagam))
 
 ## [v6.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.1.0) (2019-09-04)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.2...v6.1.0)
 
 **Closed issues:**
@@ -64,6 +89,7 @@
 - Make hooks replace params instead of mutating [\#219](https://github.com/feathersjs-ecosystem/feathers-knex/pull/219) ([vonagam](https://github.com/vonagam))
 
 ## [v6.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.2) (2019-08-14)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.1...v6.0.2)
 
 **Closed issues:**
@@ -76,6 +102,7 @@
 - fix: postgres should also returning \[id\] [\#216](https://github.com/feathersjs-ecosystem/feathers-knex/pull/216) ([ucokfm](https://github.com/ucokfm))
 
 ## [v6.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.1) (2019-08-09)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v6.0.0...v6.0.1)
 
 **Closed issues:**
@@ -89,6 +116,7 @@
 - Update knex to the latest version 🚀 [\#212](https://github.com/feathersjs-ecosystem/feathers-knex/pull/212) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v6.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v6.0.0) (2019-07-06)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.1.0...v6.0.0)
 
 **Fixed bugs:**
@@ -106,6 +134,7 @@
 - Update knex to the latest version 🚀 [\#208](https://github.com/feathersjs-ecosystem/feathers-knex/pull/208) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v5.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.1.0) (2019-06-10)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.7...v5.1.0)
 
 **Closed issues:**
@@ -121,6 +150,7 @@
 - Lock Node version in Travis CI [\#204](https://github.com/feathersjs-ecosystem/feathers-knex/pull/204) ([daffl](https://github.com/daffl))
 
 ## [v5.0.7](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.7) (2019-04-16)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.6...v5.0.7)
 
 **Merged pull requests:**
@@ -130,6 +160,7 @@
 - Adds  $notlike operator [\#195](https://github.com/feathersjs-ecosystem/feathers-knex/pull/195) ([coreysan](https://github.com/coreysan))
 
 ## [v5.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.6) (2019-03-30)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.5...v5.0.6)
 
 **Merged pull requests:**
@@ -138,14 +169,16 @@
 - Update mocha to the latest version 🚀 [\#194](https://github.com/feathersjs-ecosystem/feathers-knex/pull/194) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v5.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.5) (2019-02-18)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.4...v5.0.5)
 
 **Merged pull requests:**
 
 - expose ERROR symbol from error-handler [\#193](https://github.com/feathersjs-ecosystem/feathers-knex/pull/193) ([betarabbit](https://github.com/betarabbit))
-- Typo Fix [\#191](https://github.com/feathersjs-ecosystem/feathers-knex/pull/191) ([Jarwain](https://github.com/Jarwain))
+- Typo Fix [\#191](https://github.com/feathersjs-ecosystem/feathers-knex/pull/191) ([dyllan-to-yu](https://github.com/dyllan-to-yu))
 
 ## [v5.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.4) (2019-01-26)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.3...v5.0.4)
 
 **Closed issues:**
@@ -157,6 +190,7 @@
 - Mssql patch issue, closes \#188 [\#189](https://github.com/feathersjs-ecosystem/feathers-knex/pull/189) ([jerfowler](https://github.com/jerfowler))
 
 ## [v5.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.3) (2019-01-16)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.2...v5.0.3)
 
 **Closed issues:**
@@ -169,6 +203,7 @@
 - Fix patch with pagination enabled [\#187](https://github.com/feathersjs-ecosystem/feathers-knex/pull/187) ([daffl](https://github.com/daffl))
 
 ## [v5.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.2) (2019-01-13)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.1...v5.0.2)
 
 **Merged pull requests:**
@@ -176,6 +211,7 @@
 - Make sure ids in queries are respected [\#185](https://github.com/feathersjs-ecosystem/feathers-knex/pull/185) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v5.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.1) (2018-12-29)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v5.0.0...v5.0.1)
 
 **Merged pull requests:**
@@ -183,6 +219,7 @@
 - Add default parameters to hook-less service methods [\#182](https://github.com/feathersjs-ecosystem/feathers-knex/pull/182) ([daffl](https://github.com/daffl))
 
 ## [v5.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v5.0.0) (2018-12-28)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v4.0.0...v5.0.0)
 
 **Closed issues:**
@@ -198,6 +235,7 @@
 - Update knex to the latest version 🚀 [\#176](https://github.com/feathersjs-ecosystem/feathers-knex/pull/176) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v4.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v4.0.0) (2018-10-15)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.3.0...v4.0.0)
 
 **Closed issues:**
@@ -212,6 +250,7 @@
 - Update knex to the latest version 🚀 [\#165](https://github.com/feathersjs-ecosystem/feathers-knex/pull/165) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v3.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.3.0) (2018-06-29)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.2.0...v3.3.0)
 
 **Merged pull requests:**
@@ -219,6 +258,7 @@
 - Add support for $and [\#163](https://github.com/feathersjs-ecosystem/feathers-knex/pull/163) ([vonagam](https://github.com/vonagam))
 
 ## [v3.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.2.0) (2018-06-26)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.1...v3.2.0)
 
 **Merged pull requests:**
@@ -227,6 +267,7 @@
 - Do clearOrder\(\) for countQuery [\#161](https://github.com/feathersjs-ecosystem/feathers-knex/pull/161) ([ik9999](https://github.com/ik9999))
 
 ## [v3.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.1) (2018-06-03)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.1.0...v3.1.1)
 
 **Closed issues:**
@@ -241,6 +282,7 @@
 - Update to node 10 in .travis.yml [\#157](https://github.com/feathersjs-ecosystem/feathers-knex/pull/157) ([daffl](https://github.com/daffl))
 
 ## [v3.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.1.0) (2018-04-20)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.6...v3.1.0)
 
 **Closed issues:**
@@ -253,6 +295,7 @@
 - Schema support [\#154](https://github.com/feathersjs-ecosystem/feathers-knex/pull/154) ([jerfowler](https://github.com/jerfowler))
 
 ## [v3.0.6](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.6) (2018-03-27)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.5...v3.0.6)
 
 **Closed issues:**
@@ -264,6 +307,7 @@
 - Fix \#147 [\#152](https://github.com/feathersjs-ecosystem/feathers-knex/pull/152) ([Vasilcenko](https://github.com/Vasilcenko))
 
 ## [v3.0.5](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.5) (2018-03-26)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.4...v3.0.5)
 
 **Closed issues:**
@@ -276,6 +320,7 @@
 - Update sqlite3 to the latest version 🚀 [\#148](https://github.com/feathersjs-ecosystem/feathers-knex/pull/148) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v3.0.4](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.4) (2018-03-06)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.3...v3.0.4)
 
 **Closed issues:**
@@ -287,6 +332,7 @@
 - call update directly on knex instead of where. [\#146](https://github.com/feathersjs-ecosystem/feathers-knex/pull/146) ([omeid](https://github.com/omeid))
 
 ## [v3.0.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.3) (2018-02-24)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.2...v3.0.3)
 
 **Closed issues:**
@@ -301,6 +347,7 @@
 - Fix count query when using params.knex [\#145](https://github.com/feathersjs-ecosystem/feathers-knex/pull/145) ([omeid](https://github.com/omeid))
 
 ## [v3.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.2) (2018-02-05)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.1...v3.0.2)
 
 **Closed issues:**
@@ -314,6 +361,7 @@
 - Update semistandard to the latest version 🚀 [\#138](https://github.com/feathersjs-ecosystem/feathers-knex/pull/138) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v3.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.1) (2017-12-14)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v3.0.0...v3.0.1)
 
 **Closed issues:**
@@ -325,6 +373,7 @@
 - Pass function to then\(\) to remove warning [\#137](https://github.com/feathersjs-ecosystem/feathers-knex/pull/137) ([sonycamera](https://github.com/sonycamera))
 
 ## [v3.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v3.0.0) (2017-12-03)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.9.0...v3.0.0)
 
 **Closed issues:**
@@ -340,6 +389,7 @@
 - Update repository location [\#129](https://github.com/feathersjs-ecosystem/feathers-knex/pull/129) ([daffl](https://github.com/daffl))
 
 ## [v2.9.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.9.0) (2017-10-25)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.8.2...v2.9.0)
 
 **Merged pull requests:**
@@ -349,6 +399,7 @@
 - add ilike operator [\#124](https://github.com/feathersjs-ecosystem/feathers-knex/pull/124) ([sylvainlap](https://github.com/sylvainlap))
 
 ## [v2.8.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.8.2) (2017-10-19)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.8.1...v2.8.2)
 
 **Closed issues:**
@@ -363,6 +414,7 @@
 - Update mocha to the latest version 🚀 [\#119](https://github.com/feathersjs-ecosystem/feathers-knex/pull/119) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v2.8.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.8.1) (2017-09-04)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.8.0...v2.8.1)
 
 **Merged pull requests:**
@@ -370,6 +422,7 @@
 - Add this.Model reference for the Knex client [\#115](https://github.com/feathersjs-ecosystem/feathers-knex/pull/115) ([daffl](https://github.com/daffl))
 
 ## [v2.8.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.8.0) (2017-09-03)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.7.2...v2.8.0)
 
 **Closed issues:**
@@ -384,6 +437,7 @@
 - Fixing broken docs links [\#111](https://github.com/feathersjs-ecosystem/feathers-knex/pull/111) ([corymsmith](https://github.com/corymsmith))
 
 ## [v2.7.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.7.2) (2017-07-24)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.7.1...v2.7.2)
 
 **Merged pull requests:**
@@ -391,6 +445,7 @@
 - Convert total to integer for count\(\)  [\#110](https://github.com/feathersjs-ecosystem/feathers-knex/pull/110) ([runningskull](https://github.com/runningskull))
 
 ## [v2.7.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.7.1) (2017-07-22)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.7.0...v2.7.1)
 
 **Closed issues:**
@@ -403,6 +458,7 @@
 - Convert total to integer [\#109](https://github.com/feathersjs-ecosystem/feathers-knex/pull/109) ([daffl](https://github.com/daffl))
 
 ## [v2.7.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.7.0) (2017-06-22)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.6.3...v2.7.0)
 
 **Closed issues:**
@@ -414,7 +470,7 @@
 **Merged pull requests:**
 
 - Minor init method refactoring [\#107](https://github.com/feathersjs-ecosystem/feathers-knex/pull/107) ([daffl](https://github.com/daffl))
-- Initialize Database Table [\#106](https://github.com/feathersjs-ecosystem/feathers-knex/pull/106) ([slajax](https://github.com/slajax))
+- Initialize Database Table [\#106](https://github.com/feathersjs-ecosystem/feathers-knex/pull/106) ([kc-dot-io](https://github.com/kc-dot-io))
 - Update chai to the latest version 🚀 [\#105](https://github.com/feathersjs-ecosystem/feathers-knex/pull/105) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 - Update feathers-service-tests to the latest version 🚀 [\#104](https://github.com/feathersjs-ecosystem/feathers-knex/pull/104) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 - Update knex to the latest version 🚀 [\#102](https://github.com/feathersjs-ecosystem/feathers-knex/pull/102) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
@@ -422,6 +478,7 @@
 - Update dependencies to enable Greenkeeper 🌴 [\#97](https://github.com/feathersjs-ecosystem/feathers-knex/pull/97) ([greenkeeper[bot]](https://github.com/apps/greenkeeper))
 
 ## [v2.6.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.6.3) (2017-03-01)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.6.2...v2.6.3)
 
 **Closed issues:**
@@ -433,6 +490,7 @@
 - Scoping select to current table to prevent "ambiguous" join queries [\#90](https://github.com/feathersjs-ecosystem/feathers-knex/pull/90) ([shadowRR](https://github.com/shadowRR))
 
 ## [v2.6.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.6.2) (2017-02-14)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.6.1...v2.6.2)
 
 **Merged pull requests:**
@@ -440,6 +498,7 @@
 - Fix wrong error constructor [\#93](https://github.com/feathersjs-ecosystem/feathers-knex/pull/93) ([lvivier](https://github.com/lvivier))
 
 ## [v2.6.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.6.1) (2017-02-13)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.6.0...v2.6.1)
 
 **Merged pull requests:**
@@ -448,6 +507,7 @@
 - Update README Example [\#89](https://github.com/feathersjs-ecosystem/feathers-knex/pull/89) ([arlair](https://github.com/arlair))
 
 ## [v2.6.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.6.0) (2016-11-30)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.5.0...v2.6.0)
 
 **Closed issues:**
@@ -459,6 +519,7 @@
 - Add createQuery and remove error handler for now [\#88](https://github.com/feathersjs-ecosystem/feathers-knex/pull/88) ([daffl](https://github.com/daffl))
 
 ## [v2.5.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.5.0) (2016-11-12)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.4.0...v2.5.0)
 
 **Closed issues:**
@@ -473,6 +534,7 @@
 - jshint —\> semistandard [\#80](https://github.com/feathersjs-ecosystem/feathers-knex/pull/80) ([corymsmith](https://github.com/corymsmith))
 
 ## [v2.4.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.4.0) (2016-10-19)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.3.0...v2.4.0)
 
 **Closed issues:**
@@ -485,6 +547,7 @@
 - Add $like query [\#79](https://github.com/feathersjs-ecosystem/feathers-knex/pull/79) ([mcchrish](https://github.com/mcchrish))
 
 ## [v2.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.3.0) (2016-09-22)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.2.0...v2.3.0)
 
 **Fixed bugs:**
@@ -507,6 +570,7 @@
 - Update feathers-query-filters to version 2.0.0 🚀 [\#56](https://github.com/feathersjs-ecosystem/feathers-knex/pull/56) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
 
 ## [v2.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.2.0) (2016-06-17)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.1.3...v2.2.0)
 
 **Merged pull requests:**
@@ -514,6 +578,7 @@
 - Update feathers-service-tests to version 0.6.0 🚀 [\#53](https://github.com/feathersjs-ecosystem/feathers-knex/pull/53) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
 
 ## [v2.1.3](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.1.3) (2016-06-01)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.1.2...v2.1.3)
 
 **Closed issues:**
@@ -533,6 +598,7 @@
 - babel-core@6.7.6 breaks build 🚨 [\#36](https://github.com/feathersjs-ecosystem/feathers-knex/pull/36) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
 
 ## [v2.1.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.1.2) (2016-04-01)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.1.1...v2.1.2)
 
 **Closed issues:**
@@ -546,6 +612,7 @@
 - fix count when specifying option.id [\#32](https://github.com/feathersjs-ecosystem/feathers-knex/pull/32) ([nilsboy](https://github.com/nilsboy))
 
 ## [v2.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.1.1) (2016-02-24)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.1.0...v2.1.1)
 
 **Merged pull requests:**
@@ -553,6 +620,7 @@
 - bumping feathers-errors version [\#31](https://github.com/feathersjs-ecosystem/feathers-knex/pull/31) ([ekryski](https://github.com/ekryski))
 
 ## [v2.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.1.0) (2016-01-31)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.0.2...v2.1.0)
 
 **Merged pull requests:**
@@ -560,13 +628,15 @@
 - Use internal methods instead of service methods directly [\#29](https://github.com/feathersjs-ecosystem/feathers-knex/pull/29) ([daffl](https://github.com/daffl))
 
 ## [v2.0.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.0.2) (2016-01-25)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.0.1...v2.0.2)
 
 **Merged pull requests:**
 
-- set `returning` of `knex\#insert` to `this.id` [\#28](https://github.com/feathersjs-ecosystem/feathers-knex/pull/28) ([ahdinosaur](https://github.com/ahdinosaur))
+- set `returning` of `knex#insert` to `this.id` [\#28](https://github.com/feathersjs-ecosystem/feathers-knex/pull/28) ([ahdinosaur](https://github.com/ahdinosaur))
 
 ## [v2.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.0.1) (2016-01-24)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v2.0.0...v2.0.1)
 
 **Closed issues:**
@@ -579,6 +649,7 @@
 - fix README example [\#25](https://github.com/feathersjs-ecosystem/feathers-knex/pull/25) ([ahdinosaur](https://github.com/ahdinosaur))
 
 ## [v2.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v2.0.0) (2016-01-06)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.3.0...v2.0.0)
 
 **Closed issues:**
@@ -586,6 +657,7 @@
 - Expose Knex lib [\#23](https://github.com/feathersjs-ecosystem/feathers-knex/issues/23)
 
 ## [v1.3.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.3.0) (2015-12-21)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.2.2...v1.3.0)
 
 **Closed issues:**
@@ -598,6 +670,7 @@
 - Es6 [\#22](https://github.com/feathersjs-ecosystem/feathers-knex/pull/22) ([ekryski](https://github.com/ekryski))
 
 ## [v1.2.2](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.2.2) (2015-11-24)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.2.1...v1.2.2)
 
 **Closed issues:**
@@ -609,6 +682,7 @@
 - Use CommonJS export Babel plugin [\#17](https://github.com/feathersjs-ecosystem/feathers-knex/pull/17) ([daffl](https://github.com/daffl))
 
 ## [v1.2.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.2.1) (2015-11-23)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.2.0...v1.2.1)
 
 **Closed issues:**
@@ -621,6 +695,7 @@
 - Upgrading to Babel 6 and adding Object.assign polyfill [\#15](https://github.com/feathersjs-ecosystem/feathers-knex/pull/15) ([daffl](https://github.com/daffl))
 
 ## [v1.2.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.2.0) (2015-11-11)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.1.0...v1.2.0)
 
 **Merged pull requests:**
@@ -628,6 +703,7 @@
 - Upgrade to latest service tests [\#12](https://github.com/feathersjs-ecosystem/feathers-knex/pull/12) ([daffl](https://github.com/daffl))
 
 ## [v1.1.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.1.0) (2015-11-04)
+
 [Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v1.0.0...v1.1.0)
 
 **Merged pull requests:**
@@ -635,6 +711,9 @@
 - Move to using feathers-service-tests for unified test suite [\#11](https://github.com/feathersjs-ecosystem/feathers-knex/pull/11) ([daffl](https://github.com/daffl))
 
 ## [v1.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v1.0.0) (2015-10-26)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/6c66b038ce0f3174b05af6f7c802b05fc9a895f8...v1.0.0)
+
 **Closed issues:**
 
 - Support remove [\#9](https://github.com/feathersjs-ecosystem/feathers-knex/issues/9)
@@ -648,4 +727,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
