@@ -1,6 +1,6 @@
 import { default as knexService, hooks } from 'feathers-knex';
 import feathers from '@feathersjs/feathers';
-import * as knex from 'knex';
+import { knex } from 'knex';
 
 const db = knex({
   client: 'sqlite3',
