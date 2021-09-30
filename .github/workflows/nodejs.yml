@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 16.x]
-        database: ['sqlite', 'postgres']
+        # database: ['sqlite', 'postgres']
 
     steps:
       - uses: actions/checkout@v2
