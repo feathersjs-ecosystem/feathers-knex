@@ -103,7 +103,6 @@ const peopleId = service({
 
 const users = service({
   Model: db,
-  schema: schemaName,
   name: 'users',
   events: ['testing']
 });
@@ -144,8 +143,10 @@ function clean () {
 }
 
 function attachSchema () {
-  // Attach the public database to mimic a "schema"
-  return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+  if (TYPE === 'sqlite') {
+    // Attach the public database to mimic a "schema"
+    return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+  }
 }
 
 describe('Feathers Knex Service', () => {
