@@ -87,12 +87,6 @@ const db = knex(connection(TYPE));
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
-knex({
-  client: 'sqlite3',
-  connection: {
-    filename: `./${schemaName}.sqlite`
-  }
-});
 
 const people = service({
   Model: db,
