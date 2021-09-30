@@ -1,8 +1,6 @@
 # feathers-knex
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs-ecosystem/feathers-knex.svg)](https://greenkeeper.io/)
-
-[![Build Status](https://travis-ci.org/feathersjs-ecosystem/feathers-knex.png?branch=master)](https://travis-ci.org/feathersjs-ecosystem/feathers-knex)
+[![CI](https://github.com/feathersjs-ecosystem/feathers-knex/workflows/CI/badge.svg)](https://github.com/feathersjs-ecosystem/feathers-knex/actions?query=workflow%3ACI)
 [![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-knex.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-knex)
 [![Download Status](https://img.shields.io/npm/dm/feathers-knex.svg?style=flat-square)](https://www.npmjs.com/package/feathers-knex)
 

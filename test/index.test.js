@@ -6,6 +6,7 @@ const knex = require('knex');
 const adapterTests = require('@feathersjs/adapter-tests');
 const errors = require('@feathersjs/errors');
 
+const connection = require('./connection');
 const service = require('../lib');
 const testSuite = adapterTests([
   '.options',
@@ -76,25 +77,16 @@ const testSuite = adapterTests([
 ]);
 
 chai.use(chaiAsPromised);
+
 const { expect } = chai;
 
 const { transaction } = service.hooks;
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: './db.sqlite'
-  }
-});
+const TYPE = process.env.DB || 'sqlite';
+const db = knex(connection(TYPE));
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
-knex({
-  client: 'sqlite3',
-  connection: {
-    filename: `./${schemaName}.sqlite`
-  }
-});
 
 const people = service({
   Model: db,
@@ -111,7 +103,6 @@ const peopleId = service({
 
 const users = service({
   Model: db,
-  schema: schemaName,
   name: 'users',
   events: ['testing']
 });
@@ -152,8 +143,10 @@ function clean () {
 }
 
 function attachSchema () {
-  // Attach the public database to mimic a "schema"
-  return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+  if (TYPE === 'sqlite') {
+    // Attach the public database to mimic a "schema"
+    return db.schema.raw(`attach database '${schemaName}.sqlite' as ${schemaName}`);
+  }
 }
 
 describe('Feathers Knex Service', () => {
