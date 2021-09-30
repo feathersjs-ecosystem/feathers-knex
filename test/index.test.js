@@ -6,6 +6,7 @@ const knex = require('knex');
 const adapterTests = require('@feathersjs/adapter-tests');
 const errors = require('@feathersjs/errors');
 
+const connection = require('./connection');
 const service = require('../lib');
 const testSuite = adapterTests([
   '.options',
@@ -76,16 +77,13 @@ const testSuite = adapterTests([
 ]);
 
 chai.use(chaiAsPromised);
+
 const { expect } = chai;
 
 const { transaction } = service.hooks;
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: './db.sqlite'
-  }
-});
+const TYPE = process.env.DB || 'sqlite';
+const db = knex(connection(TYPE));
 
 // Create a public database to mimic a "schema"
 const schemaName = 'public';
