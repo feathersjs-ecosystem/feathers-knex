@@ -376,6 +376,6 @@ This also works with nested service calls and nested transactions. For example, 
 
 ## License
 
-Copyright (c) 2019
+Copyright (c) 2021
 
 Licensed under the [MIT license](LICENSE).
