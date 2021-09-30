@@ -2,15 +2,16 @@
 
 ## [Unreleased](https://github.com/feathersjs-ecosystem/feathers-knex/tree/HEAD)
 
-[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v8.0.0...HEAD)
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v8.0.1...HEAD)
 
 **Merged pull requests:**
 
-- Update all dependencies and types and move to GitHub action [\#263](https://github.com/feathersjs-ecosystem/feathers-knex/pull/263) ([daffl](https://github.com/daffl))
-- Update Knex Typescript definition import. [\#262](https://github.com/feathersjs-ecosystem/feathers-knex/pull/262) ([cbeninati](https://github.com/cbeninati))
-- Upgrade deps [\#258](https://github.com/feathersjs-ecosystem/feathers-knex/pull/258) ([KidkArolis](https://github.com/KidkArolis))
-- Fix id extraction in id [\#257](https://github.com/feathersjs-ecosystem/feathers-knex/pull/257) ([KidkArolis](https://github.com/KidkArolis))
-- Put the caller's transaction back in the params on end/rollback [\#256](https://github.com/feathersjs-ecosystem/feathers-knex/pull/256) ([KidkArolis](https://github.com/KidkArolis))
+- Fix regression of PR \#257 to fix create for mssql [\#265](https://github.com/feathersjs-ecosystem/feathers-knex/pull/265) ([Mairu](https://github.com/Mairu))
+- Update plugin infrastructure and dependencies [\#264](https://github.com/feathersjs-ecosystem/feathers-knex/pull/264) ([daffl](https://github.com/daffl))
+
+## [v8.0.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v8.0.1) (2021-09-30)
+
+[Full Changelog](https://github.com/feathersjs-ecosystem/feathers-knex/compare/v8.0.0...v8.0.1)
 
 ## [v8.0.0](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v8.0.0) (2021-07-13)
 
@@ -20,6 +21,14 @@
 
 - Fix types to work with knex \> 0.95 [\#261](https://github.com/feathersjs-ecosystem/feathers-knex/issues/261)
 - Cannot use namespace 'Knex' as a type [\#259](https://github.com/feathersjs-ecosystem/feathers-knex/issues/259)
+
+**Merged pull requests:**
+
+- Update all dependencies and types and move to GitHub action [\#263](https://github.com/feathersjs-ecosystem/feathers-knex/pull/263) ([daffl](https://github.com/daffl))
+- Update Knex Typescript definition import. [\#262](https://github.com/feathersjs-ecosystem/feathers-knex/pull/262) ([cbeninati](https://github.com/cbeninati))
+- Upgrade deps [\#258](https://github.com/feathersjs-ecosystem/feathers-knex/pull/258) ([KidkArolis](https://github.com/KidkArolis))
+- Fix id extraction in id [\#257](https://github.com/feathersjs-ecosystem/feathers-knex/pull/257) ([KidkArolis](https://github.com/KidkArolis))
+- Put the caller's transaction back in the params on end/rollback [\#256](https://github.com/feathersjs-ecosystem/feathers-knex/pull/256) ([KidkArolis](https://github.com/KidkArolis))
 
 ## [v7.1.1](https://github.com/feathersjs-ecosystem/feathers-knex/tree/v7.1.1) (2020-07-05)
 
