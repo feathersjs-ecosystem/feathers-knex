@@ -1,7 +1,8 @@
+> __Important:__ This module has been moved to `@feathersjs/knex` and is developed in [feathersjs/feathers](https://github.com/feathersjs/feathers)
+> 
 # feathers-knex
 
 [![CI](https://github.com/feathersjs-ecosystem/feathers-knex/workflows/CI/badge.svg)](https://github.com/feathersjs-ecosystem/feathers-knex/actions?query=workflow%3ACI)
-[![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-knex.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-knex)
 [![Download Status](https://img.shields.io/npm/dm/feathers-knex.svg?style=flat-square)](https://www.npmjs.com/package/feathers-knex)
 
 A database adapter for [KnexJS](http://knexjs.org/), an SQL query builder for Postgres, MSSQL, MySQL, MariaDB, SQLite3, and Oracle.
