@@ -287,6 +287,25 @@ Through the REST API:
 /messages?label[$overlap][0]=important&label[$overlap][1]=work&label[$overlap][2]=urgent
 ```
 
+### $fulltext
+
+For PostgreSQL only, for fulltext-indexed fields, finds records that match useing postgres' fulltext natural-langauge search. The following query retrieves all messages whose labels contain any of the values `important`, `work`, or `urgent`, but no values outside that list :
+
+```js
+app.service('messages').find({
+  query: {
+    labels: {
+      $contained_by: ['important', 'work', 'urgent']
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?label[$contained_by][0]=important&label[$contained_by][1]=work&label[$contained_by][2]=urgent
+```
 
 ## Transaction Support
 
