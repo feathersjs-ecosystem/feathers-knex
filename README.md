@@ -227,6 +227,85 @@ Through the REST API:
 /messages?text[$ilike]=hello%
 ```
 
+### $contains
+
+For PostgreSQL only, for array-type fields, finds records that contain _all_ of the given values. The following query retrieves all messages whose labels contain all of the values `important`, `work`, or `urgent` :
+
+```js
+app.service('messages').find({
+  query: {
+    labels: {
+      $contains: ['important', 'work', 'urgent']
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?label[$contains][0]=important&label[$contains][1]=work&label[$contains][2]=urgent
+```
+
+### $contained_by
+
+For PostgreSQL only, for array-type fields, finds records that are contained by the given list of values, i.e do not contain values other than those given. The following query retrieves all messages whose labels contain any of the values `important`, `work`, or `urgent`, but no values outside that list :
+
+```js
+app.service('messages').find({
+  query: {
+    labels: {
+      $contained_by: ['important', 'work', 'urgent']
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?label[$contained_by][0]=important&label[$contained_by][1]=work&label[$contained_by][2]=urgent
+```
+
+### $overlap
+
+For PostgreSQL only, for array-type fields, finds records that overlap (have points in common) with the given values. The following query retrieves all messages whose labels contain one or more of the values `important`, `work`, or `urgent` :
+
+```js
+app.service('messages').find({
+  query: {
+    labels: {
+      $overlap: ['important', 'work', 'urgent']
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?label[$overlap][0]=important&label[$overlap][1]=work&label[$overlap][2]=urgent
+```
+
+### $fulltext
+
+For PostgreSQL only, for fulltext-indexed fields, finds records that match useing postgres' fulltext natural-langauge search. The following query retrieves all messages whose labels contain any of the values `important`, `work`, or `urgent`, but no values outside that list :
+
+```js
+app.service('messages').find({
+  query: {
+    labels: {
+      $contained_by: ['important', 'work', 'urgent']
+    }
+  }
+});
+```
+
+Through the REST API:
+
+```
+/messages?label[$contained_by][0]=important&label[$contained_by][1]=work&label[$contained_by][2]=urgent
+```
 
 ## Transaction Support
 
