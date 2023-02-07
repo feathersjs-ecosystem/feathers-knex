@@ -62,9 +62,10 @@ __Options:__
 
 Returns a KnexJS query with the [common filter criteria](https://docs.feathersjs.com/api/databases/querying.html) (without pagination) applied.
 
-### params.knex
-
-When making a [service method](https://docs.feathersjs.com/api/services.html) call, `params` can contain an `knex` property which allows to modify the options used to run the KnexJS query. See [customizing the query](#customizing-the-query) for an example.
+### Params Operators
+When making a [service method](https://docs.feathersjs.com/api/services.html) call, `params` can contain:
+- **`knex`** - Modifies the options used to run the KnexJS query. See [customizing the query](#customizing-the-query) for an example.
+- **`schema`** - Database schema to use with the query (e.g. `public`) See [`withSchema`](http://knexjs.org/#Builder-withSchema) documentation. Overrides service's `schema` option.
 
 
 ## Example
