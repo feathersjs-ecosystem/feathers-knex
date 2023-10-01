@@ -63,29 +63,29 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@feathersjs/adapter-commons": "^4.5.15",
-    "@feathersjs/commons": "^4.5.15",
-    "@feathersjs/errors": "^4.5.15",
+    "@feathersjs/adapter-commons": "^5.0.9",
+    "@feathersjs/commons": "^5.0.9",
+    "@feathersjs/errors": "^5.0.9",
     "debug": "^4.3.4",
     "is-plain-object": "^5.0.0"
   },
   "devDependencies": {
-    "@feathersjs/adapter-tests": "^4.5.15",
-    "@feathersjs/express": "^4.5.15",
-    "@feathersjs/feathers": "^4.5.15",
-    "body-parser": "^1.20.0",
-    "chai": "^4.3.6",
+    "@feathersjs/adapter-tests": "^5.0.9",
+    "@feathersjs/express": "^5.0.9",
+    "@feathersjs/feathers": "^5.0.9",
+    "body-parser": "^1.20.2",
+    "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
     "dtslint": "^4.2.1",
-    "knex": "^2.1.0",
+    "knex": "^2.5.1",
     "loud-rejection": "^2.2.0",
-    "mocha": "^10.0.0",
-    "npm-check-updates": "^15.0.1",
+    "mocha": "^10.2.0",
+    "npm-check-updates": "^16.14.4",
     "nyc": "^15.1.0",
-    "pg": "^8.7.3",
-    "semistandard": "^16.0.1",
+    "pg": "^8.11.3",
+    "semistandard": "^17.0.0",
     "shx": "^0.3.4",
-    "sqlite3": "^5.0.8",
-    "typescript": "^4.7.4"
+    "sqlite3": "^5.1.6",
+    "typescript": "^5.2.2"
   }
 }
